@@ -8,7 +8,8 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 
 ## Chapters
 
-- Chapter 2: The agent loop (pilot, live now)
+- Chapter 1: What agents are (live)
+- Chapter 2: The agent loop (live)
 - More chapters are added as the series continues.
 
 ---

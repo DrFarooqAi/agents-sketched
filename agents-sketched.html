@@ -118,6 +118,7 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
 .fb{font-size:14.5px;color:var(--muted);margin-top:6px;min-height:1.2em}
 .note{border:2px solid var(--ink);border-radius:14px 6px 16px 8px;background:var(--l-sky);padding:14px 16px;box-shadow:4px 4px 0 var(--ink)}
 .note .who{font-family:var(--hand);font-weight:700;color:var(--teal);font-size:22px}
+.note.special{background:var(--l-mint);transform:rotate(.6deg)}
 .note .draft{font-size:12px;font-weight:800;letter-spacing:.06em;background:var(--yel);border:1.5px solid var(--ink);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:middle}
 .side{display:grid;gap:22px;align-content:start}
 .remember{background:var(--yel);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:14px 16px;transform:rotate(1.3deg);border-radius:3px 9px 5px 11px}
@@ -165,11 +166,11 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="txt">
     <span class="tag">contents</span>
     <h2>Seven parts, <span class="hl">one loop</span> at the centre</h2>
-    <p>This pilot builds one chapter in full: <b>The agent loop</b>. The rest of the book follows the same pattern: a moving sketch, plain words, a healthcare case and a quick check.</p>
+    <p>Chapters 1 and 2 are ready to read. The rest follow the same pattern: a moving sketch, plain words, a healthcare case and a quick check.</p>
   </div>
   <div class="parts">
-    <div class="part"><div class="n">1</div><h3>What agents are</h3><ol><li>Chatbot, workflow or agent?</li><li>When not to build one</li><li>The autonomy dial</li></ol></div>
-    <div class="part here"><div class="n">2</div><h3>How an agent works</h3><ol><li>The agent loop <span class="here-tag">you are here</span></li><li>How tool calls work</li><li>Designing good tools</li><li>Context engineering</li></ol></div>
+    <div class="part here"><div class="n">1</div><h3>What agents are <span class="here-tag">ready</span></h3><ol><li>So what is an AI agent?</li><li>Chatbot, workflow or agent?</li><li>A ladder of agent types</li><li>The autonomy dial</li><li>Build one, or don't?</li><li>Where agents already help</li></ol></div>
+    <div class="part here"><div class="n">2</div><h3>How an agent works</h3><ol><li>The agent loop <span class="here-tag">ready</span></li><li>How tool calls work</li><li>Designing good tools</li><li>Context engineering</li></ol></div>
     <div class="part"><div class="n">3</div><h3>Thinking &amp; memory</h3><ol><li>Planning</li><li>Checking its own work</li><li>Memory</li><li>Saving progress</li></ol></div>
     <div class="part"><div class="n">4</div><h3>Patterns &amp; teams</h3><ol><li>Chains and routers</li><li>Orchestrator and workers</li><li>Multi-agent teams</li><li>MCP and A2A</li></ol></div>
     <div class="part"><div class="n">5</div><h3>Building one</h3><ol><li>The 2026 frameworks</li><li>An agent from scratch</li><li>Human approval steps</li></ol></div>
@@ -180,6 +181,148 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno">2</div>
 </section>
 
+<!-- ===== CHAPTER 1: WHAT AGENTS ARE ===== -->
+<section class="page" aria-label="So what is an AI agent">
+  <div class="txt">
+    <span class="tag">chapter 1 &middot; what agents are</span>
+    <h2>So what <span class="hl">is</span> an AI agent?</h2>
+    <p>An AI agent is a language model that uses tools in a loop. It picks its own next step from what it sees, and keeps going until the goal is met or a rule stops it.</p>
+    <ul>
+      <li><b class="k-t">Brain</b>: the LLM reads everything and decides.</li>
+      <li><b class="k-a">Hands</b>: tools let it look things up and get work done.</li>
+      <li><b class="k-o">Notebook</b>: everything so far, handed to the brain every turn.</li>
+      <li><b class="k-w">Goal and rules</b>: what it is for, and what it must never do.</li>
+    </ul>
+    <p>Take away the tools and the loop, and you are left with a chatbot.</p>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="anatomy" role="img" aria-label="A sketched robot with labels: brain is the LLM, goal, notebook is the context, hands are tools, rules are guardrails"></svg>
+    <figcaption>Fig 1.1 Five parts. The loop that connects them is chapter 2.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Chatbot, workflow or agent">
+  <div class="txt">
+    <span class="tag">chapter 1 &middot; what agents are</span>
+    <h2>Chatbot, workflow or <span class="hl">agent</span>?</h2>
+    <p>Same question, three ways to answer it.</p>
+    <ul>
+      <li><b>Chatbot</b>: answers from what it learned in training. Fast, but it cannot see this patient, so it guesses.</li>
+      <li><b>Workflow</b>: your code runs fixed steps in a fixed order. Reliable, but stuck when a case does not fit.</li>
+      <li><b>Agent</b>: the model chooses the next tool from what it just found. Flexible, but slower and pricier.</li>
+    </ul>
+    <div class="sticky"><strong>You can mix them</strong>Most good systems are workflows with one or two agent steps inside. You do not have to pick only one.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="lanes" role="img" aria-label="Three lanes answering the same question: a chatbot guesses, a workflow follows fixed boxes, an agent visits policy, referral and criteria tools"></svg>
+    <figcaption>Fig 1.2 Three dots leave together. Watch who arrives with the best answer.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="A ladder of agent types">
+  <div class="txt">
+    <span class="tag">chapter 1 &middot; what agents are</span>
+    <h2>A <span class="hl">ladder</span> of agent types</h2>
+    <p>"Agent" is not one thing. Each step up adds one new ability, and a little more cost and risk.</p>
+    <ul>
+      <li>The bottom steps follow rules, or answer one message at a time.</li>
+      <li>The middle steps loop, look things up and use tools.</li>
+      <li>The top steps check their own work and remember people.</li>
+    </ul>
+    <p>Above the ladder sit agents that run machines or teach themselves. Hospitals rarely need those yet.</p>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="ladder" role="img" aria-label="A staircase of seven agent types from fixed rules to memory, with a small robot climbing"></svg>
+    <figcaption>Fig 1.3 Click any step to read about it.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Autonomy is a dial">
+  <div class="txt">
+    <span class="tag">chapter 1 &middot; what agents are</span>
+    <h2>Autonomy is a <span class="hl">dial</span>, not a switch</h2>
+    <p>The real question is not "agent or not". It is how much of the deciding you hand to the model.</p>
+    <ul>
+      <li>Turn right: the model decides more, makes more calls, costs more and is harder to test.</li>
+      <li>Turn left: your code decides. Cheaper, faster, predictable.</li>
+    </ul>
+    <div class="sticky"><strong>Rule of thumb</strong>Start at the lowest level that works. Move one notch right only when a test shows the simpler design failing.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="dial" role="img" aria-label="A dial with five autonomy levels from assist to background agent, and a panel describing the current level"></svg>
+    <figcaption>Fig 1.4 Click a level, or watch the needle move.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Build an agent or not">
+  <div class="txt">
+    <span class="tag">chapter 1 &middot; what agents are</span>
+    <h2>Build an agent, or <span class="hl">don't</span>?</h2>
+    <p>Three quick checks sort most ideas:</p>
+    <ul>
+      <li>Does the task need many steps, decided case by case?</li>
+      <li>Can you check whether the result is right?</li>
+      <li>Is a mistake cheap to catch and undo?</li>
+    </ul>
+    <p>Three yeses: an agent fits. If something cannot be undone, let the agent prepare and a person press send.</p>
+    <div class="sticky"><strong>Also ask</strong>Does it touch patient data? Which regulations apply? Does the job need human empathy? Do the savings beat the cost of running and watching it?</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="light" role="img" aria-label="A traffic light judging three hospital tasks: visiting hours gets red, a pre-approval packet gets green, sending a claim gets yellow"></svg>
+    <figcaption>Fig 1.5 Three real requests, three verdicts.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Where agents already help">
+  <div class="txt">
+    <span class="tag">chapter 1 &middot; what agents are</span>
+    <h2>Where agents <span class="hl">already help</span></h2>
+    <p>Agents do best in the paperwork around care, not in the care itself.</p>
+    <ul>
+      <li>Each room shows one job an agent can take off staff today.</li>
+      <li>One published example: Oracle Health reported that clinicians at AtlantiCare using its clinical AI agent cut documentation time by 41%, about 66 minutes a day.</li>
+      <li>Diagnosis, counselling and hard conversations stay with people.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="hospital" role="img" aria-label="A hospital floor plan with six rooms, each showing a job an agent can help with"></svg>
+    <figcaption>Fig 1.6 Six rooms, six jobs worth handing over.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 1">
+  <div class="txt">
+    <span class="tag">chapter 1 &middot; what agents are</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="0" data-why="The steps never change, so your code is in charge. That is a workflow.">
+        <p>1. Code always runs: look up policy, check one rule, send a template reply. What is it?</p>
+        <div class="opts"><button class="opt" type="button">A workflow</button><button class="opt" type="button">An agent</button><button class="opt" type="button">A chatbot</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="A task agent runs a long loop on its own, so a person checks the result before it goes out.">
+        <p>2. At level L3 (task agent), what is the human's job?</p>
+        <div class="opts"><button class="opt" type="button">Do the work by hand</button><button class="opt" type="button">Nothing, it is fully automatic</button><button class="opt" type="button">Review the result before it is sent</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="One lookup, same answer every time. A simple FAQ bot or a web page does it for a fraction of the cost.">
+        <p>3. Which task does NOT need an agent?</p>
+        <div class="opts"><button class="opt" type="button">Building a pre-approval packet from four systems</button><button class="opt" type="button">Telling visitors the visiting hours</button><button class="opt" type="button">Sorting a pile of denied claims by reason</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">In a hospital the first question is never "which model?". It is "what happens when it is wrong, and who notices?". Every agent needs a named person who owns what it does.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Start one notch lower on the dial than you think you need. A well-built workflow wins more often than a free-roaming agent.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>An agent is an LLM using tools in a loop. Use the least autonomy that gets the job done.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
+<!-- ===== CHAPTER 2: THE AGENT LOOP ===== -->
 <!-- 3 THE LOOP -->
 <section class="page" aria-label="One loop runs every agent">
   <div class="txt">
@@ -304,7 +447,7 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
     <h2>Check <span class="hl">yourself</span></h2>
   </div>
   <div class="wrapq">
-    <div id="quiz">
+    <div class="quiz">
       <div class="q" data-a="1" data-why="The model only writes a request. Your code decides whether and how to run it.">
         <p>1. In the loop, who actually runs the tool?</p>
         <div class="opts"><button class="opt" type="button">The language model</button><button class="opt" type="button">Your code</button><button class="opt" type="button">The tool decides by itself</button></div>
@@ -363,7 +506,7 @@ function Sk(svg,layer){
   S.carrow=(x1,y1,x2,y2,bend,o)=>{const q=qctrl(x1,y1,x2,y2,bend);S.path(`M${x1} ${y1} Q${q[0]} ${q[1]} ${x2} ${y2}`,o);S.head(x2,y2,Math.atan2(y2-q[1],x2-q[0]),o);};
   S.arc=(cx,cy,r,a1,a2,o)=>{const p=a=>[cx+r*Math.cos(rad(a)),cy+r*Math.sin(rad(a))];const s=p(a1),e=p(a2);S.path(`M${s[0].toFixed(1)} ${s[1].toFixed(1)} A${r} ${r} 0 0 1 ${e[0].toFixed(1)} ${e[1].toFixed(1)}`,o);S.head(e[0],e[1],rad(a2+90),o);};
   S.text=(x,y,str,o)=>{o=Object.assign({size:18,anchor:'middle',fill:C.ink,weight:700,font:'hand'},o||{});const lines=String(str).split('\n');
-    const t=el('text',{x,y:y-(lines.length-1)*o.size*0.58,'text-anchor':o.anchor,'font-size':o.size,'font-weight':o.weight,fill:o.fill,'dominant-baseline':'middle',class:o.font==='hand'?'sk-t':'sk-b'},layer);
+    const t=el('text',{x,y:y-(lines.length-1)*o.size*0.58,'data-y':y,'data-s':o.size,'text-anchor':o.anchor,'font-size':o.size,'font-weight':o.weight,fill:o.fill,'dominant-baseline':'middle',class:o.font==='hand'?'sk-t':'sk-b'},layer);
     lines.forEach((ln,i)=>{const s=el('tspan',{x,dy:i?o.size*1.16:0},t);s.textContent=ln;});return t;};
   S.group=(tx,ty,sc)=>{const g=el('g',{transform:`translate(${tx} ${ty}) scale(${sc||1})`},layer);return Sk(svg,g);};
   return S;
@@ -490,6 +633,147 @@ D.exits=svg=>{
   });
 };
 
+/* ---------- helpers for chapter 1 ---------- */
+function setLines(t,str){const s=+t.getAttribute('data-s')||16,y=+t.getAttribute('data-y');while(t.firstChild)t.removeChild(t.firstChild);
+  const ls=String(str).split('\n');t.setAttribute('y',y-(ls.length-1)*s*0.58);const x=t.getAttribute('x');
+  ls.forEach((ln,i)=>{const sp=el('tspan',{x,dy:i?s*1.16:'0'},t);sp.textContent=ln;});}
+function track(pts){const seg=[];let L=0;for(let i=1;i<pts.length;i++){const l=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);seg.push(l);L+=l;}
+  return f=>{let d=clamp(f,0,1)*L;for(let i=0;i<seg.length;i++){if(d<=seg[i]||i===seg.length-1){const p=seg[i]?Math.min(1,d/seg[i]):0,a=pts[i],b=pts[i+1];return[a[0]+(b[0]-a[0])*p,a[1]+(b[1]-a[1])*p];}d-=seg[i];}return pts[pts.length-1];};}
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+
+D.anatomy=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  robot(S.group(300,150,1));
+  S.path('M200 386 Q300 406 400 386',{strokeLineDash:[8,8],stroke:C.coral,roughness:0.8,strokeWidth:2.4});
+  const parts=[
+    {t:'BRAIN = the LLM\ndecides the next step',x:105,y:70,f:C.lteal,a:[190,92,256,170]},
+    {t:'GOAL\nwhat to achieve',x:500,y:62,f:C.lyel,a:[432,90,316,120]},
+    {t:'NOTEBOOK = context\neverything so far',x:100,y:250,f:C.lsky,a:[188,256,274,264]},
+    {t:'HANDS = tools\nsearch, read, write',x:505,y:262,f:C.lcoral,a:[417,268,392,284]},
+    {t:'RULES = guardrails\nwhat it must never do',x:100,y:372,f:C.lmint,a:[188,380,214,390]}];
+  const gs=parts.map(p=>{const g=el('g',{},fx);const k=Sk(svg,g);k.rect(p.x-88,p.y-26,176,52,{fill:p.f,fillStyle:'solid'});k.text(p.x,p.y,p.t,{size:14});k.arrow(p.a[0],p.a[1],p.a[2],p.a[3]);return g;});
+  anim(svg,t=>{const tt=t%9.5,fade=tt>9?1-(tt-9)/0.5:1;
+    gs.forEach((g,i)=>{const p=clamp((tt-0.3-i*0.8)/0.35,0,1);g.setAttribute('opacity',(p*fade).toFixed(2));g.setAttribute('transform',`translate(0 ${(8*(1-p)).toFixed(1)})`);});});
+};
+
+D.lanes=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.rect(116,8,368,38,{fill:C.lyel,fillStyle:'solid'});S.text(300,27,'"Does Mr. Saleh\'s MRI need pre-approval?"',{size:15});
+  [165,285].forEach(y=>S.line(10,y,590,y,{strokeLineDash:[6,8],stroke:C.muted,strokeWidth:1.4,roughness:0.5}));
+  [{y:105,n:'CHATBOT',s:'memory only'},{y:225,n:'WORKFLOW',s:'fixed steps'},{y:345,n:'AGENT',s:'picks its steps'}].forEach(l=>{
+    S.rect(12,l.y-26,98,52,{fill:'#ffffff',fillStyle:'solid'});S.text(61,l.y-9,l.n,{size:14});S.text(61,l.y+12,l.s,{size:12,weight:400});});
+  S.arrow(112,105,252,105);S.rect(256,85,88,40,{fill:C.lteal,fillStyle:'solid'});S.text(300,105,'LLM',{size:16});S.arrow(346,105,486,105);
+  [['look up\npolicy',200],['rule\ncheck',300],['fill\ntemplate',400]].forEach(([t,x])=>{S.rect(x-38,203,76,44,{fill:C.lsky,fillStyle:'solid'});S.text(x,225,t,{size:12});});
+  S.arrow(112,225,158,225);S.arrow(240,225,260,225);S.arrow(340,225,360,225);S.arrow(440,225,486,225);
+  const tools=[[200,312,'policy'],[200,380,'referral'],[410,308,'criteria']];
+  tools.forEach(([x,y])=>S.line(300,345,x,y,{strokeLineDash:[5,6],stroke:C.muted,strokeWidth:1.4,roughness:0.5}));
+  tools.forEach(([x,y,t])=>{S.circle(x,y,56,{fill:C.lsky,fillStyle:'solid'});S.text(x,y,t,{size:12});});
+  S.circle(300,345,58,{fill:C.lteal,fillStyle:'solid'});S.text(300,345,'LLM',{size:16});S.arrow(332,345,486,345);
+  const ans=[{y:105,t:'Usually yes...\nI think?',f:C.lcoral,h:54},{y:225,t:'Needs approval.\nReferral unread.',f:C.lyel,h:54},{y:345,t:'Needs approval.\nCriteria met.\nDraft ready.',f:C.lmint,h:72}];
+  ans.forEach(a=>{a.g=el('rect',{x:484,y:a.y-a.h/2-8,width:114,height:a.h+16,rx:12,fill:C.yel,opacity:0},glow);S.rect(490,a.y-a.h/2,104,a.h,{fill:a.f,fillStyle:'solid'});S.text(542,a.y,a.t,{size:12.5});});
+  const runs=[{f:track([[112,105],[300,105],[488,105]]),dur:1.4},{f:track([[112,225],[488,225]]),dur:3.0},
+    {f:track([[112,345],[300,345],[200,312],[300,345],[200,380],[300,345],[410,308],[300,345],[488,345]]),dur:6.2}];
+  runs.forEach((r,i)=>{r.dot=el('circle',{r:8,fill:C.coral,stroke:'#fff','stroke-width':3,cx:112,cy:ans[i].y},fx);});
+  const CYC=8.4;
+  anim(svg,t=>{const tt=t%CYC,fade=tt>CYC-0.4?0:1;
+    runs.forEach((r,i)=>{const p=r.f(tt/r.dur);r.dot.setAttribute('cx',p[0].toFixed(1));r.dot.setAttribute('cy',p[1].toFixed(1));r.dot.setAttribute('opacity',fade);
+      ans[i].g.setAttribute('opacity',tt>=r.dur?0.85*fade:0);});});
+};
+
+D.ladder=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const steps=[['Fixed rules','Auto-send appointment\nreminders at 9 am'],['LLM helper','Sort incoming patient\nemails by topic'],['Think + act loop','Plan a task in steps,\nadjust after each one'],['+ Knowledge lookup','Answer from the real\npolicy documents (RAG)'],['+ Many tools','Check eligibility, book\nthe slot, notify the ward'],['+ Self-check','Re-read its own discharge\nsummary for mistakes'],['+ Memory','Remember a patient\nprefers Arabic and SMS']];
+  const cols=[C.lmint,C.lteal,C.lsky,C.lyel,C.lcoral,C.lsky,C.lteal];
+  const W=76,X0=40,top=i=>360-i*44;
+  S.line(24,400,592,400);
+  steps.forEach((s,i)=>{const x=X0+i*W;S.rect(x,top(i),W,400-top(i),{fill:cols[i]});S.circle(x+W/2,top(i)+21,30,{fill:'#ffffff',fillStyle:'solid',strokeWidth:1.6});S.text(x+W/2,top(i)+22,String(i+1),{size:18});});
+  S.rect(28,18,300,98,{fill:C.lyel,fillStyle:'solid'});
+  const F=Sk(svg,fx);const tTitle=F.text(178,42,'',{size:18});const tEx=F.text(178,84,'',{size:14,weight:400});
+  const cg=el('g',{},fx);const inner=el('g',{transform:'scale(0.22)'},cg);robot(Sk(svg,inner));
+  const place=(x,y)=>cg.setAttribute('transform',`translate(${x.toFixed(1)} ${(y-212*0.22-1).toFixed(1)})`);
+  let shown=-1;const render=k=>{if(k===shown)return;shown=k;setLines(tTitle,'Step '+(k+1)+': '+steps[k][0]);setLines(tEx,steps[k][1]);};
+  render(0);place(X0+W/2,top(0));
+  let manual=null,until=0,now=0;
+  steps.forEach((s,i)=>{const h=el('rect',{x:X0+i*W,y:top(i),width:W,height:400-top(i),fill:'transparent',style:'cursor:pointer'},fx);
+    h.addEventListener('click',()=>{manual=i;until=now+6;render(i);place(X0+i*W+W/2,top(i));});});
+  anim(svg,t=>{now=t;
+    if(manual!==null&&t<until)return;manual=null;
+    const k=Math.floor(t/2)%7,u=t%2;render(k);
+    const x1=X0+k*W+W/2,y1=top(k);
+    if(k===0){place(x1,y1+(u<0.4?20*(1-u/0.4):0));cg.setAttribute('opacity',Math.min(1,u/0.4).toFixed(2));return;}
+    cg.setAttribute('opacity',1);
+    const x0=x1-W,y0=top(k-1),p=ease(Math.min(1,u/0.6));
+    place(x0+(x1-x0)*p,y0+(y1-y0)*p-Math.sin(Math.PI*p)*34);});
+};
+
+D.dial=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const cx=300,cy=250,RO=200,RI=92;
+  const L=[{n:'Assist',who:'a person',ex:'AI drafts a discharge summary, the doctor edits it',job:'does the work',calls:'about 1'},
+    {n:'Workflow',who:'your code',ex:'pull claim fields, check rules, route to the right desk',job:'designs the path',calls:'2 to 5'},
+    {n:'Tool agent',who:'the model, in a short loop',ex:'portal bot looks up a booking and the policy',job:'approves risky steps',calls:'3 to 15'},
+    {n:'Task agent',who:'the model, in a long loop',ex:'builds a pre-approval packet from 4 systems',job:'reviews it before it is sent',calls:'10 to 50'},
+    {n:'Background',who:'the model, woken by events',ex:'scans denied claims every night for patterns',job:'audits the results',calls:'many, all day'}];
+  const cols=[C.lmint,C.lteal,C.lsky,C.lyel,C.lcoral];
+  const P=(r,a)=>[cx+r*Math.cos(rad(a)),cy+r*Math.sin(rad(a))];
+  const f1=v=>v.toFixed(1);
+  const wedge=(k)=>{const a1=180+36*k,a2=a1+36,o1=P(RO,a1),o2=P(RO,a2),i2=P(RI,a2),i1=P(RI,a1);return `M${f1(o1[0])} ${f1(o1[1])} A${RO} ${RO} 0 0 1 ${f1(o2[0])} ${f1(o2[1])} L${f1(i2[0])} ${f1(i2[1])} A${RI} ${RI} 0 0 0 ${f1(i1[0])} ${f1(i1[1])} Z`;};
+  L.forEach((l,k)=>{S.path(wedge(k),{fill:cols[k]});const m=P(148,180+36*k+18);S.text(m[0],m[1],'L'+k,{size:20});const n=P(226,180+36*k+18);S.text(n[0],n[1],l.n,{size:14});});
+  S.rect(56,278,488,134,{fill:'#ffffff',fillStyle:'solid'});
+  const nd=el('line',{x1:cx,y1:cy,x2:cx-165,y2:cy,stroke:C.ink,'stroke-width':6,'stroke-linecap':'round'},fx);
+  const tip=el('circle',{r:8,fill:C.coral,stroke:C.ink,'stroke-width':2},fx);
+  el('circle',{cx,cy,r:15,fill:C.ink},fx);
+  const F=Sk(svg,fx);const tT=F.text(300,302,'',{size:20});
+  const tl=[330,354,378,402].map(y=>F.text(76,y,'',{size:14,weight:400,anchor:'start'}));
+  let shown=-1;const render=k=>{if(k===shown)return;shown=k;const l=L[k];setLines(tT,'L'+k+'  '+l.n);
+    setLines(tl[0],'Who decides: '+l.who);setLines(tl[1],'Example: '+l.ex);setLines(tl[2],"Human's job: "+l.job);setLines(tl[3],'Model calls per task: '+l.calls);};
+  const needle=a=>{const p=P(165,a);nd.setAttribute('x2',f1(p[0]));nd.setAttribute('y2',f1(p[1]));tip.setAttribute('cx',f1(p[0]));tip.setAttribute('cy',f1(p[1]));};
+  const ctr=k=>198+36*k;
+  render(0);needle(ctr(0));
+  let manual=null,until=0,now=0;
+  L.forEach((l,k)=>{const h=el('path',{d:wedge(k),fill:'transparent',style:'cursor:pointer'},fx);h.addEventListener('click',()=>{manual=k;until=now+6;render(k);needle(ctr(k));});});
+  anim(svg,t=>{now=t;if(manual!==null&&t<until)return;manual=null;
+    const k=Math.floor(t/3.2)%5,u=t%3.2,prev=(k+4)%5,p=ease(Math.min(1,u/0.7));
+    needle(ctr(prev)+(ctr(k)-ctr(prev))*p);if(u>0.35)render(k);});
+};
+
+D.light=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.line(484,330,484,404,{strokeWidth:4});S.line(450,404,518,404);
+  S.rect(438,30,92,300,{fill:'#3a3f48',fillStyle:'solid'});
+  const LY=[90,180,270],LC=['#e5484d','#ffc53d','#30a46c'],VC=['#c0393d','#a37b00','#1f7a4f'];
+  LY.forEach(y=>S.circle(484,y,70,{fill:'#d7dbe0',fillStyle:'solid',stroke:'#15181d'}));
+  const lights=LY.map((y,i)=>el('circle',{cx:484,cy:y,r:33,fill:LC[i],opacity:0},fx));
+  const tasks=[
+    {t:'Tell visitors the\nvisiting hours',rows:[['Many steps?','no',C.lcoral],['Path changes per case?','no',C.lcoral],['Worth 10x the cost?','no',C.lcoral]],light:0,v:'No agent. A simple\nFAQ page is enough.'},
+    {t:'Build an MRI\npre-approval packet',rows:[['Many steps?','yes',C.lmint],['Path changes per case?','yes',C.lmint],['Can we check the result?','yes',C.lmint]],light:2,v:'Good fit for an agent.'},
+    {t:'Send the final claim\nto the insurer',rows:[['Many steps?','yes',C.lmint],['Easy to undo?','no',C.lcoral],['Can a human sign off?','yes',C.lmint]],light:1,v:'Agent prepares,\na human sends.'}];
+  tasks.forEach(T=>{T.g=el('g',{},fx);const k=Sk(svg,T.g);k.rect(30,36,330,84,{fill:C.lyel,fillStyle:'solid'});k.text(195,78,T.t,{size:17});
+    T.parts=T.rows.map((r,i)=>{const g=el('g',{},T.g);const q=Sk(svg,g);const y=170+i*62;q.text(40,y,r[0],{size:15,anchor:'start'});q.rect(270,y-18,88,36,{fill:r[2],fillStyle:'solid'});q.text(314,y,r[1],{size:15});return g;});
+    T.vg=el('g',{},T.g);Sk(svg,T.vg).text(195,370,T.v,{size:18,fill:VC[T.light]});});
+  const show=(k,u)=>{tasks.forEach((T,j)=>{T.g.setAttribute('opacity',j===k?Math.min(1,u/0.3).toFixed(2):0);
+      T.parts.forEach((g,i)=>g.setAttribute('opacity',clamp((u-0.8-i*0.7)/0.3,0,1).toFixed(2)));T.vg.setAttribute('opacity',clamp((u-3.2)/0.3,0,1).toFixed(2));});
+    lights.forEach((c,i)=>c.setAttribute('opacity',i===tasks[k].light?clamp((u-3.2)/0.3,0,1).toFixed(2):0));};
+  show(1,9);
+  anim(svg,t=>{const D=5.6,k=Math.floor(t/D)%3;show(k,t%D);});
+};
+
+D.hospital=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const R=[['Front desk','books and moves\nappointments'],['Clinic','drafts visit notes\nfrom the talk'],['Pharmacy','flags refill requests\nfor the pharmacist'],['Billing','pre-checks claims\nbefore they go out'],['Radiology','prepares pre-approval\npackets'],['Ward','sums up the night\nfor the morning round']].map(r=>({n:r[0],j:r[1]}));
+  const W=180,H=175;
+  S.text(300,20,'one hospital, six jobs for an agent',{size:15,fill:C.teal});
+  R.forEach((r,i)=>{const x=30+(i%3)*W,y=40+Math.floor(i/3)*H;r.g=el('rect',{x:x+6,y:y+6,width:W-12,height:H-12,rx:10,fill:C.yel,opacity:0},glow);r.x=x;r.y=y;});
+  S.rect(30,40,540,350,{strokeWidth:3});S.line(210,40,210,390);S.line(390,40,390,390);S.line(30,215,570,215);
+  R.forEach(r=>{const x=r.x,y=r.y;S.text(x+14,y+26,r.n,{size:17,anchor:'start'});
+    S.circle(x+36,y+70,22,{fill:C.coral,fillStyle:'solid'});S.line(x+36,y+81,x+36,y+96,{stroke:C.coral,strokeWidth:3});
+    S.rect(x+14,y+102,W-28,52,{fill:'#ffffff',fillStyle:'solid'});S.text(x+W/2,y+128,r.j,{size:12.5});
+    r.ring=el('circle',{cx:x+36,cy:y+70,r:11,fill:'none',stroke:C.coral,'stroke-width':3,opacity:0},fx);});
+  anim(svg,t=>{const D=1.9,k=Math.floor(t/D)%6,u=t%D;
+    R.forEach((r,i)=>{const on=i===k;r.g.setAttribute('opacity',on?(0.85*Math.min(1,u/0.25,(D-u)/0.25)).toFixed(2):0);
+      r.ring.setAttribute('opacity',on?(1-u/D).toFixed(2):0);r.ring.setAttribute('r',on?(11+u*16).toFixed(1):11);});});
+};
+
 /* draw-on effect for sketch strokes */
 function drawOn(svg){
   let i=0;
@@ -547,7 +831,7 @@ cShow(-1);
 anim(codefig,t=>{const STEP=0.8,TOT=SEQ.length*STEP+2.2;const tt=t%TOT;cShow(Math.min(SEQ.length-1,Math.floor(tt/STEP)));});
 
 /* quiz */
-document.querySelectorAll('#quiz .q').forEach(q=>{
+document.querySelectorAll('.quiz .q').forEach(q=>{
   const opts=[...q.querySelectorAll('.opt')],fb=q.querySelector('.fb'),ans=+q.dataset.a;
   opts.forEach((b,i)=>b.addEventListener('click',()=>{
     opts.forEach(o=>o.classList.remove('right','wrong'));
@@ -559,6 +843,7 @@ document.querySelectorAll('#quiz .q').forEach(q=>{
 
 /* pages, counter, navigation */
 const pages=[...document.querySelectorAll('.page')];
+pages.forEach((p,i)=>{const n=p.querySelector('.pno');if(n)n.textContent=i===0?'cover':String(i+1);});
 const count=document.getElementById('count');
 let active=null;const seen=new Set();
 function setActive(p){
@@ -567,11 +852,19 @@ function setActive(p){
   ANIMS.forEach(a=>{if(a.page===p)a.t0=null;});
   if(!seen.has(p)){seen.add(p);if(!RM)p.querySelectorAll('svg[data-d]').forEach(drawOn);p.dispatchEvent(new Event('firstview'));}
 }
-if('IntersectionObserver' in window){
-  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>=0.3)setActive(e.target);});},{threshold:[0.3,0.6]});
-  pages.forEach(p=>io.observe(p));
-}else{setActive(pages[0]);}
-function go(d){const i=Math.max(0,pages.indexOf(active)),j=clamp(i+d,0,pages.length-1);pages[j].scrollIntoView({behavior:RM?'auto':'smooth',inline:'start',block:'nearest'});setActive(pages[j]);}
+/* the active page is the one showing the most area on screen */
+function pickActive(){
+  const vw=window.innerWidth,vh=window.innerHeight;let best=null,score=-1;
+  pages.forEach(p=>{const r=p.getBoundingClientRect();const w=Math.max(0,Math.min(r.right,vw)-Math.max(r.left,0)),h=Math.max(0,Math.min(r.bottom,vh)-Math.max(r.top,0));const s=w*h;if(s>score){score=s;best=p;}});
+  if(best)setActive(best);
+}
+let pickQueued=false;
+const queuePick=()=>{if(pickQueued)return;pickQueued=true;requestAnimationFrame(()=>{pickQueued=false;pickActive();});};
+document.getElementById('book').addEventListener('scroll',queuePick,{passive:true});
+window.addEventListener('scroll',queuePick,{passive:true});
+window.addEventListener('resize',queuePick);
+pickActive();
+function go(d){const i=Math.max(0,pages.indexOf(active)),j=clamp(i+d,0,pages.length-1);pages[j].scrollIntoView({behavior:RM?'auto':'smooth',inline:'start',block:'nearest'});setActive(pages[j]);setTimeout(pickActive,900);}
 document.getElementById('prev').addEventListener('click',()=>go(-1));
 document.getElementById('next').addEventListener('click',()=>go(1));
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);else if(e.key==='ArrowLeft')go(-1);});
