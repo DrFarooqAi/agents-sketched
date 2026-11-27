@@ -15,6 +15,7 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 - Chapter 5: Context engineering (live)
 - Chapter 6: Planning (live)
 - Chapter 7: Checking its own work (live)
+- Chapter 8: Memory (live)
 - More chapters are added as the series continues.
 
 ---
