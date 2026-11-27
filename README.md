@@ -11,6 +11,7 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 - Chapter 1: What agents are (live)
 - Chapter 2: The agent loop (live)
 - Chapter 3: How tool calls work (live)
+- Chapter 4: Designing good tools (live)
 - More chapters are added as the series continues.
 
 ---

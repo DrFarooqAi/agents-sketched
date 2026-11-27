@@ -604,6 +604,113 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 4: DESIGNING GOOD TOOLS ===== -->
+<section class="page" aria-label="One tool, one job">
+  <div class="txt">
+    <span class="tag">chapter 4 &middot; designing good tools</span>
+    <h2>One tool, <span class="hl">one job</span></h2>
+    <p>Tools are the agent's user interface. Size them like real jobs, not like database fields.</p>
+    <ul>
+      <li><b>Too small</b>: 14 calls to build one patient summary, and 14 chances to slip.</li>
+      <li><b>Just right</b>: one tool per real task, like <code>get_member_summary</code>.</li>
+      <li><b>Too big</b>: <code>run_sql</code> hands the model a blank page. It has to rebuild your whole system in its head.</li>
+    </ul>
+    <div class="sticky"><strong>How many tools?</strong>Keep 10 to 20 good ones per agent. Load the rest only when they are needed.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="granular" role="img" aria-label="Three panels: tools that are too small need fourteen calls, a right-sized tool needs one, a too-big tool leaves the model confused"></svg>
+    <figcaption>Fig 4.1 Same task, three tool sizes. Only the middle one is boring, and boring is good.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Send back less">
+  <div class="txt">
+    <span class="tag">chapter 4 &middot; designing good tools</span>
+    <h2>Send back <span class="hl">less</span></h2>
+    <p>Every word a tool returns goes into the notebook, and is paid for again on every turn (chapter 2).</p>
+    <ul>
+      <li>Return only the facts the next step needs.</li>
+      <li>Put names next to ids. Models misquote long codes.</li>
+      <li>For long lists, return one page plus a "next page" marker.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="shape" role="img" aria-label="A pile of raw lab data goes through a funnel and comes out as a small card; bars compare 4,800 tokens with 180 tokens"></svg>
+    <figcaption>Fig 4.2 Same lab result: a 4,800-token dump, or a 180-token card.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Small fixes, big wins">
+  <div class="txt">
+    <span class="tag">chapter 4 &middot; designing good tools</span>
+    <h2>Small fixes, <span class="hl">big wins</span></h2>
+    <p>Most tool problems are really wording problems.</p>
+    <ul>
+      <li><b>Name</b>: verb plus noun, with the system in front.</li>
+      <li><b>Description</b>: what it does, when to use it, when not to.</li>
+      <li><b>Inputs</b>: precise names, fixed choices where you can.</li>
+      <li><b>Errors</b>: say what went wrong and what to try next.</li>
+    </ul>
+    <div class="sticky"><strong>Test it like a new hire</strong>Run the agent on 20 to 50 real tasks, read what it did, and fix the descriptions wherever it stumbled.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="fixes" role="img" aria-label="Four cards flip from a bad version to a good version: tool name, description, inputs and error message"></svg>
+    <figcaption>Fig 4.3 Each card flips from before to after.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Safe to press twice">
+  <div class="txt">
+    <span class="tag">chapter 4 &middot; designing good tools</span>
+    <h2>Safe to <span class="hl">press twice</span></h2>
+    <p>Networks fail and agents retry. Any tool that changes something must survive a retry.</p>
+    <ul>
+      <li>Give each action a unique key, like K7.</li>
+      <li>If the same key arrives again, the system says "already done" instead of acting twice.</li>
+      <li>This matters most for bookings, payments, orders and messages to patients.</li>
+    </ul>
+    <div class="sticky"><strong>The word for it</strong>Engineers call this an <b>idempotency key</b>. You only need to remember: same key, same result.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="twice" role="img" aria-label="Two booking systems: without a key a retry books the patient twice, with a key the retry is recognised and only one booking exists"></svg>
+    <figcaption>Fig 4.4 Same timeout, same retry. Only the key prevents a double booking.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 4">
+  <div class="txt">
+    <span class="tag">chapter 4 &middot; designing good tools</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="1" data-why="One call matches one real task. Field-by-field tools waste calls; run_sql makes the model rebuild your system.">
+        <p>1. Which tool is the right size?</p>
+        <div class="opts"><button class="opt" type="button">get_field(patient_id, "dob")</button><button class="opt" type="button">get_member_summary(member_id)</button><button class="opt" type="button">run_sql(query)</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="Shrink the answer at the tool. Everything it returns is paid for again on every later turn.">
+        <p>2. The lab tool returns 5,000 tokens per call. What is the best fix?</p>
+        <div class="opts"><button class="opt" type="button">Return only the few values the next step needs</button><button class="opt" type="button">Use a bigger model</button><button class="opt" type="button">Ask the model to ignore the extra text</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="With a key, the booking system recognises the retry and says 'already done' instead of booking again.">
+        <p>3. A booking timed out, the agent retried, and the patient was booked twice. What prevents this?</p>
+        <div class="opts"><button class="opt" type="button">A longer timeout</button><button class="opt" type="button">Telling the model to be careful</button><button class="opt" type="button">An idempotency key on the booking tool</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Write every tool description as if a locum doctor will read it at 3 am: what it does, when to use it, and what it needs from you.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Before adding a new tool, check whether a better description of an old one fixes the problem.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Design tools for a smart new colleague: one job each, clear names, short answers, helpful errors, safe to retry.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -1002,6 +1109,109 @@ D.choice=svg=>{
   anim(svg,t=>{now=t;if(manual!==null&&t<until)return;manual=null;
     const k=Math.floor(t/3.2)%4,u=t%3.2,prev=(k+3)%4,p=ease(Math.min(1,u/0.6));
     at(XS[prev]+(XS[k]-XS[prev])*p);if(u>0.3)render(k);});
+};
+
+/* ---------- chapter 4 ---------- */
+function slipEl(parent,label,w){w=w||40;const g=el('g',{},parent);const r=el('rect',{x:-w/2,y:-12,width:w,height:24,rx:3,fill:'#fff',stroke:C.ink,'stroke-width':2},g);
+  const tx=el('text',{x:0,y:1,'text-anchor':'middle','dominant-baseline':'middle','font-size':13,'font-weight':700,fill:C.ink,class:'sk-t'},g);tx.textContent=label;
+  return{g,r,tx,at(x,y,op){g.setAttribute('transform',`translate(${x.toFixed(1)} ${y.toFixed(1)})`);g.setAttribute('opacity',op);}};}
+
+D.granular=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const P=[{x:100,h:'too small',c:'#c0393d',tools:'get_name(id)\nget_dob(id)\nget_plan(id)\nget_status(id)\n...and 10 more',foot:'14 calls,\n14 chances to slip'},
+    {x:300,h:'just right',c:'#1f7a4f',tools:'get_member_summary(\nmember_id)',foot:'1 call does\nthe whole job'},
+    {x:500,h:'too big',c:'#c0393d',tools:'run_sql(query)\nhttp_request(url)',foot:'the model must\nrebuild your system'}];
+  const win=el('rect',{x:206,y:40,width:188,height:310,rx:14,fill:C.yel,opacity:0},glow);
+  P.forEach(p=>{S.text(p.x,30,p.h,{size:19,fill:p.c});S.rect(p.x-86,50,172,290,{fill:'#ffffff',fillStyle:'solid'});
+    S.text(p.x,112,p.tools,{size:12.5,weight:700});S.line(p.x-70,170,p.x+70,170,{strokeWidth:1.2,stroke:'#c3cad3',roughness:0.4});S.text(p.x,378,p.foot,{size:14,weight:400});});
+  const dots=[];for(let i=0;i<14;i++)dots.push(el('circle',{cx:40+(i%7)*20,cy:i<7?220:252,r:7,fill:C.coral,stroke:C.ink,'stroke-width':1.5},fx));
+  const cnt=el('text',{x:100,y:312,'text-anchor':'middle','font-size':16,'font-weight':700,fill:C.ink,class:'sk-t'},fx);cnt.textContent='calls: 14';
+  const big=el('g',{},fx);el('circle',{cx:300,cy:236,r:30,fill:C.lmint,stroke:C.ink,'stroke-width':2},big);const dn=el('text',{x:300,y:238,'text-anchor':'middle','dominant-baseline':'middle','font-size':16,'font-weight':700,fill:C.ink,class:'sk-t'},big);dn.textContent='done';
+  const c2=el('text',{x:300,y:312,'text-anchor':'middle','font-size':16,'font-weight':700,fill:C.ink,class:'sk-t'},fx);c2.textContent='calls: 1';
+  let d='';for(let i=0;i<5;i++){const y=196+i*16;d+=`M430 ${y} L${470+((i*37)%90)} ${y} M${478+((i*37)%90)} ${y} L${520+((i*23)%40)} ${y} `;}
+  const scr=el('path',{d,fill:'none',stroke:C.ink,'stroke-width':2.5,'stroke-linecap':'round'},fx);
+  const q=el('text',{x:560,y:300,'text-anchor':'middle','font-size':36,'font-weight':700,fill:C.coral,class:'sk-t'},fx);q.textContent='?';
+  const c3=el('text',{x:480,y:312,'text-anchor':'middle','font-size':16,'font-weight':700,fill:C.ink,class:'sk-t'},fx);c3.textContent='1 giant call';
+  let SL=0;
+  anim(svg,t=>{const tt=t%7.4,fade=tt>7.0?0:1;if(!SL){try{SL=scr.getTotalLength();}catch(e){SL=600;}scr.style.strokeDasharray=SL+' '+SL;}
+    dots.forEach((c,i)=>c.setAttribute('opacity',tt>0.3+i*0.22?fade:0));const n=dots.filter((c,i)=>tt>0.3+i*0.22).length;cnt.textContent='calls: '+n;cnt.setAttribute('opacity',fade);
+    big.setAttribute('opacity',tt>0.9?fade:0);c2.setAttribute('opacity',tt>0.9?fade:0);
+    scr.style.strokeDashoffset=(SL*(1-clamp((tt-0.5)/3,0,1))).toFixed(1);scr.setAttribute('opacity',fade);
+    q.setAttribute('opacity',tt>3.6?fade:0);c3.setAttribute('opacity',tt>3.6?fade:0);
+    win.setAttribute('opacity',tt>4.2?0.85*fade:0);});
+};
+
+D.shape=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  [[-7,0],[5,-5],[-3,-10],[7,-15],[0,-20]].forEach(([r,dy])=>{const g=el('g',{transform:`translate(130 ${132+dy}) rotate(${r})`},back);const k=Sk(svg,g);
+    k.rect(-52,-58,104,116,{fill:'#ffffff',fillStyle:'solid'});[-38,-24,-10,4,18,32].forEach((y,i)=>k.line(-38,y,(i%2?20:36),y,{strokeWidth:1.4,roughness:0.6}));});
+  S.text(130,206,'raw lab API reply',{size:14});S.text(130,224,'ids, nulls, metadata...',{size:11.5,weight:400,fill:C.muted});
+  S.path('M238 70 L362 70 L314 150 L314 188 L286 188 L286 150 Z',{fill:C.lsky});
+  S.text(300,52,'your tool shapes it',{size:13,fill:C.teal});
+  S.carrow(300,196,394,160,26,{stroke:C.teal});
+  const card=el('g',{},fx);const kc=Sk(svg,card);kc.rect(400,84,186,108,{fill:C.lmint,fillStyle:'solid'});
+  kc.text(414,106,'HbA1c: 7.9% (high)',{size:15,anchor:'start'});kc.text(414,134,'trend: 8.4 > 8.1 > 7.9',{size:13,anchor:'start',weight:400});
+  kc.text(414,157,'tested: 3 Nov 2026',{size:13,anchor:'start',weight:400});kc.text(414,179,'next page: none',{size:12,anchor:'start',weight:400,fill:C.muted});
+  S.text(40,260,'raw dump',{size:14,anchor:'start'});S.text(40,320,'shaped answer',{size:14,anchor:'start'});
+  const b1=el('g',{},fx);const k1=Sk(svg,b1);k1.rect(40,272,520,24,{fill:C.coral,hachureGap:5});k1.text(552,284,'4,800 tokens',{size:13,anchor:'end'});
+  const b2=el('g',{},fx);const k2=Sk(svg,b2);k2.rect(40,332,20,24,{fill:C.teal,hachureGap:4});k2.text(70,344,'180 tokens',{size:13,anchor:'start'});
+  S.text(300,396,'Same facts. About 26 times smaller, and easier to read.',{size:14,fill:C.teal});
+  const fly=[0,1,2,3].map(()=>el('rect',{x:-11,y:-14,width:22,height:28,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':1.6,opacity:0},fx));
+  const path=track([[130,100],[215,40],[300,84],[300,182]]);
+  const grow=(g,p)=>g.setAttribute('transform',`translate(40 0) scale(${Math.max(0.001,p).toFixed(3)} 1) translate(-40 0)`);
+  anim(svg,t=>{const tt=t%8.4,fade=tt>8.0?0:1;
+    fly.forEach((r,i)=>{const u=(tt-0.3-i*0.35)/1.0;if(u<0||u>1){r.setAttribute('opacity',0);return;}const p=path(u);const s=1-0.6*clamp((u-0.55)/0.45,0,1);
+      r.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) scale(${s.toFixed(2)}) rotate(${(u*200).toFixed(0)})`);r.setAttribute('opacity',1);});
+    card.setAttribute('opacity',(clamp((tt-2.2)/0.4,0,1)*fade).toFixed(2));
+    grow(b1,ease(clamp((tt-2.8)/0.9,0,1)));b1.setAttribute('opacity',tt>2.8?fade:0);
+    grow(b2,ease(clamp((tt-3.0)/0.9,0,1)));b2.setAttribute('opacity',tt>3.0?fade:0);});
+};
+
+D.fixes=svg=>{
+  const fx=el('g',{},svg);
+  const cards=[{k:'NAME',b:'tool1',a:'insurer_check_eligibility'},
+    {k:'DESCRIPTION',b:'Gets data.',a:"Checks one member's cover for\none test. Use before booking.\nNot for claims."},
+    {k:'INPUTS',b:'user, code',a:'member_id: "M-1043"\ncpt_code: "72148"'},
+    {k:'ERROR MESSAGE',b:'Error 500',a:'No member "Saleh A."\nDid you mean Ahmed Saleh\n(M-1043)?'}];
+  const pos=[[30,40],[310,40],[30,232],[310,232]],W=260,H=160;
+  cards.forEach((c,i)=>{const x=pos[i][0],y=pos[i][1];c.cx=x+W/2;c.g=el('g',{},fx);
+    c.bg=el('g',{},c.g);const kb=Sk(svg,c.bg);kb.rect(x,y,W,H,{fill:C.lcoral,fillStyle:'solid'});kb.text(x+14,y+20,c.k,{size:12,anchor:'start',fill:C.muted});kb.text(x+W-14,y+20,'BEFORE',{size:12,anchor:'end',fill:'#c0393d'});kb.text(c.cx,y+H/2+8,c.b,{size:22});
+    c.ag=el('g',{},c.g);const ka=Sk(svg,c.ag);ka.rect(x,y,W,H,{fill:C.lmint,fillStyle:'solid'});ka.text(x+14,y+20,c.k,{size:12,anchor:'start',fill:C.muted});ka.text(x+W-14,y+20,'AFTER',{size:12,anchor:'end',fill:'#1f7a4f'});ka.text(c.cx,y+H/2+8,c.a,{size:14.5});
+    c.bg.setAttribute('opacity',0);});
+  const set=(c,after,s)=>{c.bg.setAttribute('opacity',after?0:1);c.ag.setAttribute('opacity',after?1:0);c.g.setAttribute('transform',`translate(${c.cx} 0) scale(${Math.max(0.02,s).toFixed(3)} 1) translate(${-c.cx} 0)`);};
+  anim(svg,t=>{cards.forEach((c,i)=>{const u=((t-i*0.5)%9+9)%9;
+    if(u<1.4)set(c,false,1);else if(u<1.8){const w=(u-1.4)/0.4;set(c,w>=0.5,Math.abs(1-2*w));}
+    else if(u<7.8)set(c,true,1);else if(u<8.2){const w=(u-7.8)/0.4;set(c,w<0.5,Math.abs(1-2*w));}else set(c,false,1);});});
+};
+
+D.twice=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.line(300,10,300,410,{strokeLineDash:[6,8],stroke:C.muted,strokeWidth:1.4,roughness:0.5});
+  const HS=[{cx:150,t:'without a key',c:'#c0393d',key:false},{cx:450,t:'with an idempotency key',c:'#1f7a4f',key:true}];
+  HS.forEach(h=>{const cx=h.cx;S.text(cx,18,h.t,{size:16,fill:h.c});
+    S.line(cx,76,cx,160,{strokeLineDash:[5,6],stroke:C.muted,strokeWidth:1.4,roughness:0.5});
+    S.rect(cx-60,36,120,40,{fill:C.lsky,fillStyle:'solid'});S.text(cx,56,'AGENT',{size:15});
+    S.rect(cx-80,160,160,44,{fill:C.lyel,fillStyle:'solid'});S.text(cx,182,'CLINIC SYSTEM',{size:14});
+    S.rect(cx-115,240,230,162,{fill:'#ffffff',fillStyle:'solid'});S.text(cx,258,'Tuesday, Dr. Noor',{size:13});
+    ['9:00','10:00','11:00'].forEach((tm,i)=>{const y=292+i*38;S.line(cx-108,y-19,cx+108,y-19,{strokeWidth:1,stroke:'#c3cad3',roughness:0.4});S.text(cx-100,y,tm,{size:13,anchor:'start',weight:400});});
+    h.chip1=el('g',{},fx);const k1=Sk(svg,h.chip1);k1.rect(cx-48,317,150,24,{fill:C.lmint,fillStyle:'solid',strokeWidth:1.6});k1.text(cx+27,329,'Ahmed Saleh',{size:13});
+    if(!h.key){h.chip2=el('g',{},fx);const k2=Sk(svg,h.chip2);k2.rect(cx-40,343,150,24,{fill:C.lcoral,fillStyle:'solid',strokeWidth:1.6});k2.text(cx+35,355,'Ahmed Saleh (again)',{size:12.5});}
+    h.msg=el('text',{x:cx,y:224,'text-anchor':'middle','font-size':14.5,'font-weight':700,fill:h.c,class:'sk-t'},fx);h.msg.textContent=h.key?'key K7 seen: already done':'double booked!';
+    h.tmo=el('text',{x:cx+44,y:118,'text-anchor':'start','font-size':14,'font-weight':700,fill:C.coral,class:'sk-t'},fx);h.tmo.textContent='timeout';
+    h.req=slipEl(fx,h.key?'K7':'#1',44);h.rep=slipEl(fx,'ok',36);
+    h.req.at(cx,76,0);h.rep.at(cx,160,0);});
+  anim(svg,t=>{const tt=t%9.6,fade=tt>9.2?0:1;
+    HS.forEach(h=>{const cx=h.cx;
+      if(tt>=0.2&&tt<1.2){h.req.tx.textContent=h.key?'K7':'#1';h.req.at(cx,76+84*ease((tt-0.2)/1.0),1);}
+      else if(tt>=2.6&&tt<3.6){h.req.tx.textContent=h.key?'K7':'#2';h.req.at(cx,76+84*ease((tt-2.6)/1.0),1);}
+      else h.req.at(cx,76,0);
+      if(tt>=1.4&&tt<2.2){const u=(tt-1.4)/0.8;h.rep.at(cx,160-50*u,1-u);}
+      else if(h.key&&tt>=3.9&&tt<4.7){h.rep.at(cx,160-84*ease((tt-3.9)/0.8),1);}
+      else h.rep.at(cx,160,0);
+      h.tmo.setAttribute('opacity',tt>1.9&&tt<3.3?1:0);
+      h.chip1.setAttribute('opacity',tt>1.2?fade:0);
+      if(h.chip2)h.chip2.setAttribute('opacity',tt>3.7?fade:0);
+      h.msg.setAttribute('opacity',tt>3.7?fade:0);});});
 };
 
 /* draw-on effect for sketch strokes */
