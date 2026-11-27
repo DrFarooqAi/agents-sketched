@@ -22,6 +22,8 @@ CHAPTERS = [
     (35, 13.6, "07-draft-check-fix"), (40, 13.5, "08-the-model-forgets"), (45, 11.0, "09-crash-and-resume"),
     (51, 12.5, "10-the-router"), (55, 10.5, "11-boss-and-workers"), (61, 11.0, "12-handoffs"),
     (66, 10.0, "13-a2a-task"), (71, 22.0, "14-framework-map"), (75, 10.0, "15-message-list"), (80, 10.4, "16-approval-gate"),
+    (86, 9.0, "17-pass-every-time"),
+    (91, 8.0, "18-trace-every-run"),
 ]
 
 

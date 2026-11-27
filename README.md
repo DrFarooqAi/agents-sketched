@@ -25,6 +25,7 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 - Chapter 15: An agent from scratch (live)
 - Chapter 16: Human approval steps (live)
 - Chapter 17: Evaluation basics (live)
+- Chapter 18: Metrics that matter (live)
 - More chapters are added as the series continues.
 
 ---

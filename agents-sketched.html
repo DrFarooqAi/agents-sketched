@@ -2100,6 +2100,112 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 18: METRICS THAT MATTER ===== -->
+<section class="page" aria-label="Four families of metrics">
+  <div class="txt">
+    <span class="tag">chapter 18 &middot; metrics that matter</span>
+    <h2>Four <span class="hl">families</span> of metrics</h2>
+    <p>One number never tells the whole story. Track four groups.</p>
+    <ul>
+      <li><b>System</b>: errors, speed, cost.</li>
+      <li><b>Task</b>: finished correctly, and in how many steps.</li>
+      <li><b>Quality</b>: the right end result, and how often it hands over.</li>
+      <li><b>Tools</b>: did each call work, and was it the right tool?</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="families" role="img" aria-label="A dashboard with four groups of metrics: system, task, quality and tools, each with numbers counting up"></svg>
+    <figcaption>Fig 18.1 A claims agent's dashboard. The numbers are an example.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Trace every run">
+  <div class="txt">
+    <span class="tag">chapter 18 &middot; metrics that matter</span>
+    <h2><span class="hl">Trace</span> every run</h2>
+    <p>You cannot debug an agent from its final answer. Record every model call and tool call in one trace.</p>
+    <ul>
+      <li>One root per run, one bar per step.</li>
+      <li>See exactly where the time and money went.</li>
+      <li>Standard labels (OpenTelemetry) work with most monitoring tools.</li>
+    </ul>
+    <div class="sticky"><strong>Privacy first</strong>Log full prompts only where your privacy policy allows. Patient data stays protected.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="trace" role="img" aria-label="A trace waterfall for one run: three model calls and three tool calls laid out on a timeline, two of them running in parallel, totalling 4.1 seconds"></svg>
+    <figcaption>Fig 18.2 One run, seven bars. Two tool calls run side by side.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Averages hide the pain">
+  <div class="txt">
+    <span class="tag">chapter 18 &middot; metrics that matter</span>
+    <h2>Averages <span class="hl">hide</span> the pain</h2>
+    <p>Look at the middle (p50) and the slow tail (p95), not just the average.</p>
+    <ul>
+      <li><b>p50</b>: half of all tasks finish faster than this.</li>
+      <li><b>p95</b>: 1 task in 20 is slower than this.</li>
+      <li>A patient waiting in that tail does not care about your average.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="p95" role="img" aria-label="A histogram of task times with markers for the average, the p50 and the p95"></svg>
+    <figcaption>Fig 18.3 175 example tasks. The tail is where complaints come from.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="From metric to fix">
+  <div class="txt">
+    <span class="tag">chapter 18 &middot; metrics that matter</span>
+    <h2>From <span class="hl">metric to fix</span></h2>
+    <p>Each bad number points to a fix.</p>
+    <ul>
+      <li>Low tool success: check the inputs before calling.</li>
+      <li>Notebook too full: load only what matters.</li>
+      <li>Same effort for every case: go deeper only when needed.</li>
+      <li>Almost never hands over: it is probably overconfident.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="fixes4" role="img" aria-label="Four metrics move from red to green after a fix: tool success, notebook use, steps per task and handover rate"></svg>
+    <figcaption>Fig 18.4 Red number, one fix, green number. Values are an example.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 18">
+  <div class="txt">
+    <span class="tag">chapter 18 &middot; metrics that matter</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="1" data-why="Task metrics check whether the job was truly finished, not just marked as finished.">
+        <p>1. A claims agent marks cases "complete" but skipped required checks. Which family of metrics catches it?</p>
+        <div class="opts"><button class="opt" type="button">System</button><button class="opt" type="button">Task</button><button class="opt" type="button">Tools</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="p95 is the time that 95% of tasks beat. The slowest 1 in 20 take longer.">
+        <p>2. The p95 task time is 8.6 seconds. What does that mean?</p>
+        <div class="opts"><button class="opt" type="button">1 task in 20 takes longer than 8.6 s</button><button class="opt" type="button">The average is 8.6 s</button><button class="opt" type="button">95% of tasks fail after 8.6 s</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="In a hospital some cases should always go to a person. A very low handover rate suggests it is taking on cases it should not.">
+        <p>3. The agent hands only 0.5% of cases to a person. Is that good news?</p>
+        <div class="opts"><button class="opt" type="button">Yes, it is very capable</button><button class="opt" type="button">It does not matter</button><button class="opt" type="button">Probably not: check it is escalating risky cases</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Hospitals run on KPIs: length of stay, readmissions, waiting times. An agent needs its own KPI board, reviewed just as seriously.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Watch the slow tail and the handover rate. That is where patients feel the agent.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Track system, task, quality and tool metrics. Trace every run, read p95 not just averages, and turn every bad number into one clear fix.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -3768,6 +3874,73 @@ D.gradeways=svg=>{
     at(tr,p[0],38,1,tt>0.3&&tt<8.4?1:0);marks.forEach((m,i)=>m.setAttribute('opacity',tt>1.3+i*1.6?f:0));};
   render(7);
   anim(svg,t=>render(t%9));
+};
+
+/* ---------- chapter 18 ---------- */
+D.families=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const Q=[['SYSTEM',C.lsky,[['model call errors',0.8,'%',1],['p95 time per task',6.2,' s',1],['cost per task',0.04,'$',2]]],
+    ['TASK',C.lmint,[['completed correctly',91,'%',0],['steps per task',5.2,'',1],['tasks today',412,'',0]]],
+    ['QUALITY',C.lyel,[['right end result',94,'%',0],['handed to a person',7,'%',0],['judge score',4.3,' / 5',1]]],
+    ['TOOLS',C.lcoral,[['tool calls that worked',97,'%',0],['right tool chosen',92,'%',0],['time per tool call',0.4,' s',1]]]];
+  const P=[[16,16],[308,16],[16,214],[308,214]];
+  const vals=[];const hl=Q.map((q,i)=>{const[x,y]=P[i];S.rect(x,y,276,188,{fill:q[1],fillStyle:'solid'});S.text(x+138,y+24,q[0],{size:16});
+    q[2].forEach((m,j)=>{const yy=y+66+j*42;S.text(x+16,yy,m[0],{size:13,anchor:'start',weight:400});vals.push({t:txt(fx,x+260,yy,'',{anchor:'end',size:18}),m,q:i});});
+    return el('rect',{x:x-4,y:y-4,width:284,height:196,rx:12,fill:'none',stroke:C.yel,'stroke-width':6,opacity:0},fx);});
+  const fmt=(m,v)=>m[2]==='$'?'$'+v.toFixed(m[3]):v.toFixed(m[3])+m[2];
+  const render=tt=>{vals.forEach(v=>{const p=ease(clamp((tt-0.3-v.q*0.4)/1.2,0,1));v.t.textContent=fmt(v.m,v.m[1]*p);});
+    const k=Math.floor((tt-2.4)/1.6);hl.forEach((h,i)=>h.setAttribute('opacity',tt>2.4&&i===k%4?1:0));};
+  render(2.3);
+  anim(svg,t=>render(t%9));
+};
+
+D.trace=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const R=[['run: correct claim C-88',0,4.1,'#c3cad3',0],['chat (model)',0,0.9,C.lteal,1],['get_claim',0.9,1.3,C.lsky,1],['chat (model)',1.3,2.1,C.lteal,1],['search_policy',2.1,2.9,C.lsky,1],['check_rules',2.1,2.6,C.lsky,1],['chat (model)',2.9,4.1,C.lteal,1]];
+  const X0=210,W=360,X=s=>X0+s/4.1*W;
+  S.text(300,24,'trace waterfall for one run (time runs left to right)',{size:13,fill:C.teal});
+  S.line(X0,345,X0+W,345);[0,1,2,3,4].forEach(s=>{S.line(X(s),341,X(s),349,{strokeWidth:1.4});S.text(X(s),362,s+' s',{size:11,weight:400});});
+  const bars=R.map((r,i)=>{const y=70+i*40;S.text(r[4]?196:196,y,r[0],{size:r[4]?12.5:13.5,anchor:'end',weight:r[4]?400:700});
+    const b=el('rect',{x:X(r[1]),y:y-12,height:24,rx:5,fill:r[3],stroke:C.ink,'stroke-width':1.6},fx);return{b,r};});
+  const cur=el('line',{y1:48,y2:345,stroke:C.coral,'stroke-width':2.5,'stroke-dasharray':'5 4'},fx);
+  const par=el('g',{},fx);el('path',{d:`M${X(2.9)+8} 218 L${X(2.9)+16} 218 L${X(2.9)+16} 278 L${X(2.6)+8} 278`,fill:'none',stroke:C.coral,'stroke-width':2},par);txt(par,X(2.9)+22,248,'parallel',{size:12,fill:'#c0393d'});
+  const tot=txt(fx,300,394,'4.1 s · 3 model calls · 3 tool calls · $0.021',{anchor:'middle',size:15,fill:C.teal});
+  const render=tt=>{const T=Math.min(4.1,tt);bars.forEach(o=>{const w=clamp((T-o.r[1])/(o.r[2]-o.r[1]),0,1)*(X(o.r[2])-X(o.r[1]));o.b.setAttribute('width',w.toFixed(1));o.b.setAttribute('opacity',T>=o.r[1]?1:0);});
+    cur.setAttribute('x1',X(T).toFixed(1));cur.setAttribute('x2',X(T).toFixed(1));cur.setAttribute('opacity',tt<4.3?1:0);par.setAttribute('opacity',T>2.6?1:0);tot.setAttribute('opacity',tt>4.2?1:0);};
+  render(6);
+  anim(svg,t=>render(t%8));
+};
+
+D.p95=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const B=[2,6,14,22,26,24,19,15,11,8,6,5,4,3,3,2,2,1,1,1],BW=25,X0=50,base=330,sc=230/26,X=s=>X0+s/0.6*BW;
+  const tot=B.reduce((a,b)=>a+b,0);const mean=B.reduce((a,b,i)=>a+b*(0.3+0.6*i),0)/tot;
+  const q=p=>{let c=0;for(let i=0;i<B.length;i++){if(c+B[i]>=p*tot)return 0.6*i+0.6*(p*tot-c)/B[i];c+=B[i];}return 12;};const p50=q(0.5),p95=q(0.95);
+  S.line(40,base,570,base);[0,2,4,6,8,10,12].forEach(s=>{S.line(X(s),base-4,X(s),base+4,{strokeWidth:1.4});S.text(X(s),base+18,s+' s',{size:11,weight:400});});
+  S.text(300,24,'how long each task took',{size:14,fill:C.teal});
+  const bars=B.map((b,i)=>el('rect',{x:X0+i*BW+2,width:BW-4,fill:X0+i*BW>=X(p95)-1?'#ffb3b1':C.lsky,stroke:C.ink,'stroke-width':1.3},fx));
+  const mk=(s,col,lab,ly)=>{const g=el('g',{},fx);el('line',{x1:X(s),y1:56,x2:X(s),y2:base,stroke:col,'stroke-width':2.5,'stroke-dasharray':'6 5'},g);txt(g,X(s)+6,ly,lab,{size:13,fill:col});return g;};
+  const m1=mk(p50,'#1f7a4f','p50 '+p50.toFixed(1)+' s',64),m2=mk(mean,C.teal,'average '+mean.toFixed(1)+' s',88),m3=mk(p95,'#c0393d','p95 '+p95.toFixed(1)+' s',64);
+  const note=Sk(svg,el('g',{},fx)).text(470,150,'the slowest 1 in 20\nwait '+p95.toFixed(1)+' s or more',{size:13,fill:'#c0393d'});
+  S.text(300,392,'Report the tail, not just the average.',{size:13.5,fill:C.teal});
+  const render=tt=>{const f=tt>8.6?0:1;bars.forEach((r,i)=>{const p=ease(clamp((tt-0.3-i*0.08)/0.3,0,1))*f;const h=B[i]*sc*p;r.setAttribute('y',(base-h).toFixed(1));r.setAttribute('height',h.toFixed(1));});
+    m1.setAttribute('opacity',tt>2.4?f:0);m2.setAttribute('opacity',tt>3.0?f:0);m3.setAttribute('opacity',tt>3.6?f:0);note.setAttribute('opacity',tt>4.2?f:0);};
+  render(6);
+  anim(svg,t=>render(t%9));
+};
+
+D.fixes4=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.text(96,22,'before',{size:14,fill:'#c0393d'});S.text(308,22,'the fix',{size:14,fill:C.teal});S.text(515,22,'after',{size:14,fill:'#1f7a4f'});
+  const R=[['tool success','78%','check the document type\nbefore calling','96%'],['notebook used','92% full','load only the\nrelevant years','55% full'],['steps per task','14 on every case','go deeper only\non hard cases','6 easy, 14 hard'],['handed to a person','0.5%','escalate risky\ncases on purpose','6%']];
+  const rows=R.map((r,i)=>{const y=74+i*86;const L=el('g',{},fx),F=el('g',{},fx),A=el('g',{},fx);
+    const kl=Sk(svg,L);kl.rect(16,y-34,160,68,{fill:C.lcoral,fillStyle:'solid'});kl.text(96,y-14,r[0],{size:12,weight:400});kl.text(96,y+12,r[1],{size:17,fill:'#c0393d'});kl.arrow(180,y,204,y,{stroke:C.muted});
+    const kf=Sk(svg,F);kf.rect(208,y-34,200,68,{fill:'#ffffff',fillStyle:'solid'});kf.text(308,y,r[2],{size:12.5});kf.arrow(412,y,436,y,{stroke:C.muted});
+    const ka=Sk(svg,A);ka.rect(440,y-34,150,68,{fill:C.lmint,fillStyle:'solid'});ka.text(515,y-14,r[0],{size:12,weight:400});ka.text(515,y+12,r[3],{size:16,fill:'#1f7a4f'});return{L,F,A,y};});
+  const render=tt=>{const f=tt>8.2?0:1;rows.forEach((r,i)=>{const s=0.3+i*1.6;r.L.setAttribute('opacity',tt>s?f:0);const p=ease(clamp((tt-s-0.5)/0.4,0,1));r.F.setAttribute('opacity',(p*f).toFixed(2));r.F.setAttribute('transform',`translate(${(-30*(1-p)).toFixed(1)} 0)`);
+    const a=ease(clamp((tt-s-1.0)/0.4,0,1));r.A.setAttribute('opacity',(a*f).toFixed(2));r.A.setAttribute('transform',`translate(515 ${r.y}) scale(${(0.7+0.3*a).toFixed(3)}) translate(-515 ${-r.y})`);});};
+  render(8);
+  anim(svg,t=>render(t%8.6));
 };
 
 /* code walkers (generic) */
