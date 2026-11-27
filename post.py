@@ -25,6 +25,7 @@ CHAPTERS = [
     (86, 9.0, "17-pass-every-time"),
     (91, 8.0, "18-trace-every-run"),
     (95, 14.0, "19-claims-agent"),
+    (102, 9.6, "20-lethal-trifecta"),
 ]
 
 

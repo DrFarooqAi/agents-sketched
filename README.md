@@ -27,6 +27,7 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 - Chapter 17: Evaluation basics (live)
 - Chapter 18: Metrics that matter (live)
 - Chapter 19: Case, a claims agent (live)
+- Chapter 20: Guardrails and security (live)
 - More chapters are added as the series continues.
 
 ---
