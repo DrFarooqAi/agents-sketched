@@ -1438,6 +1438,108 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 12: MULTI-AGENT TEAMS ===== -->
+<section class="page" aria-label="Three team shapes">
+  <div class="txt">
+    <span class="tag">chapter 12 &middot; multi-agent teams</span>
+    <h2>Three <span class="hl">team shapes</span></h2>
+    <ul>
+      <li><b>Supervisor</b>: one boss sends work out, checks it and merges it.</li>
+      <li><b>Teams of teams</b>: leads of leads, for very big jobs.</li>
+      <li><b>Handoffs</b>: the active agent passes the conversation to a specialist.</li>
+    </ul>
+    <div class="sticky"><strong>The usual answer</strong>Most real systems are one supervisor with 2 to 5 workers.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="shapes" role="img" aria-label="Three animated team shapes: a supervisor with three workers, two teams under a lead, and agents passing a baton in a handoff"></svg>
+    <figcaption>Fig 12.1 Same idea, three shapes: who decides who works next.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Handoffs: pass the baton">
+  <div class="txt">
+    <span class="tag">chapter 12 &middot; multi-agent teams</span>
+    <h2>Handoffs: <span class="hl">pass the baton</span></h2>
+    <p>In a handoff, the patient keeps talking in one chat. The agent behind it changes.</p>
+    <ul>
+      <li>Each specialist owns its part: triage, billing, booking.</li>
+      <li>A short summary travels with every handoff, so nobody asks again.</li>
+      <li>Specialists can have different tools and permissions.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="handoff" role="img" aria-label="A patient chat passes from a triage agent to a billing agent to an appointments agent, with a baton showing who is in charge"></svg>
+    <figcaption>Fig 12.2 One chat, three agents. The baton shows who is answering.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Is a team worth it">
+  <div class="txt">
+    <span class="tag">chapter 12 &middot; multi-agent teams</span>
+    <h2>Is a team <span class="hl">worth it</span>?</h2>
+    <p>Teams are expensive. Anthropic reported its multi-agent research system used about 15 times the tokens of a normal chat.</p>
+    <ul>
+      <li>Worth it when the work splits into independent reading tasks, too big for one notebook.</li>
+      <li>Not worth it when steps depend tightly on each other, or one agent with better tools would do.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="worth" role="img" aria-label="A balance weighs task value against team cost: for one coverage question cost wins, for a literature review value wins"></svg>
+    <figcaption>Fig 12.3 Weigh the value of the task against roughly 15 times the cost.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="A helper agent is just a tool">
+  <div class="txt">
+    <span class="tag">chapter 12 &middot; multi-agent teams</span>
+    <h2>A helper agent is <span class="hl">just a tool</span></h2>
+    <p>From the main agent's side, a helper looks like any other tool: question in, answer out.</p>
+    <ul>
+      <li>Inside, it runs its own loop with a fresh notebook.</li>
+      <li>It returns a short summary with sources.</li>
+      <li>The main agent's notebook stays clean (chapter 5).</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="subtool" role="img" aria-label="The main agent calls a research tool; inside the box a helper agent reads pages with its own notebook and returns a short cited summary"></svg>
+    <figcaption>Fig 12.4 Open the "research" tool and there is a whole agent inside.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 12">
+  <div class="txt">
+    <span class="tag">chapter 12 &middot; multi-agent teams</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="1" data-why="It is simple to reason about, keeps workers' notebooks clean, and covers most needs.">
+        <p>1. What do most real multi-agent systems look like?</p>
+        <div class="opts"><button class="opt" type="button">Dozens of agents chatting freely</button><button class="opt" type="button">One supervisor with 2 to 5 workers</button><button class="opt" type="button">Five levels of managers</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="When each step needs the last one's details, splitting the work adds cost and loses context.">
+        <p>2. When is a team of agents NOT worth it?</p>
+        <div class="opts"><button class="opt" type="button">When every step depends tightly on the one before</button><button class="opt" type="button">When work splits into independent reading tasks</button><button class="opt" type="button">When the material is too big for one notebook</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="A short structured summary lets the next agent carry on without asking the patient again.">
+        <p>3. In a handoff, what must travel with the patient?</p>
+        <div class="opts"><button class="opt" type="button">Nothing, the next agent starts fresh</button><button class="opt" type="button">Every raw message from every agent</button><button class="opt" type="button">A short summary of the conversation so far</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Hospitals hand patients over all day. Bad handovers repeat questions and lose details. Agent handoffs need the same discipline: a short, structured summary every time.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Start with one good agent. Add a second only when you can name the job it does that the first cannot.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Teams cover more ground but cost many times more. Prefer one supervisor with a few workers, hand over with a summary, and treat helpers as tools.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -2643,6 +2745,107 @@ D.writes=svg=>{
       setLines(p.list,list);p.list.setAttribute('fill',col);p.rg.setAttribute('opacity',flash?0.85:0);p.note.setAttribute('opacity',tt>(p.q?4.8:4.0)?1:0);});};
   render(8);
   anim(svg,t=>render(t%9));
+};
+
+/* ---------- chapter 12 ---------- */
+D.shapes=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  [[10,'supervisor'],[205,'teams of teams'],[400,'handoffs']].forEach(([x,t])=>{S.rect(x,36,190,326,{fill:'#ffffff',fillStyle:'solid',strokeWidth:1.8});S.text(x+95,22,t,{size:15,fill:C.teal});});
+  const SW=[[45,180,'search'],[105,180,'drugs'],[165,180,'rules']];
+  SW.forEach(([x,y])=>S.line(105,102,x,y-22,{strokeWidth:1.3}));S.rect(60,70,90,32,{fill:C.lteal,fillStyle:'solid'});S.text(105,86,'boss',{size:13});
+  SW.forEach(([x,y,l])=>{S.circle(x,y,46,{fill:C.lsky,fillStyle:'solid'});S.text(x,y,l,{size:10.5});});
+  S.text(105,318,'one boss routes,\nchecks and merges',{size:12,weight:400});
+  const TL=[[250,144,'team A'],[350,144,'team B']],HW=[[232,212,0],[268,212,0],[332,212,1],[368,212,1]];
+  TL.forEach(([x,y])=>S.line(300,92,x,y-14,{strokeWidth:1.3}));HW.forEach(([x,y,t])=>S.line(TL[t][0],TL[t][1]+14,x,y-15,{strokeWidth:1.3}));
+  S.rect(255,62,90,30,{fill:C.lteal,fillStyle:'solid'});S.text(300,77,'lead',{size:13});
+  TL.forEach(([x,y,l])=>{S.rect(x-35,y-14,70,28,{fill:C.lyel,fillStyle:'solid'});S.text(x,y,l,{size:12});});HW.forEach(([x,y])=>{S.circle(x,y,30,{fill:C.lsky,fillStyle:'solid'});S.text(x,y,'w',{size:11});});
+  S.text(300,318,'leads of leads,\nfor big jobs',{size:12,weight:400});
+  const HA=[[495,96,'triage'],[440,196,'billing'],[550,196,'booking']];
+  S.carrow(475,120,450,170,14);S.carrow(468,200,522,200,-14);
+  const hg=HA.map(([x,y])=>el('circle',{cx:x,cy:y,r:34,fill:'none',stroke:C.yel,'stroke-width':6,opacity:0},fx));
+  HA.forEach(([x,y,l])=>{S.circle(x,y,56,{fill:C.lmint,fillStyle:'solid'});S.text(x,y,l,{size:11.5});});
+  S.circle(495,268,22,{fill:'#f6e0c8',fillStyle:'solid'});S.line(495,279,495,300);S.text(495,312,'patient',{size:11,weight:400});
+  const link=el('line',{x1:495,y1:257,stroke:C.coral,'stroke-width':2.5,'stroke-dasharray':'5 5'},fx);
+  const baton=el('rect',{x:-14,y:-5,width:28,height:10,rx:3,fill:C.yel,stroke:C.ink,'stroke-width':2},fx);
+  S.text(495,340,'the active agent\npasses control',{size:12,weight:400});
+  S.text(300,396,'Most real systems: one supervisor with 2 to 5 workers.',{size:13,fill:C.teal});
+  const d1=SW.map(()=>dotEl(fx)),d2a=TL.map(()=>dotEl(fx)),d2b=HW.map(()=>dotEl(fx,5));
+  anim(svg,t=>{
+    const a=t%3.2;d1.forEach((d,i)=>{let p,op=1;if(a<0.2||a>2.3)op=0;else if(a<0.9)p=lerp2([105,102],[SW[i][0],SW[i][1]-22],ease((a-0.2)/0.7));else if(a<1.6)p=[SW[i][0],SW[i][1]-22];else p=lerp2([SW[i][0],SW[i][1]-22],[105,102],ease((a-1.6)/0.7));
+      if(p)moveDot(d,p,op);else d.setAttribute('opacity',0);d.setAttribute('fill',a>1.2?'#30a46c':C.coral);});
+    const b=t%3.6;d2a.forEach((d,i)=>{const u=(b-0.2)/0.6;if(u<0||u>1){d.setAttribute('opacity',0);return;}moveDot(d,lerp2([300,92],[TL[i][0],TL[i][1]-14],ease(u)));});
+    d2b.forEach((d,i)=>{const u=(b-0.9)/0.6;if(u<0||u>1.6){d.setAttribute('opacity',0);return;}const T=TL[HW[i][2]];moveDot(d,lerp2([T[0],T[1]+14],[HW[i][0],HW[i][1]-15],ease(Math.min(1,u))));});
+    const c=t%6,k=Math.floor(c/2),u=c%2,prev=(k+2)%3,m=ease(Math.min(1,u/0.5));
+    const bx=HA[prev][0]+(HA[k][0]-HA[prev][0])*m+30,by=HA[prev][1]+(HA[k][1]-HA[prev][1])*m-30;baton.setAttribute('transform',`translate(${bx.toFixed(1)} ${by.toFixed(1)}) rotate(-30)`);
+    hg.forEach((g,i)=>g.setAttribute('opacity',i===k&&u>0.5?1:0));link.setAttribute('x2',HA[k][0]);link.setAttribute('y2',HA[k][1]+28);link.setAttribute('opacity',u>0.5?1:0);
+  });
+};
+
+D.handoff=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.text(176,12,'one chat with the patient',{size:13,fill:C.teal});S.rect(16,24,320,384,{fill:'#ffffff',fillStyle:'solid'});
+  const AG=[['TRIAGE','sorts the request',C.lteal,60],['BILLING','explains the bill',C.lyel,175],['APPOINTMENTS','books the follow-up',C.lsky,290]];
+  const ag=AG.map(a=>{const y=a[3];S.rect(370,y,210,80,{fill:a[2],fillStyle:'solid'});S.text(475,y+28,a[0],{size:15});S.text(475,y+54,a[1],{size:12,weight:400});
+    return el('rect',{x:364,y:y-6,width:222,height:92,rx:12,fill:'none',stroke:C.yel,'stroke-width':6,opacity:0},fx);});
+  S.arrow(390,142,390,172);S.arrow(390,257,390,287);
+  const hl=[txt(fx,486,157,'handoff + summary',{anchor:'middle',size:12,fill:'#c0393d'}),txt(fx,486,272,'handoff + summary',{anchor:'middle',size:12,fill:'#c0393d'})];
+  const baton=el('rect',{x:-16,y:-6,width:32,height:12,rx:3,fill:C.yel,stroke:C.ink,'stroke-width':2},fx);
+  const B=[['p','I got a bill for my MRI, and I want\nto book a follow-up.',0.4],['a0','Triage: two things. Billing first,\nthen booking.',1.4],['a1','Billing: your plan covered 80%.\nYour share is 240 SAR.',3.0],
+    ['p','OK. And the follow-up?',4.2],['a1','Billing: passing you to bookings,\nwith a note of what we said.',5.0],['a2','Appointments: Dr. Noor, Tuesday\n10:00 or Wednesday 14:00?',6.4]];
+  const bub=B.map((b,i)=>{const y=36+i*61,pt=b[0]==='p',x=pt?28:76,f=pt?'#eef2f7':AG[+b[0][1]][2];const g=el('g',{},fx);const k=Sk(svg,g);k.rect(x,y,248,50,{fill:f,fillStyle:'solid',strokeWidth:1.5});k.text(x+124,y+25,b[1],{size:12.5});return{g,t:b[2]};});
+  const render=tt=>{const f=tt>10.6?0:1;bub.forEach(b=>b.g.setAttribute('opacity',tt>b.t?f:0));
+    const k=tt<2.2?0:(tt<5.6?1:2),prev=tt<2.2?0:(tt<5.6?0:1),st=tt<2.2?0:(tt<5.6?2.2:5.6),m=ease(clamp((tt-st)/0.5,0,1));
+    const y=AG[prev][3]+(AG[k][3]-AG[prev][3])*m;baton.setAttribute('transform',`translate(560 ${(y+16).toFixed(1)}) rotate(-25)`);
+    ag.forEach((g,i)=>g.setAttribute('opacity',i===k&&m>=1?1:0));hl[0].setAttribute('opacity',tt>2.2&&tt<3.2?1:0.3);hl[1].setAttribute('opacity',tt>5.6&&tt<6.6?1:0.3);};
+  render(10);
+  anim(svg,t=>render(t%11));
+};
+
+D.worth=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.path('M300 132 L282 178 L318 178 Z',{fill:C.lteal,fillStyle:'solid'});S.line(250,180,350,180,{strokeWidth:3});
+  const title=txt(fx,300,22,'',{anchor:'middle',size:15});const verdict=txt(fx,300,56,'',{anchor:'middle',size:16});
+  const beam=el('g',{},fx);el('line',{x1:-150,y1:0,x2:150,y2:0,stroke:C.ink,'stroke-width':5,'stroke-linecap':'round'},beam);el('circle',{r:6,fill:C.ink},beam);
+  const pan=(lab)=>{const g=el('g',{},fx);el('path',{d:'M0 0 L-42 56 M0 0 L42 56',stroke:C.ink,'stroke-width':1.6,fill:'none'},g);el('ellipse',{cx:0,cy:58,rx:56,ry:8,fill:'#e3e7ec',stroke:C.ink,'stroke-width':2},g);txt(g,0,80,lab,{anchor:'middle',size:12.5});return g;};
+  const L=pan('value of the task'),R=pan('team cost (about 15x)');
+  const blocks=[];for(let i=0;i<9;i++){const r=Math.floor(i/3),c=i%3;blocks.push(el('rect',{x:-40+c*27,y:34-r*17,width:25,height:15,rx:2,fill:'#7fd1a5',stroke:C.ink,'stroke-width':1.3},L));}
+  for(let s=0;s<3;s++)for(let j=0;j<5;j++)el('ellipse',{cx:-30+s*30,cy:47-j*8,rx:13,ry:5,fill:C.yel,stroke:C.ink,'stroke-width':1.2},R);
+  S.text(150,286,'worth it when',{size:14,fill:'#1f7a4f'});S.text(450,286,'avoid when',{size:14,fill:'#c0393d'});
+  ['- work splits into independent reading','- too much for one notebook','- specialists need different tools','- the value covers the cost'].forEach((l,i)=>S.text(30,310+i*22,l,{size:11.5,anchor:'start',weight:400}));
+  ['- steps depend tightly on each other','- everyone needs the same context','- many agents edit the same thing','- one agent with better tools would do'].forEach((l,i)=>S.text(322,310+i*22,l,{size:11.5,anchor:'start',weight:400}));
+  const CASES=[{t:'Task: answer one coverage question',n:1,a:10,v:'cost wins: one agent is enough',c:'#c0393d'},{t:'Task: literature review for a new sepsis protocol',n:9,a:-10,v:'value wins: a team is worth it',c:'#1f7a4f'}];
+  const render=(k,u)=>{const C0=CASES[k];title.textContent=C0.t;blocks.forEach((b,i)=>b.setAttribute('opacity',i<C0.n&&u>0.6+i*0.1?1:0));
+    const a=rad(C0.a*ease(clamp((u-1.8)/0.8,0,1)));beam.setAttribute('transform',`translate(300 132) rotate(${(a*180/Math.PI).toFixed(2)})`);
+    L.setAttribute('transform',`translate(${(300-150*Math.cos(a)).toFixed(1)} ${(132-150*Math.sin(a)).toFixed(1)})`);R.setAttribute('transform',`translate(${(300+150*Math.cos(a)).toFixed(1)} ${(132+150*Math.sin(a)).toFixed(1)})`);
+    verdict.textContent=u>2.8?C0.v:'';verdict.setAttribute('fill',C0.c);};
+  render(1,4);
+  anim(svg,t=>{const k=Math.floor(t/4.6)%2;render(k,t%4.6);});
+};
+
+D.subtool=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  robot(S.group(90,50,0.4));S.text(90,146,'main agent',{size:14});
+  S.rect(20,170,200,130,{fill:'#ffffff',fillStyle:'solid'});S.text(120,188,'its tools',{size:13,fill:C.teal});
+  S.rect(28,234,184,28,{fill:C.lyel,fillStyle:'solid',strokeWidth:1.2});
+  [['search_policy()',218],['research(question)',248],['write_report()',278]].forEach(([l,y])=>S.text(36,y,l,{size:13,anchor:'start'}));
+  S.text(443,46,'inside research( )',{size:14});S.rect(300,60,286,270,{fill:'#f6f1e7',fillStyle:'solid'});
+  robot(S.group(370,112,0.3));S.text(370,236,'its own loop',{size:11.5,weight:400});
+  S.path('M440 120 L440 220 L500 220 L500 120',{strokeWidth:2.4});S.text(470,236,'own notebook',{size:11.5,weight:400});
+  S.text(545,96,'guidelines,\njournals',{size:11.5,weight:400});
+  const jf=el('rect',{x:443,width:54,fill:C.lcoral,stroke:C.ink,'stroke-width':1},fx);
+  const lid=el('rect',{x:296,y:52,width:294,height:14,rx:3,fill:'#cdb48d',stroke:C.ink,'stroke-width':2.4},fx);
+  const pages=[0,1,2].map(()=>el('rect',{x:-9,y:-12,width:18,height:24,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':1.5,opacity:0},fx));
+  const q=card(svg,fx,190,40,C.lsky,'question: latest guidance\non sepsis fluids?',12);
+  const sm=card(svg,fx,160,44,C.lmint,'cited summary,\nunder 300 words',12.5);
+  S.text(300,396,'fresh notebook in, short summary out',{size:13.5,fill:C.teal});
+  const render=tt=>{
+    if(tt<0.4)q.setAttribute('opacity',0);else if(tt<1.4){const p=lerp2([120,248],[443,290],ease((tt-0.4)/1.0));at(q,p[0],p[1],1,1);}else at(q,443,290,1,tt<1.9?1:0);
+    const lo=tt>1.2&&tt<6.8?ease(clamp((tt-1.2)/0.4,0,1)):0;lid.setAttribute('transform',`rotate(${(-22*lo).toFixed(1)} 296 59)`);
+    const f=0.85*clamp((tt-1.8)/3.0,0,1)*(tt<9?1:0);jf.setAttribute('y',(218-96*f).toFixed(1));jf.setAttribute('height',(96*f).toFixed(1));
+    pages.forEach((pg,i)=>{const u=(tt-2.0-i*0.8)/0.8;if(u<0||u>1){pg.setAttribute('opacity',0);return;}const p=lerp2([560,120],[470,150],ease(u));pg.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) rotate(${(u*160).toFixed(0)})`);pg.setAttribute('opacity',1);});
+    if(tt<5.0)sm.setAttribute('opacity',0);else if(tt<5.6)at(sm,443,290,1,1);else if(tt<6.6){const p=lerp2([443,290],[120,345],ease((tt-5.6)/1.0));at(sm,p[0],p[1],1,1);}else at(sm,120,345,1,tt<9.2?1:0);};
+  render(8);
+  anim(svg,t=>render(t%9.6));
 };
 
 /* draw-on effect for sketch strokes */
