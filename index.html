@@ -18,7 +18,7 @@
 /* Layout: a horizontal notebook of landscape pages; text left (38) and a moving sketch right (62); pages stack on phones. Light paper look only, by design. */
 :root{
   --desk:#e9edf1; --paper:#ffffff; --dot:#cfd6dd;
-  --ink:#23272f; --muted:#5b6472;
+  --ink:#23272f; --muted:#5b6472; --pen:#1f3c9e;
   --teal:#0f9d9a; --coral:#f25f5c; --yel:#ffd23f; --sky:#4d96ff;
   --l-teal:#c9f0ee; --l-yel:#fff1a8; --l-coral:#ffd3d2; --l-sky:#d6e6ff; --l-mint:#d8f5e9;
   --hand:"Kalam","Comic Sans MS","Segoe Print",cursive;
@@ -27,7 +27,7 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
-body{background:var(--desk);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+body{background:var(--desk);color:var(--pen);font-family:var(--hand);font-size:17.5px;line-height:1.55;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--desk)}
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px;background:var(--desk)}
@@ -51,7 +51,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .txt,.fig{min-width:0}
 .pno{position:absolute;right:20px;bottom:10px;font-family:var(--hand);color:var(--muted);font-size:15px}
 
-h1,h2,h3{font-family:var(--hand);font-weight:700;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:var(--hand);font-weight:700;margin:0;text-wrap:balance;color:var(--ink)}
+.brand,.btn,#count,.tbl th,.sticky strong,.remember strong,.q p{color:var(--ink)}
+.cred,.fb{color:var(--pen);opacity:.85}
 h1{font-size:clamp(42px,6vw,68px);line-height:1.02}
 h2{font-size:clamp(28px,3.3vw,40px);line-height:1.1;margin-block:10px 14px}
 h3{font-size:22px;line-height:1.2;margin-bottom:6px}
