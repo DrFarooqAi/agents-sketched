@@ -1229,6 +1229,111 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 10: CHAINS AND ROUTERS ===== -->
+<section class="page" aria-label="A chain: small steps, checks between">
+  <div class="txt">
+    <span class="tag">chapter 10 &middot; chains and routers</span>
+    <h2>A chain: small steps, <span class="hl">checks between</span></h2>
+    <p>Many "agent" jobs are really a fixed recipe. Split it into steps, and let code check the work between them.</p>
+    <ul>
+      <li>Each step is one narrow model call with its own prompt.</li>
+      <li>Code gates catch problems early: missing fields, bad codes, too long.</li>
+      <li>A failed gate re-runs only that one step.</li>
+    </ul>
+    <div class="sticky"><strong>Cheap and testable</strong>Each step can be tested on its own, and each can use the cheapest model that does the job.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="chain" role="img" aria-label="A scanned claim passes through extract, a code check, draft and another check, then format; the first check fails once and the extract step re-runs"></svg>
+    <figcaption>Fig 10.1 The first check catches a missing member id, so only step 1 runs again.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="A router sends each message to the right desk">
+  <div class="txt">
+    <span class="tag">chapter 10 &middot; chains and routers</span>
+    <h2>A router sends each message to the <span class="hl">right desk</span></h2>
+    <p>Sort first, then hand over to the handler that fits.</p>
+    <ul>
+      <li>Simple booking questions go to a cheap bot.</li>
+      <li>Money questions go to the billing FAQ.</li>
+      <li>Refills go to a workflow with a pharmacist's OK.</li>
+      <li>Anything urgent or clinical goes straight to a nurse.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="router" role="img" aria-label="Five patient messages go through a sorter to five desks: appointments, billing, refills, urgent nurse and front desk for unclear ones"></svg>
+    <figcaption>Fig 10.2 Five messages, five desks. The urgent one reaches a nurse.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Not sure? Send it to a person">
+  <div class="txt">
+    <span class="tag">chapter 10 &middot; chains and routers</span>
+    <h2>Not sure? Send it to a <span class="hl">person</span></h2>
+    <p>A router should say how sure it is. Below a set level, the message goes to a human.</p>
+    <ul>
+      <li>0.7 is a common starting point. Tune it on real messages.</li>
+      <li>Route by risk too: clinical words always reach a person.</li>
+      <li>Log every decision. How often the router is right is something you measure (Part 6).</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="confidence" role="img" aria-label="Confidence bars for five messages; those above the 0.7 line are routed automatically, those below go to a person"></svg>
+    <figcaption>Fig 10.3 Above the line: handled automatically. Below it: a person decides.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Three ways to sort">
+  <div class="txt">
+    <span class="tag">chapter 10 &middot; chains and routers</span>
+    <h2>Three ways to <span class="hl">sort</span></h2>
+    <ul>
+      <li><b>Keyword rules</b>: instant, but miss anything phrased differently.</li>
+      <li><b>A small trained classifier</b>: fast, but needs many labelled examples.</li>
+      <li><b>A small language model</b>: slower, but understands fuzzy wording.</li>
+    </ul>
+    <div class="sticky"><strong>Mix them</strong>Rules catch the obvious cases for free. The model handles the rest.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="sorters" role="img" aria-label="Three sorters race on the message 'my chest feels tight when I walk': rules miss it, a classifier is unsure, a small language model flags it as urgent"></svg>
+    <figcaption>Fig 10.4 Same message, three sorters. Speed is not everything.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 10">
+  <div class="txt">
+    <span class="tag">chapter 10 &middot; chains and routers</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="0" data-why="The steps never change, so a chain with code checks between them is cheaper and easier to test than a free agent.">
+        <p>1. Claim forms always go: extract, check, summarise, format. Which pattern fits?</p>
+        <div class="opts"><button class="opt" type="button">A chain with checks between steps</button><button class="opt" type="button">A free-roaming agent</button><button class="opt" type="button">Many agents talking to each other</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="Below the threshold, never force a guess. The unsure route sends it to a person.">
+        <p>2. The router is only 55% sure where a message belongs. What should happen?</p>
+        <div class="opts"><button class="opt" type="button">Use its best guess anyway</button><button class="opt" type="button">Ask the patient to rephrase</button><button class="opt" type="button">Send it to a person</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="Rules handle the obvious, a model understands wording the rules never anticipated.">
+        <p>3. Keyword rules missed "my chest feels tight". What is the best fix?</p>
+        <div class="opts"><button class="opt" type="button">Add more and more keywords</button><button class="opt" type="button">Rules first, then a small model for anything they do not match</button><button class="opt" type="button">Remove routing altogether</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Every hospital already runs a router: the triage desk. Copy its golden rule. When in doubt, escalate.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Anything that sounds clinical or urgent goes to a person first, even if it costs a little speed.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Before building a free agent, try a chain (fixed steps with checks) or a router (sort, then the right desk). Always keep an "unsure" route.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -2223,6 +2328,94 @@ D.replay=svg=>{
     p.ag.setAttribute('opacity',tt>2.8?f:0);p.vg.setAttribute('opacity',tt>3.8?f:0);p.hl.setAttribute('opacity',!p.ok&&tt>3.8?f:0);});};
   render(7);
   anim(svg,t=>render(t%8.5));
+};
+
+/* ---------- chapter 10 ---------- */
+D.chain=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const BX=[{x:80,t:'1. EXTRACT',s:'fields from\nthe scan'},{x:300,t:'2. DRAFT',s:'a short\nsummary'},{x:510,t:'3. FORMAT',s:'for the\ninsurer'}],GX=[190,405];
+  S.line(138,125,172,125);S.line(208,125,242,125);S.line(358,125,387,125);S.line(423,125,452,125);
+  const bg=BX.map(b=>el('rect',{x:b.x-64,y:84,width:128,height:82,rx:12,fill:C.yel,opacity:0},glow));
+  BX.forEach(b=>{S.rect(b.x-58,90,116,70,{fill:C.lteal,fillStyle:'solid'});S.text(b.x,107,b.t,{size:14});S.text(b.x,138,b.s,{size:11.5,weight:400});});
+  const gd=GX.map(g=>{S.path(`M${g} 105 L${g+18} 125 L${g} 145 L${g-18} 125 Z`,{fill:'#ffffff',fillStyle:'solid'});S.text(g,64,'code\ncheck',{size:11});
+    return el('path',{d:`M${g} 109 L${g+14} 125 L${g} 141 L${g-14} 125 Z`,fill:'#30a46c',opacity:0},fx);});
+  S.path('M190 146 Q190 205 135 205 L95 205 Q72 205 76 164',{stroke:C.coral,strokeLineDash:[6,5]});S.text(135,224,'fail: redo step 1 only',{size:12,fill:'#c0393d'});
+  const ft=txt(fx,190,30,'missing member id!',{anchor:'middle',size:13.5,fill:'#c0393d'});
+  const doc=el('g',{},fx);el('rect',{x:-12,y:-15,width:24,height:30,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':2},doc);[-6,0,6].forEach(d=>el('line',{x1:-7,y1:d,x2:7,y2:d,stroke:C.ink,'stroke-width':1.4},doc));
+  S.rect(110,252,380,140,{fill:'#ffffff',fillStyle:'solid'});S.text(300,272,'the claim so far',{size:13,fill:C.teal});
+  const cg=el('g',{},fx);const ct=Sk(svg,cg).text(300,326,'',{size:14});
+  const V=['(nothing yet)','member id: (missing)\ncpt 72148, lumbar MRI\nscan date: 3 Nov','member id: M-1043\ncpt 72148, lumbar MRI\nscan date: 3 Nov','M-1043, lumbar MRI (72148)\nroutine, 6 weeks of physio,\nno red flags','insurer form v2: complete\nready to submit'];
+  const VC=[C.muted,'#c0393d',C.ink,C.ink,'#1f7a4f'];
+  const SEG=[[0,1.0,[[20,125],[80,125]]],[1.6,2.4,[[80,125],[190,125]]],[3.0,4.0,[[190,146],[190,200],[80,200],[80,125]]],[4.6,5.4,[[80,125],[190,125]]],[5.4,6.2,[[190,125],[300,125]]],[6.8,7.6,[[300,125],[405,125]]],[7.6,8.4,[[405,125],[510,125]]]].map(s=>({a:s[0],b:s[1],f:track(s[2]),end:s[2][s[2].length-1]}));
+  let shown=-1;
+  const render=tt=>{let p=[20,125];for(const s of SEG){if(tt>=s.b)p=s.end;else if(tt>=s.a){p=s.f(ease((tt-s.a)/(s.b-s.a)));break;}else break;}
+    doc.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);doc.setAttribute('opacity',tt>=8.9?0:1);
+    const v=tt>=9.0?4:tt>=6.8?3:tt>=4.6?2:tt>=1.6?1:0;if(v!==shown){shown=v;setLines(ct,V[v]);ct.setAttribute('fill',VC[v]);}
+    bg[0].setAttribute('opacity',(tt>1.0&&tt<1.6)||(tt>4.0&&tt<4.6)?0.85:0);bg[1].setAttribute('opacity',tt>6.2&&tt<6.8?0.85:0);bg[2].setAttribute('opacity',tt>8.4&&tt<9.0?0.85:0);
+    gd[0].setAttribute('fill',tt<3.0?'#e5484d':'#30a46c');gd[0].setAttribute('opacity',(tt>2.4&&tt<3.0)||tt>5.4?1:0);gd[1].setAttribute('opacity',tt>7.6?1:0);
+    ft.setAttribute('opacity',tt>2.4&&tt<3.6?1:0);};
+  render(11);
+  anim(svg,t=>render(t%12));
+};
+
+D.router=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const DK=[['Appointments bot','cheap model',C.lsky],['Billing FAQ','answers from the price list',C.lyel],['Refill workflow',"pharmacist must OK",C.lmint],['Nurse, urgent','a person, right now',C.lcoral],['Front desk','unclear: a person sorts it','#eceff3']];
+  const DY=DK.map((d,k)=>30+k*76);
+  DY.forEach(y=>S.line(292,215,358,y+31,{strokeLineDash:[5,6],stroke:C.muted,strokeWidth:1.3,roughness:0.5}));
+  const dg=DY.map(y=>el('rect',{x:354,y:y-5,width:242,height:72,rx:12,fill:C.yel,opacity:0},glow));
+  const cnt=DK.map((d,k)=>{const y=DY[k];S.rect(360,y,230,62,{fill:d[2],fillStyle:'solid'});S.text(470,y+22,d[0],{size:14});S.text(470,y+44,d[1],{size:11.5,weight:400});
+    el('circle',{cx:580,cy:y+4,r:12,fill:'#fff',stroke:C.ink,'stroke-width':2},fx);return txt(fx,580,y+5,'0',{anchor:'middle',size:12});});
+  S.rect(20,170,110,90,{fill:'#ffffff',fillStyle:'solid'});S.text(75,200,'patient\nmessages',{size:13});
+  const sg=el('rect',{x:164,y:169,width:132,height:92,rx:12,fill:C.yel,opacity:0},glow);
+  S.rect(170,175,120,80,{fill:C.lteal,fillStyle:'solid'});S.text(230,205,'SORTER',{size:15});S.text(230,230,'small model',{size:11.5,weight:400});
+  S.rect(20,40,320,62,{fill:'#ffffff',fillStyle:'solid'});const mt=txt(fx,180,71,'',{anchor:'middle',size:13.5});
+  S.text(170,330,'each desk uses the cheapest\nhandler that does the job',{size:13,weight:400});
+  const tok=el('g',{},fx);const tr=el('rect',{x:-13,y:-9,width:26,height:18,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':2},tok);el('path',{d:'M-13 -9 L0 2 L13 -9',fill:'none',stroke:C.ink,'stroke-width':1.6},tok);
+  const M=[['"Can I move my Tuesday appointment?"',0],['"Why was I charged 300 SAR?"',1],['"I need a refill of metformin."',2],['"My chest feels tight when I walk."',3],['"hello??"',4]];
+  const render=tt=>{const k=Math.min(4,Math.floor(tt/2.2)),u=tt-k*2.2,m=M[k],d=m[1],urgent=d===3;
+    if(tt>=11){mt.textContent='5 messages sorted';mt.setAttribute('fill','#1f7a4f');}else{mt.textContent=m[0];mt.setAttribute('fill',urgent?'#c0393d':C.ink);}
+    let p,op=1;if(tt>=11)op=0;else if(u<0.4)p=[75,215];else if(u<1.0)p=lerp2([75,215],[230,215],ease((u-0.4)/0.6));else if(u<1.3)p=[230,215];else if(u<2.0)p=lerp2([230,215],[470,DY[d]+31],ease((u-1.3)/0.7));else op=0;
+    if(p)tok.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);tok.setAttribute('opacity',op);tr.setAttribute('fill',urgent?C.lcoral:'#fff');
+    sg.setAttribute('opacity',tt<11&&u>1.0&&u<1.4?0.85:0);
+    dg.forEach((g,i)=>{g.setAttribute('opacity',tt<11&&i===d&&u>1.9?0.85:0);g.setAttribute('fill',i===3?'#ffb3b1':C.yel);});
+    cnt.forEach((c,i)=>{let n=0;M.forEach((mm,j)=>{if(mm[1]===i&&(j<k||(j===k&&u>=2.0)||tt>=11))n++;});c.textContent=String(n);});};
+  render(12);
+  anim(svg,t=>render(t%12.5));
+};
+
+D.confidence=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const R=[['"move my appointment"',0.95,'auto: appointments'],['"was I charged twice?"',0.82,'auto: billing'],['"my sugar reading is 300"',0.55,'to a person'],['"can my son collect my results?"',0.48,'to a person'],['"refill metformin, please"',0.90,'auto: refills']];
+  const X0=300,W=260,TH=X0+0.7*W;
+  S.text(300,20,'how sure is the router?',{size:15,fill:C.teal});
+  S.line(TH,44,TH,372,{strokeLineDash:[7,6],stroke:C.coral,roughness:0.5});S.text(TH,40,'0.7',{size:13,fill:'#c0393d'});
+  S.text(X0,386,'0',{size:12,weight:400});S.text(X0+W,386,'1',{size:12,weight:400});
+  const rows=R.map((r,i)=>{const y=80+i*60;S.text(288,y,r[0],{size:13,anchor:'end'});el('rect',{x:X0,y:y-11,width:W,height:22,rx:4,fill:'#f1f3f6',stroke:C.ink,'stroke-width':1.6},back);
+    const b=el('rect',{x:X0,y:y-11,height:22,rx:4,fill:r[1]>=0.7?'#7fd1a5':'#ffd97a'},fx);const v=txt(fx,X0+6,y+1,'',{size:12});
+    const t=txt(fx,X0,y+26,r[2],{size:12,fill:r[1]>=0.7?'#1f7a4f':'#a37b00'});return{b,v,t,c:r[1]};});
+  S.text(300,408,'Always keep an "unsure" route. Never force a guess.',{size:13,fill:C.teal});
+  const render=tt=>{const f=tt>9.1?0:1;rows.forEach((r,i)=>{const s=0.4+i*1.4,p=ease(clamp((tt-s)/0.8,0,1))*f;r.b.setAttribute('width',(W*r.c*p).toFixed(1));
+    r.v.textContent=p>0?(r.c*p).toFixed(2):'';r.t.setAttribute('opacity',tt>s+0.9?f:0);});};
+  render(8.5);
+  anim(svg,t=>render(t%9.5));
+};
+
+D.sorters=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.rect(100,10,400,36,{fill:C.lyel,fillStyle:'solid'});S.text(300,28,'"My chest feels tight when I walk."',{size:14});
+  const L=[{n:'keyword rules',ms:0,d:0.25,r:'no keyword matched:\ngeneral queue',c:'#c0393d',f:C.lcoral,m:CROSS},
+    {n:'small classifier',ms:12,d:0.7,r:'"cardiac?" 0.62:\nunsure, to a person',c:'#a37b00',f:C.lyel,m:null},
+    {n:'small language model',ms:400,d:2.2,r:'possible chest pain:\nURGENT, nurse now',c:'#1f7a4f',f:C.lmint,m:TICK}];
+  L.forEach((l,k)=>{const y=110+k*110;S.rect(20,y-34,156,68,{fill:'#ffffff',fillStyle:'solid'});S.text(98,y-11,l.n,{size:14});
+    l.sw=txt(fx,98,y+16,'',{anchor:'middle',size:13,fill:C.muted});
+    el('rect',{x:192,y:y-10,width:180,height:20,rx:4,fill:'#f1f3f6',stroke:C.ink,'stroke-width':1.6},back);l.bar=el('rect',{x:192,y:y-10,height:20,rx:4,fill:C.teal},fx);
+    l.g=el('g',{},fx);const k2=Sk(svg,l.g);k2.rect(390,y-34,196,68,{fill:l.f,fillStyle:'solid'});k2.text(488,y,l.r,{size:12.5,fill:l.c});});
+  S.text(300,402,'Rules for the obvious, a model for the fuzzy. Many teams use both.',{size:13,fill:C.teal});
+  const render=tt=>{const f=tt>7.1?0:1;L.forEach(l=>{const p=clamp((tt-0.5)/l.d,0,1);l.bar.setAttribute('width',(180*p*f).toFixed(1));
+    l.sw.textContent='time: '+Math.round(l.ms*p)+' ms';l.g.setAttribute('opacity',p>=1?f:0);});};
+  render(6.5);
+  anim(svg,t=>render(t%7.5));
 };
 
 /* draw-on effect for sketch strokes */
