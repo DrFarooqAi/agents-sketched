@@ -30,6 +30,7 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 - Chapter 20: Guardrails and security (live)
 - Chapter 21: Cost and speed (live)
 - Chapter 22: Why agents fail (live)
+- Chapter 23: Launch checklist (live)
 - More chapters are added as the series continues.
 
 ---

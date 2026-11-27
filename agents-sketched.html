@@ -2620,6 +2620,110 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 23: LAUNCH CHECKLIST ===== -->
+<section class="page" aria-label="Roll out in small steps">
+  <div class="txt">
+    <span class="tag">chapter 23 &middot; launch checklist</span>
+    <h2>Roll out in <span class="hl">small steps</span></h2>
+    <p>Never switch an agent on for everyone at once.</p>
+    <ul>
+      <li><b>Shadow</b>: it works silently while staff decide. Compare the answers.</li>
+      <li><b>Assist</b>: it suggests; people approve every action.</li>
+      <li><b>Limited</b>: a small share of easy cases goes live.</li>
+      <li><b>Wider</b>: more case types, reviewed every week.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="rollout" role="img" aria-label="A robot travels along a road through four stages, shadow, assist, limited and wider, passing a check gate before each one"></svg>
+    <figcaption>Fig 23.1 Four stages, three gates. The thresholds are examples.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="A run is a job, not a request">
+  <div class="txt">
+    <span class="tag">chapter 23 &middot; launch checklist</span>
+    <h2>A run is a <span class="hl">job</span>, not a request</h2>
+    <p>Agent runs can take minutes, pause for approval, or outlive a software update.</p>
+    <ul>
+      <li>Runs wait in a queue; workers pick them up.</li>
+      <li>Each run gets its own sandbox, cleared afterwards.</li>
+      <li>Progress streams back. Paused runs wait in an approvals inbox.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="jobs" role="img" aria-label="Runs flow from the app through an API and a queue to workers and sandboxes; progress flows back, one run waits in the approvals inbox"></svg>
+    <figcaption>Fig 23.2 The request only starts the run. Everything after that is updates.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="The launch checklist">
+  <div class="txt">
+    <span class="tag">chapter 23 &middot; launch checklist</span>
+    <h2>The <span class="hl">launch checklist</span></h2>
+    <p>Tick every box before an agent acts for real patients.</p>
+    <ul>
+      <li>Four groups: design, safety, quality and operations.</li>
+      <li>Missing one box? The launch waits.</li>
+      <li>Most boxes point back to a chapter in this book.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="checklist" role="img" aria-label="Sixteen checklist items in four groups are ticked one by one, then a ready to launch stamp appears"></svg>
+    <figcaption>Fig 23.3 Sixteen ticks, then the stamp.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Version tags and a kill switch">
+  <div class="txt">
+    <span class="tag">chapter 23 &middot; launch checklist</span>
+    <h2>Version tags and a <span class="hl">kill switch</span></h2>
+    <p>Record exactly what each run used, and keep a way to stop everything in seconds.</p>
+    <ul>
+      <li>Store the model, prompt, tools and runtime version on every run.</li>
+      <li>One button stops new runs and cancels active ones, per agent and per site.</li>
+      <li>Rolling back to the last good version should take one step.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="killswitch" role="img" aria-label="Five runs on version 1.4 are running; the red stop button is pressed, they are cancelled, and runs restart on version 1.3"></svg>
+    <figcaption>Fig 23.4 A bad release, one button, back on the last good version.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 23">
+  <div class="txt">
+    <span class="tag">chapter 23 &middot; launch checklist</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="0" data-why="In shadow mode the agent works silently while staff decide, so you can compare answers with no risk to patients.">
+        <p>1. What is the first stage of a hospital rollout?</p>
+        <div class="opts"><button class="opt" type="button">Shadow: it works silently, staff decide</button><button class="opt" type="button">Everyone at once, to save time</button><button class="opt" type="button">Only the hardest cases first</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="The run is paused, not dead: its state is saved and it waits in the approvals inbox until the decision arrives.">
+        <p>2. A run needs a doctor's approval overnight. Where does it wait?</p>
+        <div class="opts"><button class="opt" type="button">In an open browser tab</button><button class="opt" type="button">It is cancelled and restarted tomorrow</button><button class="opt" type="button">Paused in the approvals inbox, with its state saved</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="Stop the harm first, then roll back to the last good version and investigate.">
+        <p>3. A new release starts sending wrong letters. What is the first move?</p>
+        <div class="opts"><button class="opt" type="button">Wait for the weekly review</button><button class="opt" type="button">Press the kill switch and roll back</button><button class="opt" type="button">Ask the model to be more careful</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">New clinical protocols go live on a pilot ward first. Agents should too: one ward, one claim type, one month.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Before launch, name the person who can press the kill switch at 3 am.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Roll out in steps, run agents as jobs, tick every box on the checklist, and keep version tags and a kill switch ready.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -4655,6 +4759,85 @@ D.readlogs=svg=>{
   const render=tt=>{const f=tt>8.6?0:1;hl.forEach((h,i)=>h.setAttribute('opacity',tt>1.0+i*1.6?0.8*f:0));fd.forEach((g,i)=>g.setAttribute('opacity',tt>1.4+i*1.6?f:0));};
   render(8);
   anim(svg,t=>render(t%9));
+};
+
+/* ---------- chapter 23 ---------- */
+D.rollout=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.line(30,180,575,180,{strokeWidth:5});
+  const SG=[[90,'SHADOW','works silently;\nstaff decide',C.lsky],[230,'ASSIST','suggests; people\napprove each step',C.lyel],[370,'LIMITED','10% of easy\ncases go live',C.lmint],[510,'WIDER','more case types,\nreviewed weekly',C.lteal]];
+  const cg=SG.map(([x,t,s,f])=>{S.rect(x-64,215,128,110,{fill:f,fillStyle:'solid'});S.text(x,238,t,{size:15});S.text(x,282,s,{size:11.5,weight:400});return el('rect',{x:x-68,y:211,width:136,height:118,rx:12,fill:'none',stroke:C.coral,'stroke-width':4,opacity:0},fx);});
+  const GT=[[160,'agrees with staff\n95% of the time?'],[300,'no safety issues\nfor 4 weeks?'],[440,'test set still\npassing?']];
+  const lights=GT.map(([g,q])=>{S.rect(g-64,50,128,58,{fill:'#ffffff',fillStyle:'solid'});S.text(g,79,q,{size:11.5});S.line(g-14,128,g-14,180,{strokeWidth:2.4});S.line(g+14,128,g+14,180,{strokeWidth:2.4});S.line(g-20,128,g+20,128,{strokeWidth:2.4});
+    return el('circle',{cx:g,cy:142,r:8,fill:'#c3cad3',stroke:C.ink,'stroke-width':1.8},fx);});
+  const rb=el('g',{},fx);robot(Sk(svg,el('g',{transform:'scale(0.16)'},rb)));
+  S.text(300,396,'Thresholds are examples: set your own with your clinical team.',{size:13,fill:C.teal});
+  const SEG=[[0,1.2,40,146],[2.0,3.2,154,286],[4.0,5.2,314,426],[6.0,7.0,454,540]];
+  const render=tt=>{let x=40;for(const s of SEG){if(tt>=s[1])x=s[3];else if(tt>=s[0]){x=s[2]+(s[3]-s[2])*ease((tt-s[0])/(s[1]-s[0]));break;}else break;}
+    rb.setAttribute('transform',`translate(${x.toFixed(1)} ${(178-212*0.16).toFixed(1)})`);
+    lights.forEach((l,i)=>l.setAttribute('fill',tt>1.8+i*2.0&&tt<8.6?'#30a46c':'#c3cad3'));
+    const st=x<150?0:x<290?1:x<430?2:3;cg.forEach((g,i)=>g.setAttribute('opacity',i===st&&tt<8.6?1:0));};
+  render(7.5);
+  anim(svg,t=>render(t%9));
+};
+
+D.jobs=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const BX=[['your app',20,90,C.lsky],['API',130,80,'#ffffff'],['queue',230,100,C.lyel],['workers',350,100,C.lteal],['sandbox\n(one per run)',470,110,C.lmint]];
+  BX.forEach(([t,x,w,f],i)=>{S.rect(x,145,w,70,{fill:f,fillStyle:'solid'});S.text(x+w/2,t.includes('\n')?170:166,t,{size:t.includes('\n')?12:13});if(i)S.arrow(BX[i-1][1]+BX[i-1][2]+2,180,x-2,180,{stroke:C.muted});});
+  S.path('M525 143 L525 112 L65 112 L65 141',{strokeLineDash:[6,5],stroke:C.teal,strokeWidth:2});S.text(300,100,'progress updates stream back',{size:12.5,fill:C.teal});
+  S.rect(200,282,170,62,{fill:C.lyel,fillStyle:'solid'});S.text(285,302,'approvals inbox',{size:13.5});S.text(285,324,'paused runs wait here',{size:11.5,weight:400});
+  S.ellipse(450,292,90,18,{fill:C.lteal,fillStyle:'solid'});S.line(405,292,405,334);S.line(495,292,495,334);S.path('M405 334 Q450 350 495 334');S.text(450,318,'saved state',{size:12});
+  const btn=el('g',{},fx);el('circle',{cx:545,cy:312,r:30,fill:'#e5484d',stroke:C.ink,'stroke-width':2.5},btn);txt(btn,545,313,'STOP',{anchor:'middle',size:14,fill:'#fff'});txt(back,545,362,'kill switch',{anchor:'middle',size:12.5});
+  const ring=el('circle',{cx:545,cy:312,r:30,fill:'none',stroke:'#e5484d','stroke-width':3,opacity:0},fx);
+  const ban=txt(fx,300,30,'',{anchor:'middle',size:14.5,fill:'#c0393d'});
+  const R=[0,1,2].map(i=>{const g=el('g',{},fx);const r=el('rect',{x:-13,y:-11,width:26,height:22,rx:3,fill:'#fff',stroke:C.ink,'stroke-width':1.8},g);txt(g,0,1,'R'+(i+1),{anchor:'middle',size:11});return{g,r};});
+  const P=[[65,199],[170,199],[280,199],[400,199],[525,199]];const pr=dotEl(fx,5,C.teal);
+  const render=tt=>{const kill=tt>6.4&&tt<9.0;
+    R.forEach((o,i)=>{const s=0.3+i*0.9;let p;if(i===1){const u=clamp((tt-s)/2.0,0,1);p=u<0.75?track(P.slice(0,4))(u/0.75):lerp2(P[3],[285,268],ease((u-0.75)/0.25));}else p=track(P)(clamp((tt-s)/2.6,0,1));
+      o.g.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);o.g.setAttribute('opacity',tt<s||tt>9.0?0:(kill?Math.max(0,1-(tt-6.4)/0.6):1));o.r.setAttribute('fill',kill?C.lcoral:'#fff');});
+    const pu=(tt%1.6)/1.6;moveDot(pr,track([[525,143],[525,112],[65,112],[65,141]])(pu),tt>1.5&&!kill&&tt<6.4?1:0);
+    ring.setAttribute('opacity',kill&&tt<7.4?1:0);ring.setAttribute('r',kill?(30+(tt-6.4)*24).toFixed(1):30);btn.setAttribute('transform',kill&&tt<6.7?'translate(545 312) scale(0.9) translate(-545 -312)':'');
+    ban.textContent=kill?'kill switch pressed: every run stopped in seconds':(tt>3.4&&tt<6.4?'R2 paused: waiting for a doctor\'s approval':'');ban.setAttribute('fill',kill?'#c0393d':C.teal);};
+  render(5);
+  anim(svg,t=>render(t%9.6));
+};
+
+D.checklist=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const G=[['DESIGN',C.lsky,['simplest pattern that passes tests','tools named, described, tested','clear stop rules and a step cap','plan and state saved every step']],
+    ['SAFETY',C.lcoral,['least-privilege tool access','sandboxed files and network','human approval for irreversible acts','lethal trifecta broken by design']],
+    ['QUALITY',C.lyel,['real test set with pass / fail','path and tool-call checks','pass^k measured, not one lucky run','tests gate every release']],
+    ['OPERATIONS',C.lmint,['every step traced, with cost','token, money and time caps','retries, keys, resume after a crash','kill switch and an on-call plan']]];
+  const P=[[12,10],[304,10],[12,208],[304,208]];const ticks=[];
+  G.forEach(([t,f,items],g)=>{const[x,y]=P[g];S.rect(x,y,284,190,{fill:f,fillStyle:'solid'});S.text(x+142,y+22,t,{size:15});
+    items.forEach((it,i)=>{const yy=y+56+i*34;el('rect',{x:x+14,y:yy-9,width:18,height:18,rx:3,fill:'#fff',stroke:C.ink,'stroke-width':1.8},back);txt(back,x+40,yy,it,{size:12});ticks.push(mark(fx,x+23,yy,TICK,'#1f7a4f'));});});
+  const st=el('g',{transform:'rotate(-10 300 200)'},fx);el('rect',{x:150,y:168,width:300,height:64,rx:10,fill:'#ffffff','fill-opacity':0.9,stroke:'#1f7a4f','stroke-width':5},st);txt(st,300,201,'READY TO LAUNCH',{anchor:'middle',size:30,fill:'#1f7a4f'});
+  const render=tt=>{const f=tt>8.6?0:1;ticks.forEach((m,i)=>m.setAttribute('opacity',tt>0.3+i*0.3?f:0));const p=ease(clamp((tt-5.4)/0.4,0,1))*f;st.setAttribute('opacity',p.toFixed(2));
+    st.setAttribute('transform',`rotate(-10 300 200) translate(300 200) scale(${(1.4-0.4*p).toFixed(3)}) translate(-300 -200)`);};
+  render(8);
+  anim(svg,t=>render(t%9));
+};
+
+D.killswitch=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const SP=[0.9,0.7,1.1,0.6,0.8];
+  const rows=SP.map((s,i)=>{const y=74+i*60;S.rect(20,y-24,340,48,{fill:'#ffffff',fillStyle:'solid'});txt(back,34,y-7,'run '+(41+i),{size:13});
+    const tag=txt(fx,34,y+11,'',{size:11,fill:C.muted});el('rect',{x:220,y:y-7,width:124,height:14,rx:4,fill:'#f1f3f6',stroke:C.ink,'stroke-width':1.3},back);const b=el('rect',{x:220,y:y-7,height:14,rx:4},fx);return{tag,b,s};});
+  const btn=el('g',{},fx);el('circle',{cx:480,cy:170,r:62,fill:'#e5484d',stroke:C.ink,'stroke-width':3},btn);txt(btn,480,171,'STOP',{anchor:'middle',size:26,fill:'#fff'});
+  txt(back,480,262,'kill switch',{anchor:'middle',size:15});txt(back,480,282,'this agent, this hospital',{anchor:'middle',size:12,fill:C.muted});
+  const ring=el('circle',{cx:480,cy:170,r:62,fill:'none',stroke:'#e5484d','stroke-width':4,opacity:0},fx);
+  const ban=txt(fx,300,26,'',{anchor:'middle',size:14.5});
+  const render=tt=>{const phase=tt<4.4?0:(tt<6.4?1:2);
+    rows.forEach(r=>{let w;if(phase===0){w=Math.min(1,tt*r.s/4.4);r.tag.textContent='v1.4 · prompt 12 · tools 7';r.b.setAttribute('fill','#a6c8ff');r.tag.setAttribute('fill',C.muted);}
+      else if(phase===1){w=Math.min(1,4.4*r.s/4.4);r.tag.textContent='cancelled';r.b.setAttribute('fill','#c3cad3');r.tag.setAttribute('fill','#c0393d');}
+      else{w=Math.min(1,(tt-6.4)*r.s/3);r.tag.textContent='v1.3 · prompt 11 · tools 7';r.b.setAttribute('fill','#7fd1a5');r.tag.setAttribute('fill','#1f7a4f');}
+      r.b.setAttribute('width',(124*w).toFixed(1));});
+    const pr=tt>4.4&&tt<4.9;btn.setAttribute('transform',pr?'translate(480 170) scale(0.9) translate(-480 -170)':'');ring.setAttribute('opacity',tt>4.4&&tt<5.6?1:0);ring.setAttribute('r',(62+Math.max(0,tt-4.4)*40).toFixed(1));
+    ban.textContent=phase===0?(tt>3.0?'a bad release is sending wrong letters...':'5 runs on version 1.4'):(phase===1?'stopped: active runs cancelled, new runs refused':'rolled back: running on version 1.3');
+    ban.setAttribute('fill',phase===1||tt>3.0&&phase===0?'#c0393d':(phase===2?'#1f7a4f':C.ink));};
+  render(8);
+  anim(svg,t=>render(t%10));
 };
 
 /* code walkers (generic) */
