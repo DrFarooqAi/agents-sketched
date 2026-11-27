@@ -16,6 +16,7 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 - Chapter 6: Planning (live)
 - Chapter 7: Checking its own work (live)
 - Chapter 8: Memory (live)
+- Chapter 9: Saving progress (live)
 - More chapters are added as the series continues.
 
 ---

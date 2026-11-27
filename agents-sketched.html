@@ -1123,6 +1123,112 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 9: SAVING PROGRESS ===== -->
+<section class="page" aria-label="Crash at step 4, resume at step 4">
+  <div class="txt">
+    <span class="tag">chapter 9 &middot; saving progress</span>
+    <h2>Crash at step 4, <span class="hl">resume at step 4</span></h2>
+    <p>Long tasks meet crashes, updates and timeouts. Save progress after every step.</p>
+    <ul>
+      <li>Without saves, a crash means starting again from zero.</li>
+      <li>With saves, the agent picks up exactly where it stopped.</li>
+      <li>Give every write a key (run + step), so a retry never repeats it.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="crash" role="img" aria-label="Two six-step runs crash at step four: without saves the run restarts and submits the claim twice; with saves it resumes at step four"></svg>
+    <figcaption>Fig 9.1 Same crash, two endings.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="What goes in the save">
+  <div class="txt">
+    <span class="tag">chapter 9 &middot; saving progress</span>
+    <h2>What goes in the <span class="hl">save</span></h2>
+    <p>A good save holds everything needed to carry on without asking anyone again.</p>
+    <ul>
+      <li>The transcript: messages and tool results.</li>
+      <li>The plan, and which step it is on.</li>
+      <li>The result of every action that changed something.</li>
+      <li>Money spent so far.</li>
+      <li>Anything still waiting for approval.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="pack" role="img" aria-label="Five items fly into a checkpoint box, which is closed and saved to a database"></svg>
+    <figcaption>Fig 9.2 Five things packed after step 4, then saved.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Paused, not dead">
+  <div class="txt">
+    <span class="tag">chapter 9 &middot; saving progress</span>
+    <h2>Paused, <span class="hl">not dead</span></h2>
+    <p>Hospitals run on sign-offs. An agent must be able to wait for one.</p>
+    <ul>
+      <li>The run stops at the approval step and saves its state.</li>
+      <li>Hours later, the approval arrives.</li>
+      <li>It carries on from exactly that point, with nothing lost.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="pause" role="img" aria-label="A run pauses at the doctor sign-off step overnight, then continues in the morning after approval"></svg>
+    <figcaption>Fig 9.3 Paused at 18:00, approved at 08:05, finished by 08:06.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Replay, don't re-ask">
+  <div class="txt">
+    <span class="tag">chapter 9 &middot; saving progress</span>
+    <h2><span class="hl">Replay</span>, don't re-ask</h2>
+    <p>When resuming, steps already done must give the same answer they gave the first time.</p>
+    <ul>
+      <li>Ask the model again and it may choose differently.</li>
+      <li>Then the rest of the saved history no longer fits.</li>
+      <li>Replay the record instead: same answer, instantly.</li>
+    </ul>
+    <div class="sticky"><strong>Tools that do this</strong>LangGraph checkpointers, Temporal and similar "durable execution" tools save and replay steps for you.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="replay" role="img" aria-label="After a crash, asking the model again gives a different answer that breaks the history; replaying the record keeps it consistent"></svg>
+    <figcaption>Fig 9.4 Re-asking changes the story. Replaying keeps it.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 9">
+  <div class="txt">
+    <span class="tag">chapter 9 &middot; saving progress</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="1" data-why="Steps 1 to 3 are saved, so only the unfinished step runs again.">
+        <p>1. An agent with saved progress crashes at step 4 of 6. Where does it restart?</p>
+        <div class="opts"><button class="opt" type="button">Step 1</button><button class="opt" type="button">Step 4</button><button class="opt" type="button">Step 6</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="The insurer sees the same key on the retry and replies 'already received' instead of filing a second claim.">
+        <p>2. Why does the "submit claim" step carry a key like run7:step4?</p>
+        <div class="opts"><button class="opt" type="button">So a retry never submits the claim twice</button><button class="opt" type="button">So the claim goes faster</button><button class="opt" type="button">The insurer charges less</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="A fresh answer could differ and break the saved history. The recorded one keeps the story consistent.">
+        <p>3. On resume, a model step that already finished should...</p>
+        <div class="opts"><button class="opt" type="button">Ask the model again, it might improve</button><button class="opt" type="button">Be skipped and left blank</button><button class="opt" type="button">Return its recorded answer</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Handovers fail when the plan lives in someone's head. Saved state is the agent's handover sheet.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Anything that waits for a doctor or a patient must be able to pause for hours or days, and pick up exactly where it stopped.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Save after every step, give every write a key, pause instead of failing, and replay the record instead of asking again.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -2025,6 +2131,98 @@ D.poison=svg=>{
     stamp.setAttribute('opacity',tt>5.8&&tt<7.2?1:0);note.setAttribute('opacity',tt>6.4?f:0);};
   render(9.5);
   anim(svg,t=>render(t%10.5));
+};
+
+/* ---------- chapter 9 ---------- */
+function mixHex(a,b,u){const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const A=p(a),B=p(b);return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*u).toString(16).padStart(2,'0')).join('');}
+
+D.crash=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const XS=[70,162,254,346,438,530],LB=['plan','find\nrecords','fetch\nreferral','submit\nclaim','text\npatient','report'];
+  const lanes=[{y:100,t:'without saves',c:'#c0393d'},{y:292,t:'with saves',c:'#1f7a4f'}];
+  S.line(10,206,590,206,{strokeLineDash:[6,8],stroke:C.muted,strokeWidth:1.4,roughness:0.5});
+  lanes.forEach(L=>{S.text(300,L.y-72,L.t,{size:16,fill:L.c});S.line(70,L.y,530,L.y,{strokeWidth:2});XS.forEach((x,i)=>S.text(x,L.y+42,LB[i],{size:11.5,weight:400}));
+    L.nodes=XS.map((x,i)=>{const c=el('circle',{cx:x,cy:L.y,r:20,fill:'#fff',stroke:C.ink,'stroke-width':2.5},fx);txt(fx,x,L.y+1,String(i+1),{anchor:'middle',size:14});return c;});
+    L.bolt=el('path',{d:`M354 ${L.y-60} L342 ${L.y-40} L356 ${L.y-40} L344 ${L.y-20}`,fill:'none',stroke:C.coral,'stroke-width':4,'stroke-linejoin':'round','stroke-linecap':'round'},fx);
+    L.btx=txt(fx,366,L.y-46,'crash',{size:13,fill:'#c0393d'});
+    L.dot=el('circle',{r:9,fill:C.coral,stroke:'#fff','stroke-width':3},fx);});
+  const saved=XS.map(x=>{const g=el('g',{},fx);el('rect',{x:x-24,y:lanes[1].y-58,width:48,height:18,rx:4,fill:C.lmint,stroke:'#1f7a4f','stroke-width':1.5},g);txt(g,x,lanes[1].y-49,'saved',{anchor:'middle',size:10.5,fill:'#1f7a4f'});return g;});
+  const nTop=txt(fx,300,184,'',{anchor:'middle',size:13.5,fill:'#c0393d'}),nBot=txt(fx,300,380,'',{anchor:'middle',size:13.5,fill:'#1f7a4f'});
+  const setDot=(L,s,op)=>{L.dot.setAttribute('cx',(70+s*92).toFixed(1));L.dot.setAttribute('cy',L.y);L.dot.setAttribute('opacity',op);};
+  const paint=(L,doneUpTo,bad)=>L.nodes.forEach((c,i)=>c.setAttribute('fill',i===bad?C.lcoral:(i<doneUpTo?C.lmint:'#fff')));
+  const render=tt=>{const T=lanes[0],B=lanes[1];
+    let s;if(tt<3)s=tt;else if(tt<3.6)s=3;else if(tt<4.2)s=0;else if(tt<7.2)s=(tt-4.2);else s=3;
+    setDot(T,s,1);paint(T,(tt>=3.6&&tt<4.2)?0:Math.floor(s+1e-6),tt>=7.2?3:-1);
+    T.bolt.setAttribute('opacity',tt>=3&&tt<3.8?1:0);T.btx.setAttribute('opacity',tt>=3&&tt<3.8?1:0);
+    nTop.textContent=tt>=7.2?'crashed, restarted from zero... and the claim was submitted twice!':(tt>=3.6?'crashed: starting again from zero':'');
+    let b;if(tt<3)b=tt;else if(tt<4.2)b=3;else if(tt<6.2)b=3+(tt-4.2);else b=5;
+    setDot(B,b,tt>=3.2&&tt<3.8?0:1);paint(B,tt>=6.2?6:Math.floor(b+1e-6),-1);
+    B.bolt.setAttribute('opacity',tt>=3&&tt<3.8?1:0);B.btx.setAttribute('opacity',tt>=3&&tt<3.8?1:0);
+    saved.forEach((g,i)=>g.setAttribute('opacity',(tt>=6.2?6:Math.floor(b+1e-6))>i?1:0));
+    nBot.textContent=tt>=6.2?'resumed at step 4, finished. Key run7:step4: insurer says "already received".':(tt>=3.8?'resumed at step 4':'');};
+  render(10);
+  anim(svg,t=>render(t%11));
+};
+
+D.pack=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const IT=[['the transcript',110,60],['plan + step counter',300,60],['tool results',490,60],['money spent: $0.12',190,140],['waiting for: doctor sign-off',420,140]];
+  const items=IT.map(it=>{const g=card(svg,fx,it[0].length>20?210:170,36,C.lsky,it[0],13);at(g,it[1],it[2],1,1);return g;});
+  S.rect(190,250,220,120,{fill:'#e5d3b3',fillStyle:'solid'});S.text(300,312,'checkpoint\nafter step 4',{size:15});
+  const lid=el('g',{},fx);el('rect',{x:186,y:236,width:228,height:16,rx:3,fill:'#cdb48d',stroke:C.ink,'stroke-width':2.5},lid);
+  const cnt=txt(fx,300,222,'',{anchor:'middle',size:14,fill:C.teal});
+  S.ellipse(530,296,70,20,{fill:C.lteal,fillStyle:'solid'});S.line(495,296,495,356);S.line(565,296,565,356);S.path('M495 356 Q530 372 565 356');S.text(530,392,'database',{size:13});
+  const arr=el('g',{},fx);Sk(svg,arr).arrow(414,320,488,326,{stroke:C.teal});
+  const ok=txt(fx,530,272,'saved',{anchor:'middle',size:14,fill:'#1f7a4f'});
+  const render=tt=>{let n=0;items.forEach((g,i)=>{const s=0.6+i*0.9,u=clamp((tt-s)/0.8,0,1);if(tt>=s+0.8)n++;const p=lerp2([IT[i][1],IT[i][2]],[300,300],ease(u));at(g,p[0],p[1],1-0.7*u,u>=1?0:1);});
+    cnt.textContent='packed: '+n+' of 5';const lc=clamp((tt-5.4)/0.5,0,1);lid.setAttribute('transform',`rotate(${(-35*(1-lc)).toFixed(1)} 190 244)`);
+    arr.setAttribute('opacity',tt>6.1?1:0);ok.setAttribute('opacity',tt>6.4?1:0);};
+  render(8.5);
+  anim(svg,t=>render(t%9.6));
+};
+
+D.pause=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const sky=el('rect',{x:40,y:36,width:520,height:96,rx:12,fill:'#d6e6ff'},back);back.insertBefore(sky,back.firstChild);
+  S.rect(40,36,520,96,{});
+  const sun=el('circle',{cx:110,cy:84,r:22,fill:C.yel,stroke:C.ink,'stroke-width':2},fx);
+  const moon=el('g',{},fx);el('circle',{cx:490,cy:84,r:20,fill:'#f4f1d0'},moon);const cut=el('circle',{cx:500,cy:78,r:18,fill:'#27304a'},moon);
+  const clock=txt(fx,300,86,'',{anchor:'middle',size:24});
+  const NX=[90,200,310,430,530],NL=['draft\nletter','checks\npass','doctor\nsign-off','send to\npatient','close\ncase'];
+  S.line(60,210,560,210,{strokeWidth:2});NX.forEach((x,i)=>S.text(x,252,NL[i],{size:12.5,weight:i===2?700:400}));
+  const nodes=NX.map(x=>el('circle',{cx:x,cy:210,r:18,fill:'#fff',stroke:C.ink,'stroke-width':2.5},fx));
+  const pz=el('g',{},fx);el('rect',{x:302,y:200,width:6,height:20,fill:C.ink},pz);el('rect',{x:313,y:200,width:6,height:20,fill:C.ink},pz);
+  const dot=el('circle',{r:9,fill:C.coral,stroke:'#fff','stroke-width':3,cy:210},fx);
+  const box=el('g',{},fx);const kb=Sk(svg,box);kb.rect(170,300,280,62,{fill:C.lyel,fillStyle:'solid'});kb.text(310,322,'state saved: paused, not dead',{size:14});kb.text(310,344,'waiting for Dr. Noor',{size:12,weight:400});
+  const stamp=el('g',{transform:'rotate(-6 310 160)'},fx);el('rect',{x:235,y:146,width:150,height:28,rx:5,fill:'#fff',stroke:'#1f7a4f','stroke-width':3},stamp);txt(stamp,310,160,'APPROVED 08:05',{anchor:'middle',size:14,fill:'#1f7a4f'});
+  const hm=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');};
+  const render=tt=>{let night=0;if(tt>2.8&&tt<3.4)night=(tt-2.8)/0.6;else if(tt>=3.4&&tt<5.6)night=1;else if(tt>=5.6&&tt<6.2)night=1-(tt-5.6)/0.6;
+    const col=mixHex('#d6e6ff','#27304a',night);sky.setAttribute('fill',col);cut.setAttribute('fill',col);sun.setAttribute('opacity',(1-night).toFixed(2));moon.setAttribute('opacity',night.toFixed(2));
+    clock.setAttribute('fill',night>0.5?'#ffffff':C.ink);
+    clock.textContent=tt<2.2?hm(1078+tt):(tt<3.4?'18:00':(tt<5.6?hm(1080+840*(tt-3.4)/2.2):(tt<8.0?'08:05':'08:06')));
+    let x;if(tt<2.2)x=90+220*ease(tt/2.2);else if(tt<6.4)x=310;else if(tt<8.2)x=310+220*ease((tt-6.4)/1.8);else x=530;
+    dot.setAttribute('cx',x.toFixed(1));nodes.forEach((c,i)=>c.setAttribute('fill',NX[i]<x-1||(tt>=8.2)?C.lmint:(i===2&&tt>=2.2&&tt<6.4?C.lyel:'#fff')));
+    pz.setAttribute('opacity',tt>=2.2&&tt<6.4?1:0);box.setAttribute('opacity',tt>=2.6&&tt<6.6?1:0);stamp.setAttribute('opacity',tt>=6.0?1:0);};
+  render(9.5);
+  anim(svg,t=>render(t%10.5));
+};
+
+D.replay=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.line(300,10,300,410,{strokeLineDash:[6,8],stroke:C.muted,strokeWidth:1.4,roughness:0.5});
+  const P=[{x:16,t:'ask the model again',c:'#c0393d',a:'model now says:\n"fetch the physio note first"',v:'step 3 no longer fits',ok:false},
+    {x:314,t:'replay the record',c:'#1f7a4f',a:'"fetch the referral first"\n(from the record, instantly)',v:'carry on at step 3',ok:true}];
+  P.forEach(p=>{const x=p.x;S.text(x+135,22,p.t,{size:16,fill:p.c});S.rect(x,40,270,150,{fill:'#ffffff',fillStyle:'solid'});S.text(x+135,58,'saved history',{size:12.5,fill:C.teal});
+    p.rows=['1. plan written','2. chose: fetch the referral first','3. referral fetched'].map((r,i)=>txt(fx,x+16,88+i*34,r,{size:13}));
+    p.hl=el('rect',{x:x+8,y:142,width:254,height:28,rx:6,fill:'none',stroke:'#c0393d','stroke-width':3,opacity:0},fx);
+    p.cr=el('g',{},fx);const kc=Sk(svg,p.cr);kc.rect(x,204,270,30,{fill:C.lcoral,fillStyle:'solid',strokeWidth:1.6});kc.text(x+135,219,'crash, then restart',{size:13});
+    S.rect(x,250,270,124,{fill:'#ffffff',fillStyle:'solid'});S.text(x+135,268,'redo step 2:',{size:13});
+    p.ag=el('g',{},fx);Sk(svg,p.ag).text(x+135,308,p.a,{size:13,fill:p.c});
+    p.vg=el('g',{},fx);mark(p.vg,x+40,352,p.ok?TICK:CROSS,p.c);txt(p.vg,x+58,352,p.v,{size:13.5,fill:p.c});});
+  const render=tt=>{const f=tt>8.1?0:1;P.forEach(p=>{p.rows.forEach((r,i)=>r.setAttribute('opacity',tt>0.3+i*0.3?f:0));p.cr.setAttribute('opacity',tt>1.6?f:0);
+    p.ag.setAttribute('opacity',tt>2.8?f:0);p.vg.setAttribute('opacity',tt>3.8?f:0);p.hl.setAttribute('opacity',!p.ok&&tt>3.8?f:0);});};
+  render(7);
+  anim(svg,t=>render(t%8.5));
 };
 
 /* draw-on effect for sketch strokes */
