@@ -18,6 +18,7 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 - Chapter 8: Memory (live)
 - Chapter 9: Saving progress (live)
 - Chapter 10: Chains and routers (live)
+- Chapter 11: Orchestrator and workers (live)
 - More chapters are added as the series continues.
 
 ---

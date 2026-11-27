@@ -1346,6 +1346,110 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 11: ORCHESTRATOR AND WORKERS ===== -->
+<section class="page" aria-label="One boss, many workers">
+  <div class="txt">
+    <span class="tag">chapter 11 &middot; orchestrator and workers</span>
+    <h2>One boss, <span class="hl">many workers</span></h2>
+    <p>When parts of a job do not depend on each other, do them at the same time.</p>
+    <ul>
+      <li>The orchestrator decides how to split the task.</li>
+      <li>Each worker has its own clean notebook and tools.</li>
+      <li>Workers send back a short summary, not their whole notebook.</li>
+      <li>One last step merges the summaries.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="orch" role="img" aria-label="An orchestrator splits a tumour board preparation into four workers for labs, imaging, pathology and medicines; their summaries are merged into one page"></svg>
+    <figcaption>Fig 11.1 Four workers at once, four short summaries, one page for the board.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Four ways to split the work">
+  <div class="txt">
+    <span class="tag">chapter 11 &middot; orchestrator and workers</span>
+    <h2>Four ways to <span class="hl">split</span> the work</h2>
+    <ul>
+      <li><b>Two jobs at once</b>: reply to the patient while a safety check reads the same message.</li>
+      <li><b>Voting</b>: several checks on one draft. Any "risk" vote flags it.</li>
+      <li><b>Boss and workers</b>: the model decides the split each time.</li>
+      <li><b>Map, then group</b>: summarise each of 400 reports, then group the summaries.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="splits" role="img" aria-label="Four small animated diagrams: two jobs at once, voting, boss and workers, and map then group"></svg>
+    <figcaption>Fig 11.2 Four shapes of parallel work, each with a hospital use.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="A writer and a critic">
+  <div class="txt">
+    <span class="tag">chapter 11 &middot; orchestrator and workers</span>
+    <h2>A writer and a <span class="hl">critic</span></h2>
+    <p>One model writes. Another scores it against clear criteria and says what to fix.</p>
+    <ul>
+      <li>Stop when the score passes the bar, or when it stops improving.</li>
+      <li>Keep the best draft, not just the last one.</li>
+      <li>It only works if you can say what "good" looks like.</li>
+    </ul>
+    <div class="sticky"><strong>Pick a fair judge</strong>Use a different or stronger model as the critic, and check its scores against 30 to 50 human ratings first.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="critic" role="img" aria-label="A writer drafts a patient leaflet and a critic scores it over three rounds, 0.52, 0.68 and 0.83, stopping once it passes 0.8"></svg>
+    <figcaption>Fig 11.3 Three rounds to pass the 0.8 bar. Round 4 is not needed.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Read in parallel, write one at a time">
+  <div class="txt">
+    <span class="tag">chapter 11 &middot; orchestrator and workers</span>
+    <h2>Read in parallel, <span class="hl">write one at a time</span></h2>
+    <p>Workers reading the same record is fine. Workers writing to it at the same moment is not.</p>
+    <ul>
+      <li>Two edits at once: one silently overwrites the other.</li>
+      <li>Put writes in a queue, or give each worker its own part of the data.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="writes" role="img" aria-label="Left: two workers edit a medicine list at once and one change is lost. Right: writes go through a queue and both changes survive"></svg>
+    <figcaption>Fig 11.4 Same two edits. Only the queue keeps both.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 11">
+  <div class="txt">
+    <span class="tag">chapter 11 &middot; orchestrator and workers</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="0" data-why="The four parts do not depend on each other, so they can run at once, each in a clean notebook.">
+        <p>1. A board pack needs labs, imaging, pathology and medicines, each independent. Best set-up?</p>
+        <div class="opts"><button class="opt" type="button">Four workers in parallel, each returning a short summary</button><button class="opt" type="button">One agent doing all four, one after another</button><button class="opt" type="button">Four agents chatting freely with each other</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="The bar is met. More rounds cost money and can make the draft worse.">
+        <p>2. Round 3 scored 0.83 and the bar is 0.8. What now?</p>
+        <div class="opts"><button class="opt" type="button">Run ten more rounds to be safe</button><button class="opt" type="button">Stop and use the best draft</button><button class="opt" type="button">Start again from round 1</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="Both read the old list, both write a new one, and the second write wipes out the first change.">
+        <p>3. Two workers update the same medicine list at the same time. What is the risk?</p>
+        <div class="opts"><button class="opt" type="button">It is just slower</button><button class="opt" type="button">Nothing, computers handle it</button><button class="opt" type="button">One change silently overwrites the other</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">A tumour board already works this way: radiology, pathology and oncology each prepare their part, and one chair pulls it together.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Never let two agents edit the same patient record at the same moment. One writer at a time, always.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Split independent work across workers, bring back short summaries, use a critic only when you can define "good", and keep writes in single file.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -2428,6 +2532,129 @@ D.sorters=svg=>{
     l.sw.textContent='time: '+Math.round(l.ms*p)+' ms';l.g.setAttribute('opacity',p>=1?f:0);});};
   render(6.5);
   anim(svg,t=>render(t%7.5));
+};
+
+/* ---------- chapter 11 ---------- */
+function dotEl(parent,r,fill){return el('circle',{r:r||7,fill:fill||C.coral,stroke:'#fff','stroke-width':2.5,opacity:0},parent);}
+function moveDot(d,p,op){d.setAttribute('cx',p[0].toFixed(1));d.setAttribute('cy',p[1].toFixed(1));d.setAttribute('opacity',op===undefined?1:op);}
+
+D.orch=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.rect(110,10,380,42,{fill:C.lyel,fillStyle:'solid'});S.text(300,31,"Task: prepare Mrs. Amal's case for Friday's tumour board",{size:13});
+  const W=[[80,'labs',1.2],[227,'imaging\nreports',1.8],[373,'pathology',2.6],[520,'medicines',1.5]];
+  W.forEach(([x])=>{S.line(300,132,x,178,{strokeLineDash:[5,6],stroke:C.muted,strokeWidth:1.3,roughness:0.5});S.line(x,268,300,312,{strokeLineDash:[5,6],stroke:C.muted,strokeWidth:1.3,roughness:0.5});});
+  const og=el('rect',{x:219,y:70,width:162,height:68,rx:12,fill:C.yel,opacity:0},glow);
+  S.rect(225,76,150,56,{fill:C.lteal,fillStyle:'solid'});S.text(300,97,'ORCHESTRATOR',{size:15});S.text(300,118,'splits the job',{size:11.5,weight:400});
+  const wk=W.map(([x,l,d])=>{const g=el('rect',{x:x-68,y:174,width:136,height:100,rx:12,fill:C.yel,opacity:0},glow);S.rect(x-62,180,124,88,{fill:'#ffffff',fillStyle:'solid'});S.text(x,206,l,{size:13.5});
+    el('rect',{x:x-44,y:238,width:88,height:14,rx:3,fill:'#f1f3f6',stroke:C.ink,'stroke-width':1.4},back);
+    const bar=el('rect',{x:x-44,y:238,height:14,rx:3,fill:C.teal},fx);const sl=el('rect',{x:-11,y:-8,width:22,height:16,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':1.8,opacity:0},fx);
+    const sm=el('g',{opacity:0},fx);el('rect',{x:-30,y:-9,width:60,height:18,rx:3,fill:C.lmint,stroke:C.ink,'stroke-width':1.5},sm);txt(sm,0,0,'summary',{anchor:'middle',size:10.5});
+    return{x,d,g,bar,sl,sm};});
+  const sgl=el('rect',{x:214,y:306,width:172,height:64,rx:12,fill:C.yel,opacity:0},glow);
+  S.rect(220,312,160,52,{fill:C.lsky,fillStyle:'solid'});S.text(300,330,'SYNTHESISE',{size:14});S.text(300,350,'merge, drop repeats',{size:11.5,weight:400});
+  S.text(108,358,'all four at once:\nabout 3 minutes, not 12',{size:13});
+  const res=el('g',{},fx);const kr=Sk(svg,res);kr.rect(420,322,170,76,{fill:C.lmint,fillStyle:'solid'});kr.text(505,360,'one-page board\nsummary, ready',{size:13.5});kr.arrow(382,338,418,352);
+  const render=tt=>{og.setAttribute('opacity',tt>0.2&&tt<0.9?0.85:0);let arrived=0;
+    wk.forEach(w=>{const u=(tt-0.8)/0.8;if(u>=0&&u<=1){const p=lerp2([300,132],[w.x,192],ease(u));w.sl.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);w.sl.setAttribute('opacity',1);}else w.sl.setAttribute('opacity',0);
+      const done=1.6+w.d,wp=clamp((tt-1.6)/w.d,0,1);w.bar.setAttribute('width',(88*wp).toFixed(1));w.g.setAttribute('opacity',tt>1.6&&tt<done?0.7:0);
+      const fu=(tt-done-0.2)/0.7;if(tt<done)w.sm.setAttribute('opacity',0);else if(fu<0){w.sm.setAttribute('transform',`translate(${w.x} 284)`);w.sm.setAttribute('opacity',1);}
+      else if(fu<=1){const p=lerp2([w.x,284],[300,322],ease(fu));w.sm.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) scale(${(1-0.5*fu).toFixed(2)})`);w.sm.setAttribute('opacity',1);}else{w.sm.setAttribute('opacity',0);arrived++;}});
+    sgl.setAttribute('opacity',tt>5.2&&tt<5.9?0.85:0);res.setAttribute('opacity',tt>5.9?1:0);};
+  render(9);
+  anim(svg,t=>render(t%10.5));
+};
+
+D.splits=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const P=[[8,8],[304,8],[8,214],[304,214]],W=288,H=198;
+  const T=['two jobs at once','voting','boss and workers','map, then group'],CAP=['reply + safety check, side by side','any "risk" vote flags the draft','the model picks the split each time','400 reports: summarise each, then group'];
+  P.forEach(([x,y],i)=>{S.rect(x,y,W,H,{fill:'#ffffff',fillStyle:'solid',strokeWidth:1.8});S.text(x+W/2,y+18,T[i],{size:14,fill:C.teal});S.text(x+W/2,y+H-14,CAP[i],{size:11,weight:400});});
+  // 1: two jobs at once
+  let [x,y]=P[0];S.circle(x+55,y+100,52,{fill:C.lsky,fillStyle:'solid'});S.text(x+55,y+100,'message',{size:11});
+  S.line(x+81,y+92,x+158,y+66,{strokeWidth:1.4});S.line(x+81,y+108,x+158,y+134,{strokeWidth:1.4});
+  S.rect(x+160,y+48,110,36,{fill:C.lmint,fillStyle:'solid'});S.text(x+215,y+66,'reply',{size:13});S.rect(x+160,y+116,110,36,{fill:C.lyel,fillStyle:'solid'});S.text(x+215,y+134,'safety check',{size:13});
+  const d1=[dotEl(fx),dotEl(fx)],b1=[el('rect',{x:x+156,y:y+44,width:118,height:44,rx:8,fill:'none',stroke:C.yel,'stroke-width':5,opacity:0},fx),el('rect',{x:x+156,y:y+112,width:118,height:44,rx:8,fill:'none',stroke:C.yel,'stroke-width':5,opacity:0},fx)];
+  const p1=[[x+81,y+100],[x+160,y+66]],p1b=[[x+81,y+100],[x+160,y+134]];
+  // 2: voting
+  const X2=P[1][0],Y2=P[1][1];S.rect(X2+20,Y2+80,70,40,{fill:C.lsky,fillStyle:'solid'});S.text(X2+55,Y2+100,'draft',{size:13});
+  const CY=[Y2+55,Y2+100,Y2+145];CY.forEach(cy=>{S.line(X2+90,Y2+100,X2+146,cy,{strokeWidth:1.3});S.circle(X2+160,cy,30,{fill:'#ffffff',fillStyle:'solid'});});
+  const votes=['ok','ok','risk'].map((v,i)=>txt(fx,X2+182,CY[i],v,{size:13,fill:v==='risk'?'#c0393d':'#1f7a4f'}));
+  const flag=el('g',{},fx);el('path',{d:`M${X2+240} ${Y2+80} L${X2+240} ${Y2+130} M${X2+240} ${Y2+80} L${X2+268} ${Y2+90} L${X2+240} ${Y2+100}`,fill:'#e5484d',stroke:'#c0393d','stroke-width':2.5},flag);txt(flag,X2+250,Y2+146,'flagged',{anchor:'middle',size:12,fill:'#c0393d'});
+  const d2=[dotEl(fx),dotEl(fx),dotEl(fx)];
+  // 3: boss and workers
+  const X3=P[2][0],Y3=P[2][1];S.rect(X3+104,Y3+36,80,30,{fill:C.lteal,fillStyle:'solid'});S.text(X3+144,Y3+51,'boss',{size:13});
+  const WX=[X3+54,X3+144,X3+234];WX.forEach((wx,i)=>{S.line(X3+144,Y3+66,wx,Y3+113,{strokeWidth:1.3});S.circle(wx,Y3+130,34,{fill:C.lsky,fillStyle:'solid'});S.text(wx,Y3+130,'w'+(i+1),{size:12});});
+  const d3=WX.map(()=>dotEl(fx));
+  // 4: map then group
+  const X4=P[3][0],Y4=P[3][1];for(let i=0;i<8;i++){S.rect(X4+22+i*32,Y4+36,18,24,{fill:'#ffffff',fillStyle:'solid',strokeWidth:1.3,roughness:0.6});}
+  const GC=['#e5484d','#4d96ff','#ffc53d'],grp=[0,1,2,0,1,0,2,1],PX=[X4+70,X4+144,X4+218];
+  ['billing','falls','delays'].forEach((g,i)=>S.text(PX[i],Y4+168,g,{size:11,weight:400}));
+  const d4=grp.map(g=>dotEl(fx,6,GC[g]));
+  anim(svg,t=>{
+    const a=t%3,u=clamp((a-0.2)/0.7,0,1);moveDot(d1[0],lerp2(p1[0],p1[1],ease(u)),a<2.6?1:0);moveDot(d1[1],lerp2(p1b[0],p1b[1],ease(u)),a<2.6?1:0);b1.forEach(b=>b.setAttribute('opacity',a>0.9&&a<2.6?1:0));
+    const b=t%3.6,v=clamp((b-0.3)/0.7,0,1);d2.forEach((d,i)=>moveDot(d,lerp2([X2+90,Y2+100],[X2+146,CY[i]],ease(v)),b<1.1?1:0));votes.forEach(vt=>vt.setAttribute('opacity',b>1.1&&b<3.3?1:0));flag.setAttribute('opacity',b>1.6&&b<3.3?1:0);
+    const c=t%3.2;d3.forEach((d,i)=>{let p,op=1;if(c<0.2)op=0;else if(c<0.9)p=lerp2([X3+144,Y3+66],[WX[i],Y3+113],ease((c-0.2)/0.7));else if(c<1.6){p=[WX[i],Y3+113];}else if(c<2.3)p=lerp2([WX[i],Y3+113],[X3+144,Y3+66],ease((c-1.6)/0.7));else op=0;
+      if(p)moveDot(d,p,op);else d.setAttribute('opacity',0);d.setAttribute('fill',c>1.2?'#30a46c':C.coral);});
+    const e=t%4.4;d4.forEach((d,i)=>{const s=0.2+i*0.12;if(e<s){d.setAttribute('opacity',0);return;}const from=[X4+31+i*32,Y4+78],to=[PX[grp[i]]+(i%3-1)*8,Y4+148];const m=clamp((e-1.6)/0.8,0,1);moveDot(d,lerp2(from,to,ease(m)),e<4.0?1:0);});
+  });
+};
+
+D.critic=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const wg=el('rect',{x:24,y:30,width:182,height:72,rx:12,fill:C.yel,opacity:0},glow),cg=el('rect',{x:24,y:144,width:182,height:72,rx:12,fill:C.yel,opacity:0},glow);
+  S.rect(30,36,170,60,{fill:C.lteal,fillStyle:'solid'});S.text(115,58,'WRITER',{size:15});S.text(115,80,'drafts the leaflet',{size:11.5,weight:400});
+  S.rect(30,150,170,60,{fill:C.lyel,fillStyle:'solid'});S.text(115,172,'CRITIC',{size:15});S.text(115,194,'scores with a rubric',{size:11.5,weight:400});
+  S.carrow(150,98,150,148,-18);S.text(178,123,'draft',{size:12,anchor:'start'});S.carrow(80,148,80,98,-18);S.text(60,123,'fixes',{size:12,anchor:'end'});
+  S.rect(20,236,250,164,{fill:'#ffffff',fillStyle:'solid'});S.text(145,256,"critic's notes",{size:13,fill:C.teal});
+  const nt=Sk(svg,el('g',{},fx)).text(145,322,'',{size:12.5});
+  S.line(310,340,592,340);S.line(310,340,310,44);
+  const TY=340-0.8*280;S.line(305,TY,592,TY,{strokeLineDash:[7,6],stroke:C.coral,roughness:0.5});S.text(318,TY-10,'bar 0.8',{size:12,anchor:'start',fill:'#c0393d'});
+  const SC=[0.52,0.68,0.83],BX=[330,400,470,540];
+  BX.forEach((x,i)=>S.text(x+22,356,'r'+(i+1),{size:12,weight:400}));
+  S.rect(540,340-0.84*280,44,0.84*280,{strokeLineDash:[5,5],stroke:C.muted,strokeWidth:1.4,roughness:0.5});
+  const ghost=txt(fx,562,180,'not',{anchor:'middle',size:12,fill:C.muted});const ghost2=txt(fx,562,196,'needed',{anchor:'middle',size:12,fill:C.muted});
+  const bars=SC.map((s,i)=>({b:el('rect',{x:BX[i],width:44,fill:s>=0.8?'#7fd1a5':'#a6c8ff',stroke:C.ink,'stroke-width':1.8},fx),v:txt(fx,BX[i]+22,0,s.toFixed(2),{anchor:'middle',size:13}),s}));
+  const stop=txt(fx,450,72,'passed the bar: stop',{anchor:'middle',size:14,fill:'#1f7a4f'});
+  const NOTES=['round 1: 0.52\n- too technical ("HbA1c")\n- missing: when to call\n  the clinic','round 2: 0.68\n- clearer, but too long\n- add the clinic phone\n  number','round 3: 0.83\npasses the bar.\nUse this draft.'];
+  let shown=-1;
+  const render=tt=>{let k=-1;SC.forEach((s,i)=>{const st=0.4+i*2.4;if(tt>=st)k=i;const g=ease(clamp((tt-st-1.0)/0.6,0,1));const h=280*s*g;bars[i].b.setAttribute('y',(340-h).toFixed(1));bars[i].b.setAttribute('height',h.toFixed(1));
+      bars[i].v.setAttribute('y',(340-h-12).toFixed(1));bars[i].v.setAttribute('opacity',g>0.95?1:0);});
+    const st=0.4+Math.max(0,k)*2.4,u=tt-st;wg.setAttribute('opacity',k>=0&&u<0.6?0.85:0);cg.setAttribute('opacity',k>=0&&u>0.7&&u<1.3?0.85:0);
+    const ni=k>=0&&u>=1.4?k:k-1;if(ni!==shown){shown=ni;setLines(nt,ni>=0?NOTES[ni]:'waiting for the first draft');nt.setAttribute('fill',ni===2?'#1f7a4f':C.ink);}
+    const done=tt>6.9;stop.setAttribute('opacity',done?1:0);ghost.setAttribute('opacity',done?1:0);ghost2.setAttribute('opacity',done?1:0);};
+  render(10);
+  anim(svg,t=>render(t%10.8));
+};
+
+D.writes=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.line(300,10,300,410,{strokeLineDash:[6,8],stroke:C.muted,strokeWidth:1.4,roughness:0.5});
+  const P=[{x:10,t:'two writers at once',c:'#c0393d',q:false},{x:310,t:'writes in a queue',c:'#1f7a4f',q:true}];
+  P.forEach(p=>{const x=p.x;S.text(x+140,22,p.t,{size:16,fill:p.c});
+    p.rg=el('rect',{x:x+44,y:34,width:192,height:132,rx:12,fill:C.yel,opacity:0},back);
+    S.rect(x+50,40,180,120,{fill:'#ffffff',fillStyle:'solid'});S.text(x+140,58,'Mrs. Amal: medicines',{size:13,fill:C.teal});
+    p.list=Sk(svg,el('g',{},fx)).text(x+140,108,'',{size:14});
+    S.line(x+70,290,x+110,162,{strokeLineDash:[5,6],stroke:C.muted,strokeWidth:1.3,roughness:0.5});S.line(x+210,290,x+170,162,{strokeLineDash:[5,6],stroke:C.muted,strokeWidth:1.3,roughness:0.5});
+    if(p.q){S.rect(x+110,212,60,26,{fill:C.lyel,fillStyle:'solid'});S.text(x+140,225,'queue',{size:12});}
+    S.rect(x+10,290,120,56,{fill:C.lsky,fillStyle:'solid'});S.text(x+70,309,'worker 1',{size:13});S.text(x+70,329,'add atorvastatin',{size:11,weight:400});
+    S.rect(x+150,290,120,56,{fill:C.lsky,fillStyle:'solid'});S.text(x+210,309,'worker 2',{size:13});S.text(x+210,329,'remove aspirin',{size:11,weight:400});
+    p.d=[dotEl(fx,7,C.teal),dotEl(fx,7,C.teal)];p.note=txt(fx,x+140,384,p.q?'both changes kept':'atorvastatin vanished!',{anchor:'middle',size:15,fill:p.c});
+    if(p.q)p.wait=txt(fx,x+210,276,'waits, then re-reads',{anchor:'middle',size:11.5,fill:'#a37b00'});});
+  const L0='- metformin\n- aspirin',L1='- metformin\n- aspirin\n- atorvastatin';
+  const render=tt=>{P.forEach(p=>{const x=p.x,R=[x+140,160],A=[x+70,290],B=[x+210,290],Q=[x+140,225];let list=L0,col=C.ink,flash=false;
+      const rd=clamp((tt-0.3)/0.8,0,1);
+      if(tt<1.1){moveDot(p.d[0],lerp2(R,A,ease(rd)),tt>0.3?1:0);moveDot(p.d[1],lerp2(R,B,ease(rd)),tt>0.3?1:0);}
+      else if(tt<2.2){p.d.forEach(d=>d.setAttribute('opacity',0));}
+      else if(!p.q){const u1=clamp((tt-2.2)/0.8,0,1),u2=clamp((tt-2.5)/0.8,0,1);moveDot(p.d[0],lerp2(A,R,ease(u1)),u1<1?1:0);moveDot(p.d[1],lerp2(B,R,ease(u2)),u2<1?1:0);
+        if(tt>=3.0)list=L1;if(tt>=3.3){list='- metformin';col='#c0393d';}flash=(tt>3.0&&tt<3.2)||(tt>3.3&&tt<3.6);}
+      else{const u1=clamp((tt-2.2)/0.8,0,1);moveDot(p.d[0],track([A,Q,R])(ease(u1)),u1<1?1:0);
+        let pb;if(tt<2.9)pb=lerp2(B,Q,ease((tt-2.5)/0.4));else if(tt<3.8)pb=Q;else if(tt<4.4)pb=lerp2(Q,R,ease((tt-3.8)/0.6));
+        if(tt>=2.5&&pb)moveDot(p.d[1],pb,1);else p.d[1].setAttribute('opacity',0);
+        if(tt>=3.0)list=L1;if(tt>=4.4){list='- metformin\n- atorvastatin';col='#1f7a4f';}flash=(tt>3.0&&tt<3.3)||(tt>3.6&&tt<3.8)||(tt>4.4&&tt<4.7);
+        p.wait.setAttribute('opacity',tt>2.9&&tt<3.8?1:0);}
+      setLines(p.list,list);p.list.setAttribute('fill',col);p.rg.setAttribute('opacity',flash?0.85:0);p.note.setAttribute('opacity',tt>(p.q?4.8:4.0)?1:0);});};
+  render(8);
+  anim(svg,t=>render(t%9));
 };
 
 /* draw-on effect for sketch strokes */
