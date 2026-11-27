@@ -2426,6 +2426,108 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 21: COST AND SPEED ===== -->
+<section class="page" aria-label="Why agents get expensive">
+  <div class="txt">
+    <span class="tag">chapter 21 &middot; cost and speed</span>
+    <h2>Why agents get <span class="hl">expensive</span></h2>
+    <p>Each call resends the whole notebook, so the bill grows fast with every step.</p>
+    <ul>
+      <li>Most of what is sent is the same as last time.</li>
+      <li>Caching that stable start makes repeat reads much cheaper and faster.</li>
+      <li>Keep the start of the prompt exactly the same: no dates or ids in it.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="tokens" role="img" aria-label="Ten bars of input tokens grow with each call; then most of each bar turns into cheap cached reads"></svg>
+    <figcaption>Fig 21.1 First without caching, then with it. Token counts are an example.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Seven levers">
+  <div class="txt">
+    <span class="tag">chapter 21 &middot; cost and speed</span>
+    <h2>Seven <span class="hl">levers</span></h2>
+    <p>Pull them one at a time, and measure each one.</p>
+    <ul>
+      <li>Cache, send easy steps to a small model, run tools in parallel.</li>
+      <li>Trim the notebook, and cap steps and money.</li>
+      <li>Batch what can wait, and skip the loop for simple FAQs.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="levers" role="img" aria-label="Seven levers are pulled one by one and a cost meter falls, with the trade-off of each lever shown"></svg>
+    <figcaption>Fig 21.2 Every lever saves money, and every lever has a price.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Cost per successful task">
+  <div class="txt">
+    <span class="tag">chapter 21 &middot; cost and speed</span>
+    <h2>Cost per <span class="hl">successful</span> task</h2>
+    <p>A cheaper model that needs more steps, or fails more often, is usually the expensive one.</p>
+    <ul>
+      <li>Divide the cost per run by the success rate.</li>
+      <li>Count the staff time spent fixing failures too.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="persuccess" role="img" aria-label="A cheap model at 4 cents a run passes 6 of 10 runs, a strong model at 5 cents passes 9 of 10; per success, the strong model is cheaper"></svg>
+    <figcaption>Fig 21.3 The cheaper run is the dearer success. Numbers are an example.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Speed people can feel">
+  <div class="txt">
+    <span class="tag">chapter 21 &middot; cost and speed</span>
+    <h2>Speed people can <span class="hl">feel</span></h2>
+    <p>Show progress. A patient who sees each step waits more happily than one staring at a spinner.</p>
+    <ul>
+      <li>Stream the text and each tool step as it happens.</li>
+      <li>Start the next lookup while the current step runs.</li>
+      <li>Fewer steps in a row beats a faster model.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="progress" role="img" aria-label="Left: a silent spinner for 10 seconds and a frowning patient. Right: a 30-second run that shows each step and a smiling patient"></svg>
+    <figcaption>Fig 21.4 Ten silent seconds feel longer than thirty visible ones.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 21">
+  <div class="txt">
+    <span class="tag">chapter 21 &middot; cost and speed</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="1" data-why="The notebook grows every step and is resent every call, so input tokens pile up much faster than the number of steps.">
+        <p>1. Why does a 10-step run cost much more than 10 single calls?</p>
+        <div class="opts"><button class="opt" type="button">Tools charge extra</button><button class="opt" type="button">Each call resends the growing notebook</button><button class="opt" type="button">The model slows down</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="$0.04 / 0.6 is about $0.067 per success; $0.05 / 0.9 is about $0.056. The stronger model wins.">
+        <p>2. Model A costs $0.04 a run and succeeds 60% of the time. Model B costs $0.05 and succeeds 90%. Which is cheaper per success?</p>
+        <div class="opts"><button class="opt" type="button">Model A</button><button class="opt" type="button">They are the same</button><button class="opt" type="button">Model B</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="Showing each step makes waiting feel shorter, and it costs almost nothing to add.">
+        <p>3. Patients complain the agent feels slow. What is the first, cheapest fix?</p>
+        <div class="opts"><button class="opt" type="button">Show progress as it works</button><button class="opt" type="button">Buy a bigger model</button><button class="opt" type="button">Remove the safety checks</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Finance teams will ask for "cost per claim", not "cost per call". Give them that number from day one.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Never trade accuracy for pennies on anything clinical. Save money on the paperwork, not on the patient.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Cost comes from resending the notebook. Cache the stable start, send easy steps to small models, measure cost per success, and show progress.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -4313,6 +4415,78 @@ D.ruleoftwo=svg=>{
     const n=cur.reduce((a,b)=>a+b,0);vb.setAttribute('fill',n===3?C.lcoral:C.lmint);vt.textContent=n===3?'all three: a person must approve':'OK: at most two are on';vt.setAttribute('fill',n===3?'#c0393d':'#1f7a4f');};
   render(7.5);
   anim(svg,t=>render(t%9.6));
+};
+
+/* ---------- chapter 21 ---------- */
+D.tokens=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const N=10,TK=i=>2000+1500*i,base=330,sc=250/16000,X=i=>70+i*50;
+  S.line(50,base,570,base);for(let i=0;i<N;i++)S.text(X(i)+18,base+16,'call '+(i+1),{size:10.5,weight:400});
+  el('rect',{x:60,y:40,width:16,height:16,fill:'#ffb3b1',stroke:C.ink,'stroke-width':1.4},back);txt(back,82,48,'full price',{size:12.5});
+  el('rect',{x:200,y:40,width:16,height:16,fill:'#a6c8ff',stroke:C.ink,'stroke-width':1.4},back);txt(back,222,48,'read from cache (a fraction of the price)',{size:12.5});
+  const bars=[];for(let i=0;i<N;i++){const c=el('rect',{x:X(i),width:36,fill:'#a6c8ff',stroke:C.ink,'stroke-width':1.3},fx),n=el('rect',{x:X(i),width:36,fill:'#ffb3b1',stroke:C.ink,'stroke-width':1.3},fx);bars.push({c,n});}
+  const mode=txt(fx,300,86,'',{anchor:'middle',size:16});const tot=txt(fx,300,372,'',{anchor:'middle',size:14});
+  S.text(300,400,'Every call resends the whole notebook.',{size:13,fill:C.teal});
+  const render=tt=>{const cache=tt>4.6?ease(clamp((tt-4.6)/0.8,0,1)):0;
+    bars.forEach((b,i)=>{const g=ease(clamp((tt-0.3-i*0.3)/0.3,0,1));const h=TK(i)*sc*g;const ch=(i?TK(i-1):0)*sc*g*cache;b.c.setAttribute('y',(base-ch).toFixed(1));b.c.setAttribute('height',ch.toFixed(1));b.n.setAttribute('y',(base-h).toFixed(1));b.n.setAttribute('height',(h-ch).toFixed(1));});
+    mode.textContent=tt<4.6?'without caching: every token at full price':'with caching: only the new part is full price';mode.setAttribute('fill',tt<4.6?'#c0393d':'#1f7a4f');
+    tot.textContent=tt<3.4?'':(tt<4.6?'87,500 input tokens, all at full price':'15,500 new tokens at full price; 72,000 from cache');};
+  render(8);
+  anim(svg,t=>render(t%9.6));
+};
+
+D.levers=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const L=['cache the\nstable start','small model\nfor easy steps','parallel\ntool calls','trim the\nnotebook','step and\nmoney caps','batch what\ncan wait','fast path\nfor FAQs'];
+  const TR=['keep the start of the prompt exactly the same','needs a router, and tests for each route','only for tools that do not depend on each other','might drop a detail you needed','some tasks will stop unfinished','results come back hours later','needs a sorter in front'];
+  const V=[100,70,62,55,48,45,40,35];
+  S.text(300,26,'cost per task (illustrative)',{size:13,fill:C.muted});el('rect',{x:100,y:38,width:400,height:24,rx:5,fill:'#f1f3f6',stroke:C.ink,'stroke-width':1.8},back);
+  const cm=el('rect',{x:100,y:38,height:24,rx:5,fill:'#ffb3b1'},fx);const cv=txt(fx,0,50,'',{size:13});
+  const kn=L.map((l,i)=>{const x=60+i*80;el('rect',{x:x-6,y:100,width:12,height:150,rx:6,fill:'#e3e7ec',stroke:C.ink,'stroke-width':1.6},back);S.text(x,282,l,{size:11.5});
+    return{k:el('rect',{x:x-20,width:40,height:22,rx:6,fill:C.yel,stroke:C.ink,'stroke-width':2},fx),x};});
+  S.rect(40,320,520,60,{fill:'#ffffff',fillStyle:'solid'});const tr=txt(fx,300,350,'',{anchor:'middle',size:13.5});
+  const render=tt=>{const k=Math.min(7,Math.floor((tt-0.4)/1.1)+1);const cur=tt<0.4?0:k;
+    kn.forEach((o,i)=>{const p=ease(clamp((tt-0.4-i*1.1)/0.4,0,1));o.k.setAttribute('y',(96+130*p).toFixed(1));o.k.setAttribute('fill',p>0.5?C.lmint:C.yel);});
+    const prev=V[Math.max(0,cur-1)],now=V[cur],m=ease(clamp(((tt-0.4)%1.1)/0.4,0,1));const v=cur>=7?V[7]:prev+(now-prev)*(cur?m:0);
+    cm.setAttribute('width',(4*v).toFixed(1));cv.setAttribute('x',(106+4*v).toFixed(1));cv.textContent=Math.round(v)+'%';
+    tr.textContent=cur>0&&cur<=7?'trade-off: '+TR[cur-1]:'pull one lever at a time';};
+  render(9);
+  anim(svg,t=>render(t%10.2));
+};
+
+D.persuccess=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.line(300,12,300,400,{strokeLineDash:[6,8],stroke:C.muted,strokeWidth:1.4,roughness:0.5});
+  const M=[{x:155,t:'cheap model',s:'$0.04 per run (twice the steps)',r:[1,0,1,1,0,1,0,1,1,0],res:'$0.067',c:'#c0393d',f:C.lcoral},{x:445,t:'strong model',s:'$0.05 per run',r:[1,1,1,0,1,1,1,1,1,1],res:'$0.056',c:'#1f7a4f',f:C.lmint}];
+  M.forEach(m=>{S.text(m.x,30,m.t,{size:17});S.text(m.x,56,m.s,{size:12.5,weight:400});
+    m.d=m.r.map((r,i)=>{const x=m.x-100+(i%5)*50,y=110+Math.floor(i/5)*58;const g=el('g',{},fx);el('circle',{cx:x,cy:y,r:19,fill:r?C.lmint:C.lcoral,stroke:C.ink,'stroke-width':2},g);mark(g,x,y,r?TICK:CROSS,r?'#1f7a4f':'#c0393d');return g;});
+    m.sc=txt(fx,m.x,232,m.r.filter(v=>v).length+' of 10 succeeded',{anchor:'middle',size:14});
+    m.box=el('g',{},fx);const kb=Sk(svg,m.box);kb.rect(m.x-120,262,240,96,{fill:m.f,fillStyle:'solid'});kb.text(m.x,286,'cost per success',{size:13,weight:400});
+    m.v=txt(m.box,m.x,322,m.res,{anchor:'middle',size:28,fill:m.c});});
+  S.text(300,396,'and every failure also costs staff time to fix',{size:13,fill:C.teal});
+  const render=tt=>{const f=tt>8.6?0:1;M.forEach(m=>{m.d.forEach((g,i)=>g.setAttribute('opacity',tt>0.3+i*0.25?f:0));m.sc.setAttribute('opacity',tt>3.0?f:0);m.box.setAttribute('opacity',tt>3.8?f:0);});};
+  render(8);
+  anim(svg,t=>render(t%9));
+};
+
+D.progress=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const P=[{x:30,t:'silent'},{x:320,t:'shows its work'}];
+  P.forEach(p=>{S.rect(p.x,30,250,310,{fill:'#ffffff',fillStyle:'solid'});S.text(p.x+125,50,p.t,{size:15,fill:C.teal});p.tm=txt(fx,p.x+125,78,'',{anchor:'middle',size:14,fill:C.muted});});
+  const spin=el('g',{},fx);for(let i=0;i<8;i++){const a=rad(i*45);el('circle',{cx:155+22*Math.cos(a),cy:170+22*Math.sin(a),r:4,fill:C.ink,opacity:(0.2+i*0.1).toFixed(2)},spin);}
+  const a1=card(svg,fx,200,48,C.lmint,'Pre-approval sent.\nRef: PA-221.',12.5);at(a1,155,180,1,0);
+  const ST=['checking your policy...','reading the referral...','drafting the request...'];
+  const steps=ST.map((s,i)=>{const g=el('g',{},fx);mark(g,345,112+i*40,TICK,'#1f7a4f');txt(g,362,113+i*40,s,{size:13});return g;});
+  const a2=card(svg,fx,200,48,C.lmint,'Pre-approval sent.\nRef: PA-221.',12.5);at(a2,445,262,1,0);
+  const face=(x)=>{const g=el('g',{},fx);el('circle',{cx:x,cy:378,r:20,fill:'#f6e0c8',stroke:C.ink,'stroke-width':2},g);el('circle',{cx:x-7,cy:373,r:2.5,fill:C.ink},g);el('circle',{cx:x+7,cy:373,r:2.5,fill:C.ink},g);const m=el('path',{fill:'none',stroke:C.ink,'stroke-width':2.2,'stroke-linecap':'round'},g);return m;};
+  const m1=face(155),m2=face(445);
+  const mouth=(m,x,h)=>m.setAttribute('d',`M${x-8} ${386-h*0} Q${x} ${386+h*6} ${x+8} 386`);
+  const render=tt=>{const l=Math.min(10,tt*2);P[0].tm.textContent='waiting '+l.toFixed(0)+' s';const r=Math.min(30,tt*5);P[1].tm.textContent='waiting '+r.toFixed(0)+' s';
+    spin.setAttribute('transform',`rotate(${(tt*240)%360} 155 170)`);spin.setAttribute('opacity',tt<5.2?1:0);a1.setAttribute('opacity',tt>=5.2?1:0);
+    steps.forEach((g,i)=>g.setAttribute('opacity',tt>1.2+i*1.4?1:0));a2.setAttribute('opacity',tt>=6.0?1:0);
+    mouth(m1,155,-Math.min(1,tt/4));mouth(m2,445,1);};
+  render(7);
+  anim(svg,t=>render(t%8.4));
 };
 
 /* code walkers (generic) */
