@@ -817,6 +817,113 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 6: PLANNING ===== -->
+<section class="page" aria-label="Write the plan down">
+  <div class="txt">
+    <span class="tag">chapter 6 &middot; planning</span>
+    <h2>Write the plan <span class="hl">down</span></h2>
+    <p>For long tasks, keep the plan outside the model's head, as a checklist the agent updates as it goes.</p>
+    <ul>
+      <li>A strong model writes the plan.</li>
+      <li>A cheaper model works through it, one step at a time.</li>
+      <li>After each step: done, tick it. Failed, or new facts: replan.</li>
+    </ul>
+    <div class="sticky"><strong>Why bother?</strong>You can see progress, pick up again after a crash, and review the plan before anything happens.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="plan" role="img" aria-label="A planner writes a five-step discharge plan; an executor works through it, step three fails, the planner revises the plan, and the rest is ticked off"></svg>
+    <figcaption>Fig 6.1 Step 3 fails (no physio slots), so the plan changes. Then the work carries on.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Every step needs a finish line">
+  <div class="txt">
+    <span class="tag">chapter 6 &middot; planning</span>
+    <h2>Every step needs a <span class="hl">finish line</span></h2>
+    <p>"Improve the letter" never ends. "The letter lists every medicine, the clinic date and a sign-off box" does.</p>
+    <ul>
+      <li>Write each step as an outcome, not as instructions.</li>
+      <li>Add a test the agent can check: done when...</li>
+      <li>Vague steps make agents loop forever, or stop too early.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="finish" role="img" aria-label="Top: a robot runs laps forever on a vague step. Bottom: a robot passes three checkable gates and finishes"></svg>
+    <figcaption>Fig 6.2 Same robot, two kinds of step. Only one of them ends.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="How much planning">
+  <div class="txt">
+    <span class="tag">chapter 6 &middot; planning</span>
+    <h2>How much <span class="hl">planning</span>?</h2>
+    <p>More planning costs more. Match it to the size of the task.</p>
+    <ul>
+      <li><b>One step at a time</b>: the plain loop from chapter 2.</li>
+      <li><b>To-do list</b>: the agent keeps a checklist and re-reads it.</li>
+      <li><b>Plan, then execute</b>: a planner plus a cheaper worker.</li>
+      <li><b>Split into helpers</b>: each sub-goal goes to its own agent.</li>
+      <li><b>Try many branches</b>: explore, score, keep the best. Costly and rarely needed.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="approaches" role="img" aria-label="Five planning styles from one step at a time to trying many branches, with coin stacks showing rising cost and a hospital example for each"></svg>
+    <figcaption>Fig 6.3 Coins show the cost. The strip below shows a hospital job that fits.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="A plan is a checkpoint for people">
+  <div class="txt">
+    <span class="tag">chapter 6 &middot; planning</span>
+    <h2>A plan is a <span class="hl">checkpoint</span> for people</h2>
+    <p>Before an agent touches anything real, show its plan to the person responsible.</p>
+    <ul>
+      <li>Easy to read: a short numbered list.</li>
+      <li>Easy to fix: cross out a step, add a better one.</li>
+      <li>Only after approval does the agent start.</li>
+    </ul>
+    <div class="sticky"><strong>Cheap insurance</strong>Reviewing five lines takes a minute. Undoing a wrong booking takes far longer.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="review" role="img" aria-label="The agent's plan slides to a care coordinator, who changes one step and stamps it approved; the plan returns and the agent ticks off the steps"></svg>
+    <figcaption>Fig 6.4 The coordinator swaps one step, stamps it, and hands it back.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 6">
+  <div class="txt">
+    <span class="tag">chapter 6 &middot; planning</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="0" data-why="A checkable finish line tells the agent when to stop, so it neither loops forever nor quits early.">
+        <p>1. What should every step in a plan have?</p>
+        <div class="opts"><button class="opt" type="button">A clear "done when" test</button><button class="opt" type="button">Very long instructions</button><button class="opt" type="button">The name of the model to use</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="New facts mean a new plan. Replanning keeps the goal and changes the route.">
+        <p>2. "Book physio this week" failed: no slots. What is the best move?</p>
+        <div class="opts"><button class="opt" type="button">Skip the step and say nothing</button><button class="opt" type="button">Replan with the new facts</button><button class="opt" type="button">Retry the same step forever</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="A short question needs no extra planning. The plain loop is cheapest and good enough.">
+        <p>3. A three-step coverage question. Which planning style fits?</p>
+        <div class="opts"><button class="opt" type="button">Try many branches</button><button class="opt" type="button">Split into helper agents</button><button class="opt" type="button">One step at a time, inside the loop</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Clinical pathways are plans with checkpoints. Give agents the same: clear steps, clear finish lines, and a moment where a senior signs off.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Ask the agent to show its plan before it acts on anything that touches a patient.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Write the plan down, give every step a finish line, replan when facts change, and let a person check the plan when it matters.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -1432,6 +1539,116 @@ D.helper=svg=>{
     const g=tt>7.4&&fade;f2.setAttribute('fill',g?'#d7dbe0':C.lcoral);gone.setAttribute('opacity',g?1:0);};
   render(9);
   anim(svg,t=>render(t%10.5));
+};
+
+/* ---------- chapter 6 ---------- */
+const TICK='M-7 0 L-2 6 L8 -7',CROSS='M-7 -7 L7 7 M7 -7 L-7 7';
+function mark(parent,x,y,d,color){return el('path',{d,transform:`translate(${x} ${y})`,fill:'none',stroke:color,'stroke-width':3.2,'stroke-linecap':'round','stroke-linejoin':'round'},parent);}
+function txt(parent,x,y,s,o){o=o||{};const t=el('text',{x,y,'text-anchor':o.anchor||'start','dominant-baseline':'middle','font-size':o.size||13,'font-weight':o.weight||700,fill:o.fill||C.ink,class:'sk-t'},parent);t.textContent=s;return t;}
+
+D.plan=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.rect(20,24,190,62,{fill:C.lyel,fillStyle:'solid'});S.text(115,55,'Task: get Mrs. Huda\n(bed 12) ready to go home',{size:12.5});
+  const plG=el('rect',{x:233,y:17,width:164,height:76,rx:12,fill:C.yel,opacity:0},glow);
+  S.rect(240,24,150,62,{fill:C.lteal,fillStyle:'solid'});S.text(315,48,'PLANNER',{size:15});S.text(315,68,'strong model',{size:12,weight:400});
+  S.arrow(212,55,236,55);S.arrow(300,88,286,110);
+  S.rect(20,112,320,296,{fill:'#ffffff',fillStyle:'solid'});S.rect(140,104,80,16,{fill:'#c3cad3',fillStyle:'solid',strokeWidth:1.4});
+  S.text(180,138,'THE PLAN',{size:14,fill:C.teal});
+  S.rect(404,160,144,62,{fill:C.lsky,fillStyle:'solid'});S.text(476,182,'EXECUTOR',{size:15});S.text(476,202,'cheaper model, loop',{size:11.5,weight:400});
+  S.rect(416,290,120,46,{fill:'#ffffff',fillStyle:'solid'});S.text(476,313,'CHECK',{size:15});
+  S.arrow(342,236,402,196);S.arrow(476,224,476,288);
+  S.carrow(414,322,344,330,-14,{stroke:'#1f7a4f'});S.text(380,300,'ok: tick it',{size:12,fill:'#1f7a4f'});
+  S.carrow(538,310,394,62,170,{stroke:C.coral,strokeLineDash:[6,5]});S.text(572,268,'failed:\nreplan',{size:12,fill:'#c0393d'});
+  const steps=[{n:'1',t:'collect the medication list',b:0},{n:'2',t:'confirm the follow-up clinic date',b:1},{n:'3',t:'book physio this week',t2:'book physio next week',b:2},
+    {n:'3b',t:'add a home exercise sheet',b:3,ins:true},{n:'4',t:'draft the discharge letter',b:3},{n:'5',t:'send to the doctor for sign-off',b:4}];
+  steps.forEach((s,i)=>{s.a=i;s.g=el('g',{},fx);s.hl=el('rect',{x:30,y:-16,width:300,height:32,rx:8,fill:C.yel,opacity:0},s.g);
+    el('rect',{x:40,y:-9,width:18,height:18,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':2},s.g);
+    txt(s.g,66,0,s.n,{size:13,fill:C.teal});s.tx=txt(s.g,s.n.length>1?90:82,0,s.t,{size:13});
+    if(s.t2){s.st=el('line',{x1:82,y1:0,x2:82+s.t.length*6.3,y2:0,stroke:C.coral,'stroke-width':2.5},s.g);s.tx2=txt(s.g,82,0,s.t2,{size:13,fill:'#c0393d'});}
+    s.ok=mark(s.g,49,0,TICK,'#1f7a4f');s.no=mark(s.g,49,0,CROSS,'#c0393d');});
+  const tok=el('circle',{r:8,fill:C.coral,stroke:'#fff','stroke-width':3},fx);
+  const fail=el('g',{},fx);Sk(svg,fail).text(476,362,'no physio slots\nthis week',{size:12.5,fill:'#c0393d'});
+  const stamp=el('g',{transform:'rotate(-6 500 392)'},fx);el('rect',{x:400,y:376,width:196,height:32,rx:6,fill:C.lmint,stroke:'#1f7a4f','stroke-width':2.5},stamp);txt(stamp,498,392,'ready for sign-off',{anchor:'middle',size:15,fill:'#1f7a4f'});
+  const runs=[[0,2.8,1],[1,4.3,1],[2,5.8,0],[2,8.8,1],[3,10.3,1],[4,11.8,1],[5,13.3,1]],RD=1.2;
+  const render=tt=>{const rp=ease(clamp((tt-7.2)/1.4,0,1));
+    plG.setAttribute('opacity',(tt>0.3&&tt<1.0)||(tt>7.0&&tt<8.6)?0.85:0);
+    let cur=-1,tp=null;
+    steps.forEach(s=>{const slot=s.ins?3:(s.b+(s.a>=4?rp:0));const y=166+slot*40;s.y=y;s.g.setAttribute('transform',`translate(0 ${y.toFixed(1)})`);
+      s.g.setAttribute('opacity',s.ins?rp.toFixed(2):clamp((tt-1.0-s.b*0.3)/0.25,0,1).toFixed(2));
+      const done=runs.some(r=>r[0]===s.a&&r[2]&&tt>r[1]+RD);s.ok.setAttribute('opacity',done?1:0);
+      s.no.setAttribute('opacity',s.a===2&&tt>7.0&&tt<8.6?1:0);s.hl.setAttribute('opacity',0);
+      if(s.t2){const oldOp=rp<=0?1:(rp<0.5?1:Math.max(0,1-(rp-0.5)*2));s.st.setAttribute('opacity',rp>0?oldOp.toFixed(2):0);s.tx.setAttribute('opacity',oldOp.toFixed(2));s.tx2.setAttribute('opacity',Math.max(0,(rp-0.5)*2).toFixed(2));}});
+    runs.forEach(r=>{if(tt>=r[1]&&tt<r[1]+RD){cur=r[0];const s=steps[r[0]];const u=(tt-r[1])/RD;tp=track([[332,s.y],[404,191],[476,191],[476,313]])(ease(u));}});
+    if(cur>=0)steps[cur].hl.setAttribute('opacity',0.85);
+    if(tp){tok.setAttribute('cx',tp[0].toFixed(1));tok.setAttribute('cy',tp[1].toFixed(1));tok.setAttribute('opacity',1);}else tok.setAttribute('opacity',0);
+    fail.setAttribute('opacity',tt>7.0&&tt<8.6?1:0);stamp.setAttribute('opacity',tt>14.8?1:0);};
+  render(16);
+  anim(svg,t=>render(t%17.5));
+};
+
+D.finish=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.line(10,206,590,206,{strokeLineDash:[6,8],stroke:C.muted,strokeWidth:1.4,roughness:0.5});
+  S.text(150,22,'vague step',{size:16,fill:'#c0393d'});
+  S.rect(30,42,240,124,{fill:C.lcoral,fillStyle:'solid'});S.text(150,88,'Step: improve the\ndischarge letter',{size:16});S.text(150,142,'done when: ???',{size:14,weight:400});
+  S.ellipse(440,104,240,112,{strokeLineDash:[8,8],stroke:C.muted,roughness:0.8,strokeWidth:1.8});
+  const mk=()=>{const g=el('g',{},fx);robot(Sk(svg,el('g',{transform:'scale(0.2)'},g)));return g;};
+  const r1=mk(),r2=mk();
+  const lap=txt(fx,440,186,'',{anchor:'middle',size:13,fill:'#c0393d'});
+  S.text(150,226,'checkable step',{size:16,fill:'#1f7a4f'});
+  S.rect(30,244,240,160,{fill:C.lmint,fillStyle:'solid'});S.text(150,266,'Step: discharge letter',{size:15});S.text(150,288,'done when it has:',{size:13,weight:400});
+  const items=['all 6 medicines','the clinic date','a sign-off box'];
+  const ticks=items.map((it,i)=>{const y=318+i*28;S.rect(48,y-9,18,18,{fill:'#ffffff',fillStyle:'solid',strokeWidth:1.6,roughness:0.6});S.text(78,y,(i+1)+'  '+it,{size:13.5,anchor:'start'});return mark(fx,57,y,TICK,'#1f7a4f');});
+  S.line(300,384,585,384,{strokeWidth:2.4});
+  const GX=[360,440,520];
+  const flags=GX.map((x,i)=>{S.line(x,318,x,384,{strokeWidth:2.2});const c=el('circle',{cx:x,cy:312,r:12,fill:'#e3e7ec',stroke:C.ink,'stroke-width':2},fx);txt(fx,x,313,String(i+1),{anchor:'middle',size:13});return c;});
+  const done=el('g',{transform:'rotate(-8 470 258)'},fx);el('rect',{x:415,y:240,width:110,height:36,rx:6,fill:C.lmint,stroke:'#1f7a4f','stroke-width':3},done);txt(done,470,258,'DONE',{anchor:'middle',size:20,fill:'#1f7a4f'});
+  const render=tt=>{const a=rad(-90+(tt%1.6)/1.6*360);const x1=440+120*Math.cos(a),y1=104+56*Math.sin(a);
+    r1.setAttribute('transform',`translate(${x1.toFixed(1)} ${(y1-40).toFixed(1)})`);const n=Math.floor(tt/1.6)+1;lap.textContent='lap '+n+': still polishing... $'+(n*0.09).toFixed(2)+' spent';
+    const x2=300+262*clamp(tt/6,0,1);r2.setAttribute('transform',`translate(${x2.toFixed(1)} ${(384-212*0.2).toFixed(1)})`);
+    GX.forEach((g,i)=>{const pass=x2>g;flags[i].setAttribute('fill',pass?'#30a46c':'#e3e7ec');ticks[i].setAttribute('opacity',pass?1:0);});
+    done.setAttribute('opacity',tt>6.2?1:0);};
+  render(7);
+  anim(svg,t=>render(t%9));
+};
+
+D.approaches=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const A=[['one step\nat a time','short tasks',1,'answer one coverage question'],['to-do\nlist','multi-step jobs',1,'prepare one discharge'],
+    ['plan, then\nexecute','long tasks',2,'a week of follow-up calls'],['split into\nhelpers','big research',4,'review 300 denied claims'],['try many\nbranches','puzzles, offline',7,'find the best theatre schedule']];
+  S.text(300,22,'cost of planning',{size:15,fill:C.teal});
+  const gl=el('rect',{y:144,width:116,height:182,rx:12,fill:C.yel,opacity:0},glow);
+  const coins=A.map((a,i)=>{const x=14+i*118;S.rect(x,150,104,170,{fill:'#ffffff',fillStyle:'solid'});S.text(x+52,192,a[0],{size:15});S.text(x+52,268,'best for:\n'+a[1],{size:12,weight:400});
+    const g=el('g',{},fx);const k=Sk(svg,g);for(let c=0;c<a[2];c++)k.ellipse(x+52,132-c*10,40,12,{fill:C.yel,fillStyle:'solid',strokeWidth:1.4,roughness:0.7});return g;});
+  S.arrow(20,346,580,346,{stroke:C.muted});S.text(300,362,'longer, harder tasks',{size:13,weight:400});
+  S.rect(60,378,480,32,{fill:C.lyel,fillStyle:'solid'});
+  const ex=txt(fx,300,394,'',{anchor:'middle',size:14});
+  const render=(k,u)=>{gl.setAttribute('x',8+k*118);gl.setAttribute('opacity',0.85);ex.textContent='Hospital fit: '+A[k][3];
+    coins.forEach((g,i)=>g.setAttribute('transform',i===k?`translate(0 ${(-Math.abs(Math.sin(u*5))*6).toFixed(1)})`:''));};
+  render(1,0);
+  anim(svg,t=>{const k=Math.floor(t/2.6)%5;render(k,t%2.6);});
+};
+
+D.review=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  robot(S.group(80,40,0.34));S.text(80,128,'agent',{size:14});
+  S.circle(470,52,34,{fill:'#f6e0c8',fillStyle:'solid'});S.line(470,69,470,132);S.line(470,88,444,112);S.line(470,88,496,112);S.line(470,132,452,172);S.line(470,132,488,172);
+  S.text(470,192,'care coordinator',{size:14});
+  const cb=el('g',{},fx);const K=Sk(svg,cb);
+  K.rect(0,0,230,192,{fill:'#ffffff',fillStyle:'solid'});K.rect(85,-8,60,14,{fill:'#c3cad3',fillStyle:'solid',strokeWidth:1.3});K.text(14,22,'PLAN, bed 12',{size:13,fill:C.teal,anchor:'start'});
+  const st=['collect medication list','confirm clinic date','book physio this week','draft discharge letter'];
+  const ticks=st.map((s,i)=>{const y=50+i*40;el('rect',{x:12,y:y-8,width:16,height:16,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':1.8},cb);txt(cb,36,y,(i+1)+'  '+s,{size:12.5});return mark(cb,20,y,TICK,'#1f7a4f');});
+  const strike=el('line',{x1:48,y1:130,x2:178,y2:130,stroke:C.coral,'stroke-width':2.5},cb);
+  const fix=txt(cb,48,150,'book a home physio visit',{size:12.5,fill:'#c0393d'});
+  const stamp=el('g',{transform:'rotate(-8 172 24)'},cb);el('rect',{x:120,y:10,width:104,height:28,rx:5,fill:'#ffffff',stroke:'#1f7a4f','stroke-width':3},stamp);txt(stamp,172,24,'APPROVED',{anchor:'middle',size:15,fill:'#1f7a4f'});
+  let SL=130;strike.style.strokeDasharray=SL+' '+SL;
+  const render=tt=>{const go=ease(clamp((tt-0.6)/1.2,0,1)),back2=ease(clamp((tt-5.6)/1.2,0,1));const x=30+310*go-310*back2;
+    cb.setAttribute('transform',`translate(${x.toFixed(1)} 214)`);
+    strike.style.strokeDashoffset=(SL*(1-clamp((tt-2.2)/0.5,0,1))).toFixed(1);
+    fix.setAttribute('opacity',clamp((tt-2.8)/0.4,0,1).toFixed(2));stamp.setAttribute('opacity',tt>3.8?1:0);
+    ticks.forEach((m,i)=>m.setAttribute('opacity',tt>7.2+i*0.6?1:0));};
+  render(10);
+  anim(svg,t=>render(t%11.6));
 };
 
 /* draw-on effect for sketch strokes */
