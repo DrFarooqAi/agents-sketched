@@ -495,6 +495,115 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno">8</div>
 </section>
 
+<!-- ===== CHAPTER 3: HOW TOOL CALLS WORK ===== -->
+<section class="page" aria-label="The model never touches anything">
+  <div class="txt">
+    <span class="tag">chapter 3 &middot; how tool calls work</span>
+    <h2>The model never <span class="hl">touches</span> anything</h2>
+    <p>This surprises most people. The language model cannot open the EHR, call the insurer or read a file. It can only write a request.</p>
+    <ul>
+      <li>Your app sends the question plus a menu of tools.</li>
+      <li>The model replies with a request: which tool, which inputs.</li>
+      <li>Your code runs it and hands the result back.</li>
+      <li>Repeat until the model answers in plain words.</li>
+    </ul>
+    <div class="sticky"><strong>Why it matters</strong>Your code is the gatekeeper. It can check, block or log every request before anything real happens.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="seq" role="img" aria-label="Six messages pass between your app, the model and the tools; the model only sends requests and answers"></svg>
+    <figcaption>Fig 3.1 Six messages, one envelope. Step 2 is the only thing the model really does.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Each tool is a menu card">
+  <div class="txt">
+    <span class="tag">chapter 3 &middot; how tool calls work</span>
+    <h2>Each tool is a <span class="hl">menu card</span></h2>
+    <p>The model can only pick from the tools you describe. Each card has three parts:</p>
+    <ul>
+      <li><b>A name</b>: verb plus noun, like <code>check_criteria</code>.</li>
+      <li><b>A description</b>: when to use it, and when not to. Write it like advice to a new colleague.</li>
+      <li><b>Inputs</b>: exactly what it needs, like <code>cpt_code</code> as text.</li>
+    </ul>
+    <p>Vague cards give vague choices. Many "the agent picked the wrong tool" bugs are fixed by rewriting one description.</p>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="menu" role="img" aria-label="Three tool cards; the model picks check_criteria and fills in a request slip"></svg>
+    <figcaption>Fig 3.2 The model reads the menu, picks a card and fills in a request slip.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Two calls at once, one ticket each">
+  <div class="txt">
+    <span class="tag">chapter 3 &middot; how tool calls work</span>
+    <h2>Two calls at once, <span class="hl">one ticket each</span></h2>
+    <p>A model can ask for several tools in one turn. Each request carries its own ticket number.</p>
+    <ul>
+      <li>Run them at the same time to save waiting.</li>
+      <li>Send every result back together, each with its ticket.</li>
+      <li>If a tool fails, do not crash. Send back an error note that says what happened and what to try.</li>
+    </ul>
+    <div class="sticky"><strong>Good error, bad error</strong>"Timeout after 5 s, try again or skip labs" helps the model. A wall of red error text does not.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="parallel" role="img" aria-label="Two request tickets go to an eligibility tool and a lab tool; one succeeds, one times out, and both results return to the model"></svg>
+    <figcaption>Fig 3.3 Ticket A comes back fine, ticket B times out. Both go back to the model.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Who decides if a tool is used">
+  <div class="txt">
+    <span class="tag">chapter 3 &middot; how tool calls work</span>
+    <h2>Who decides <span class="hl">if</span> a tool is used?</h2>
+    <p>Most model APIs let you set, turn by turn, how free the model is to use tools.</p>
+    <ul>
+      <li><b>Auto</b>: the model decides. The normal setting.</li>
+      <li><b>Must use a tool</b>: for steps that have to act.</li>
+      <li><b>Must use this tool</b>: for pulling data into a fixed shape.</li>
+      <li><b>No tools</b>: for the final written answer.</li>
+    </ul>
+    <div class="sticky"><strong>One at a time</strong>You can also switch off parallel calls when order matters, like "book the slot" before "send the SMS".</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="choice" role="img" aria-label="A four-position switch: auto, must use a tool, must use this tool, no tools, with a panel explaining each"></svg>
+    <figcaption>Fig 3.4 Click a setting, or watch the switch move.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 3">
+  <div class="txt">
+    <span class="tag">chapter 3 &middot; how tool calls work</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="1" data-why="The model only writes the request. Your code runs the tool and returns the result.">
+        <p>1. The model wants <code>get_policy("M-1043")</code>. Who actually runs it?</p>
+        <div class="opts"><button class="opt" type="button">The model</button><button class="opt" type="button">Your app's code</button><button class="opt" type="button">The insurer decides</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="Every request needs an answer with the same ticket. A clear error note lets the model retry, skip or explain.">
+        <p>2. The model asked for two tools. One timed out. What do you send back?</p>
+        <div class="opts"><button class="opt" type="button">Only the result that worked</button><button class="opt" type="button">Nothing, stop the app</button><button class="opt" type="button">Both, with the failed one marked as an error and a hint</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="Forcing one named tool guarantees the model returns data in that tool's exact shape.">
+        <p>3. Every scanned claim form must be turned into the same fields. Which setting fits?</p>
+        <div class="opts"><button class="opt" type="button">Must use this tool (extract_claim_fields)</button><button class="opt" type="button">Auto</button><button class="opt" type="button">No tools</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Treat every tool like a new nurse on day one: a clear name, a one-line job description, and a simple way to say "I could not do this, here is why".</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Give the agent reading tools first. Anything that writes to a patient record goes behind a human approval.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>The model only asks. Your code runs the tool, and every request gets an answer, even if that answer is an error.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -792,6 +901,107 @@ D.hospital=svg=>{
   anim(svg,t=>{const D=1.9,k=Math.floor(t/D)%6,u=t%D;
     R.forEach((r,i)=>{const on=i===k;r.g.setAttribute('opacity',on?(0.85*Math.min(1,u/0.25,(D-u)/0.25)).toFixed(2):0);
       r.ring.setAttribute('opacity',on?(1-u/D).toFixed(2):0);r.ring.setAttribute('r',on?(11+u*16).toFixed(1):11);});});
+};
+
+/* ---------- chapter 3 ---------- */
+const lerp2=(a,b,u)=>[a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u];
+
+D.seq=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const X={app:110,model:300,tools:490};
+  [['YOUR APP','',X.app,C.lsky],['THE MODEL','',X.model,C.lteal],['TOOLS','EHR, insurer, files',X.tools,C.lyel]].forEach(([t,s,x,f])=>{
+    S.line(x,64,x,392,{strokeLineDash:[6,7],stroke:C.muted,strokeWidth:1.4,roughness:0.5});
+    S.rect(x-72,18,144,46,{fill:f,fillStyle:'solid'});S.text(x,s?34:41,t,{size:16});if(s)S.text(x,53,s,{size:11,weight:400});});
+  const steps=[[X.app,X.model,100,'question + tool menu'],[X.model,X.app,150,'request: get_policy(M-1043)'],[X.app,X.tools,200,'run get_policy'],
+    [X.tools,X.app,250,'result: MRI needs approval'],[X.app,X.model,300,'result, ticket #1'],[X.model,X.app,350,'final answer']];
+  steps.forEach((s,i)=>{const a=s[0],b=s[1],y=s[2],dir=b>a?1:-1;
+    s.g=el('rect',{x:Math.min(a,b)-6,y:y-30,width:Math.abs(b-a)+12,height:42,rx:10,fill:C.yel,opacity:0},glow);
+    S.arrow(a+dir*8,y,b-dir*8,y,{stroke:i===1?C.coral:C.ink});
+    S.text((a+b)/2,y-13,s[3],{size:12.5,fill:i===1?'#c0393d':C.ink});
+    S.circle(22,y,24,{fill:'#ffffff',fillStyle:'solid',strokeWidth:1.6});S.text(22,y+1,String(i+1),{size:13});});
+  const env=el('g',{},fx);
+  const er=el('rect',{x:-15,y:-10,width:30,height:20,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':2},env);
+  el('path',{d:'M-15 -10 L0 3 L15 -10',fill:'none',stroke:C.ink,'stroke-width':2},env);
+  const place=(x,y)=>env.setAttribute('transform',`translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+  place(X.app,100);
+  const STEP=1.3,HOLD=2.2,TOT=steps.length*STEP+HOLD;
+  anim(svg,t=>{const tt=t%TOT,k=Math.min(steps.length-1,Math.floor(tt/STEP));
+    const u=tt>=steps.length*STEP?1:clamp((tt-k*STEP)/(STEP*0.75),0,1);
+    const s=steps[k];place(s[0]+(s[1]-s[0])*ease(u),s[2]);
+    er.setAttribute('fill',k===1?C.lcoral:(k===3?C.lmint:'#fff'));
+    steps.forEach((q,i)=>q.g.setAttribute('opacity',i===k?0.8:(i<k?0.18:0)));});
+};
+
+D.menu=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const cards=[['get_policy','Plan rules for one member.\nNot for claim status.','inputs: member_id'],
+    ['read_referral',"The doctor's referral\nnote, as plain text.",'inputs: referral_id'],
+    ['check_criteria',"Does a test meet the\npayer's rules?",'inputs: cpt_code, weeks_of_therapy']];
+  S.text(156,22,'the tool menu',{size:15,fill:C.teal});
+  cards.forEach((c,i)=>{const y=40+i*122;c.g=el('rect',{x:30,y:y-6,width:252,height:116,rx:12,fill:C.yel,opacity:0},glow);
+    S.rect(38,y,236,104,{fill:'#ffffff',fillStyle:'solid'});S.text(52,y+20,c[0],{size:16,anchor:'start'});
+    S.text(52,y+52,c[1],{size:12.5,anchor:'start',weight:400});S.text(52,y+88,c[2],{size:11.5,anchor:'start',weight:400,fill:C.muted});});
+  robot(S.group(450,54,0.42));
+  S.text(450,160,'which card fits?',{size:13,fill:C.muted,weight:400});
+  S.rect(330,212,252,156,{fill:C.lyel,fillStyle:'solid'});S.text(456,234,'request slip',{size:14,fill:C.teal});
+  const ag=el('g',{},fx);Sk(svg,ag).arrow(282,338,326,300,{stroke:C.coral});
+  const lines=['call: check_criteria','cpt_code: "72148"','weeks_of_therapy: 6','ticket: #3'].map((l,i)=>{const g=el('g',{},fx);Sk(svg,g).text(348,266+i*28,l,{size:15,anchor:'start',fill:C.ink});return g;});
+  const TOT=8.6;
+  anim(svg,t=>{const tt=t%TOT,fade=tt>TOT-0.4?0:1;
+    const k=Math.min(2,Math.floor(tt/0.8));cards.forEach((c,i)=>c.g.setAttribute('opacity',i===k?0.85*fade:0));
+    ag.setAttribute('opacity',(clamp((tt-2.6)/0.3,0,1)*fade).toFixed(2));
+    lines.forEach((g,i)=>g.setAttribute('opacity',(clamp((tt-3.0-i*0.55)/0.25,0,1)*fade).toFixed(2)));});
+};
+
+D.parallel=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  [[240,76,240,168],[360,76,360,168],[240,214,150,300],[360,214,450,300]].forEach(a=>S.line(a[0],a[1],a[2],a[3],{strokeLineDash:[6,7],stroke:C.muted,strokeWidth:1.4,roughness:0.5}));
+  S.rect(200,30,200,46,{fill:C.lteal,fillStyle:'solid'});S.text(300,53,'THE MODEL',{size:16});
+  S.rect(200,168,200,46,{fill:C.lsky,fillStyle:'solid'});S.text(300,191,'YOUR APP',{size:16});
+  S.rect(55,322,150,56,{fill:C.lyel,fillStyle:'solid'});S.text(130,342,'check_eligibility',{size:13});S.text(130,362,'insurer',{size:11,weight:400});
+  S.rect(395,322,150,56,{fill:C.lyel,fillStyle:'solid'});S.text(470,342,'get_lab_results',{size:13});S.text(470,362,'lab system',{size:11,weight:400});
+  const ok=el('g',{},fx);const ko=Sk(svg,ok);ko.rect(85,388,90,26,{fill:C.lmint,fillStyle:'solid',strokeWidth:1.6});ko.text(130,401,'A: covered',{size:13});
+  const er=el('g',{},fx);const ke=Sk(svg,er);ke.rect(405,388,130,26,{fill:C.lcoral,fillStyle:'solid',strokeWidth:1.6});ke.text(470,401,'B: timeout after 5 s',{size:12.5});
+  const bub=el('g',{},fx);const kb=Sk(svg,bub);kb.rect(400,24,190,58,{fill:'#ffffff',fillStyle:'solid'});kb.text(495,53,"Covered. Labs timed\nout, I'll retry once.",{size:12.5});
+  const slip=l=>{const g=el('g',{},fx);const r=el('rect',{x:-17,y:-12,width:34,height:24,rx:3,fill:'#fff',stroke:C.ink,'stroke-width':2},g);const tx=el('text',{x:0,y:1,'text-anchor':'middle','dominant-baseline':'middle','font-size':14,'font-weight':700,fill:C.ink,class:'sk-t'},g);tx.textContent=l;return{g,r};};
+  const A=slip('A'),B=slip('B');
+  const pos=(s,x,y,op)=>{s.g.setAttribute('transform',`translate(${x.toFixed(1)} ${y.toFixed(1)})`);s.g.setAttribute('opacity',op);};
+  const M=x=>[x,53],P=x=>[x,191],T=x=>[x===240?150:450,302];
+  const go=(s,x,tt,wait,shake)=>{let p;
+    if(tt<1.0)p=lerp2(M(x),P(x),ease(tt/1.0));else if(tt<2.2)p=lerp2(P(x),T(x),ease((tt-1.0)/1.2));
+    else if(tt<wait){p=T(x);if(shake)p=[p[0]+Math.sin(tt*38)*3,p[1]];}
+    else if(tt<wait+0.8)p=lerp2(T(x),P(x),ease((tt-wait)/0.8));else if(tt<5.0)p=P(x);
+    else if(tt<6.0)p=lerp2(P(x),M(x),ease(tt-5.0));else p=M(x);
+    pos(s,p[0],p[1],tt<6.05?1:0);};
+  pos(A,240,53,1);pos(B,360,53,1);
+  const TOT=10;
+  anim(svg,t=>{const tt=t%TOT,fade=tt>TOT-0.4?0:1;
+    go(A,240,tt,3.0,false);go(B,360,tt,4.2,true);
+    A.r.setAttribute('fill',tt>2.8?C.lmint:'#fff');B.r.setAttribute('fill',tt>4.0?C.lcoral:'#fff');
+    ok.setAttribute('opacity',tt>2.8?fade:0);er.setAttribute('opacity',tt>4.0?fade:0);bub.setAttribute('opacity',tt>6.2?fade:0);});
+};
+
+D.choice=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const O=[{n:'auto',l:'auto',b:'The model decides whether to call a tool.',u:'normal agent turns',e:'Answer if it knows, look things up if it does not.'},
+    {n:'must use\na tool',l:'must use a tool',b:'It has to call at least one tool.',u:'steps that must act',e:'Triage must check the patient record first.'},
+    {n:'must use\nthis tool',l:'must use this tool',b:'It has to call one named tool.',u:'pulling data into a fixed shape',e:'Always fill extract_claim_fields from a scanned form.'},
+    {n:'no\ntools',l:'no tools',b:'Text only. No tool calls allowed.',u:'the final written answer',e:'Write the discharge letter from what was gathered.'}];
+  const XS=[120,240,360,480];
+  S.rect(70,104,460,40,{fill:'#e3e7ec',fillStyle:'solid'});
+  XS.forEach((x,i)=>{S.line(x,96,x,152,{strokeWidth:1.6,stroke:C.muted,roughness:0.5});S.text(x,62,O[i].n,{size:14});});
+  S.rect(60,178,480,220,{fill:'#ffffff',fillStyle:'solid'});
+  const knob=el('g',{},fx);el('circle',{r:24,fill:C.coral,stroke:C.ink,'stroke-width':3},knob);el('circle',{r:7,fill:'#fff'},knob);
+  const F=Sk(svg,fx);const tT=F.text(300,208,'',{size:22});
+  const tl=[248,290,334,362].map((y,i)=>F.text(84,y,'',{size:15,weight:i===2?700:400,anchor:'start'}));
+  let shown=-1;const render=k=>{if(k===shown)return;shown=k;const o=O[k];setLines(tT,o.l);setLines(tl[0],'What happens: '+o.b);setLines(tl[1],'Use it for: '+o.u);setLines(tl[2],'Hospital example:');setLines(tl[3],o.e);};
+  const at=x=>knob.setAttribute('transform',`translate(${x.toFixed(1)} 124)`);
+  render(0);at(XS[0]);
+  let manual=null,until=0,now=0;
+  XS.forEach((x,k)=>{const h=el('rect',{x:x-58,y:36,width:116,height:126,fill:'transparent',style:'cursor:pointer'},fx);h.addEventListener('click',()=>{manual=k;until=now+6;render(k);at(x);});});
+  anim(svg,t=>{now=t;if(manual!==null&&t<until)return;manual=null;
+    const k=Math.floor(t/3.2)%4,u=t%3.2,prev=(k+3)%4,p=ease(Math.min(1,u/0.6));
+    at(XS[prev]+(XS[k]-XS[prev])*p);if(u>0.3)render(k);});
 };
 
 /* draw-on effect for sketch strokes */
