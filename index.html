@@ -2528,6 +2528,110 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 22: WHY AGENTS FAIL ===== -->
+<section class="page" aria-label="The debugging loop">
+  <div class="txt">
+    <span class="tag">chapter 22 &middot; why agents fail</span>
+    <h2>The <span class="hl">debugging loop</span></h2>
+    <p>Most failures trace back to a few causes. Find where the run first went wrong.</p>
+    <ul>
+      <li>Start from a failing run: a test, or a complaint.</li>
+      <li>Open the trace and read every step.</li>
+      <li>Find the first bad step, not the last.</li>
+      <li>Fix the cause, then add the case to your test set.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="debugloop" role="img" aria-label="A five-step loop: failing run, open the trace, find the first bad step, fix the cause, add a test case; the centre shows a wrongly refused pre-approval being traced and fixed"></svg>
+    <figcaption>Fig 22.1 One complaint, followed all the way round the loop.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Four buckets">
+  <div class="txt">
+    <span class="tag">chapter 22 &middot; why agents fail</span>
+    <h2>Four <span class="hl">buckets</span></h2>
+    <p>Put the first bad step into one bucket, and fix that bucket.</p>
+    <ul>
+      <li><b>Context</b>: was the information there?</li>
+      <li><b>Tools</b>: were the description and the error clear?</li>
+      <li><b>Model or prompt</b>: with good inputs, did it still go wrong?</li>
+      <li><b>Harness</b>: did the loop cut, drop or time out anything?</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="buckets" role="img" aria-label="Five failure cards are sorted into four buckets: context, tools, model or prompt, and harness, each with the question that decides it"></svg>
+    <figcaption>Fig 22.2 Each failure is sorted by the question that fits it.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Symptom, cause, fix">
+  <div class="txt">
+    <span class="tag">chapter 22 &middot; why agents fail</span>
+    <h2>Symptom, cause, <span class="hl">fix</span></h2>
+    <p>The same few symptoms come up again and again.</p>
+    <ul>
+      <li>Fix the cause, not the symptom.</li>
+      <li>Every fixed failure becomes a test case, so it never comes back.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="slots" role="img" aria-label="A slot machine rolls through six failures, each showing a symptom, its likely cause and the fix"></svg>
+    <figcaption>Fig 22.3 The failure slot machine: six common symptoms, explained.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Read the transcripts">
+  <div class="txt">
+    <span class="tag">chapter 22 &middot; why agents fail</span>
+    <h2>Read the <span class="hl">transcripts</span></h2>
+    <p>Ten minutes reading twenty failed runs finds more than any dashboard.</p>
+    <ul>
+      <li>Dashboards show that something is wrong.</li>
+      <li>Transcripts show what went wrong, and why.</li>
+      <li>Make it a weekly habit, with a clinician in the room.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="readlogs" role="img" aria-label="A dashboard shows all green while a transcript reveals three problems, highlighted one by one"></svg>
+    <figcaption>Fig 22.4 All green on the dashboard, three problems in one transcript.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 22">
+  <div class="txt">
+    <span class="tag">chapter 22 &middot; why agents fail</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="0" data-why="Later mistakes often follow from the first one. Fix the earliest divergence.">
+        <p>1. A run went wrong at step 2 and again at step 6. Where do you start?</p>
+        <div class="opts"><button class="opt" type="button">Step 2, the first bad step</button><button class="opt" type="button">Step 6, the last bad step</button><button class="opt" type="button">The final answer</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="The model could not use what it never saw. That is a context problem.">
+        <p>2. The agent missed an allergy note that was in another document it never loaded. Which bucket?</p>
+        <div class="opts"><button class="opt" type="button">Model or prompt</button><button class="opt" type="button">Harness</button><button class="opt" type="button">Context</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="If the error does not say what to change, the model tries the same thing again. Add a loop guard too.">
+        <p>3. The agent repeats the same failing call five times. What is the likely cause?</p>
+        <div class="opts"><button class="opt" type="button">The model is too small</button><button class="opt" type="button">An error message that does not say what to change</button><button class="opt" type="button">Too many tools</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">This is a morbidity and mortality meeting for agents: find the first mistake, fix the system, share the lesson.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Every complaint is a free test case. Add it to the test set the same day.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Find the first bad step, put it in a bucket, fix the cause, add a test. And read transcripts every week.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -4487,6 +4591,82 @@ D.progress=svg=>{
     mouth(m1,155,-Math.min(1,tt/4));mouth(m2,445,1);};
   render(7);
   anim(svg,t=>render(t%8.4));
+};
+
+/* ---------- chapter 22 ---------- */
+D.debugloop=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);const cx=300,cy=212,R=150;
+  const N=[['failing run','(test or complaint)',-90],['open the trace','read every step',-18],['find the FIRST','bad step',54],['fix the cause','not the symptom',126],['add a test case','so it never returns',198]];
+  N.forEach((n,i)=>S.arc(cx,cy,R,n[2]+26,N[(i+1)%5][2]+(i===4?360:0)-26,{stroke:C.muted}));
+  const gl=N.map(([t,s,a])=>{const x=cx+R*Math.cos(rad(a)),y=cy+R*Math.sin(rad(a));S.rect(x-66,y-26,132,52,{fill:'#ffffff',fillStyle:'solid'});S.text(x,y-8,t,{size:13.5});S.text(x,y+12,s,{size:11,weight:400});
+    return el('rect',{x:x-70,y:y-30,width:140,height:60,rx:12,fill:'none',stroke:C.yel,'stroke-width':6,opacity:0},fx);});
+  const ctr=Sk(svg,el('g',{},fx)).text(cx,cy,'',{size:12.5});
+  const rows=['1 get_claim','2 get_policy (2025)','3 check_rules','4 decide: refuse'].map((r,i)=>txt(fx,cx-70,cy-30+i*22,r,{size:12}));
+  const hlr=el('rect',{x:cx-78,y:cy-19,width:160,height:20,rx:4,fill:'none',stroke:'#e5484d','stroke-width':2.5},fx);
+  const C2=['patient says: "my pre-approval\nwas refused wrongly"','','first bad step: it read\nlast year\'s policy','fix: the tool returns only\nthe current policy','new test: "policy year must\nmatch the claim date"'];
+  let sh=-1;const dot=dotEl(fx,8);
+  const render=tt=>{const k=Math.min(4,Math.floor(tt/2.2)),u=tt-k*2.2;gl.forEach((g,i)=>g.setAttribute('opacity',i===k?1:0));
+    const a=N[k][2]+(k===4&&u>1.6?0:0);moveDot(dot,[cx+R*Math.cos(rad(N[k][2])),cy+R*Math.sin(rad(N[k][2]))-30],1);
+    const showRows=k===1||k===2;rows.forEach((r,i)=>{r.setAttribute('opacity',showRows?(k===2&&i!==1?0.35:1):0);r.setAttribute('fill',k===2&&i===1?'#c0393d':C.ink);});
+    hlr.setAttribute('opacity',k===2?1:0);const ctext=k===2?'':C2[k];if(k!==sh){sh=k;setLines(ctr,ctext);ctr.setAttribute('fill',k===4?'#1f7a4f':(k===3?C.teal:C.ink));}
+    if(k===2){setLines(ctr,'');}};
+  const lbl=txt(fx,cx,cy+60,'',{anchor:'middle',size:12,fill:'#c0393d'});
+  const r2=render;const render2=tt=>{r2(tt);const k=Math.min(4,Math.floor(tt/2.2));lbl.textContent=k===2?"first bad step: last year's policy":'';};
+  render2(5);
+  anim(svg,t=>render2(t%11.6));
+};
+
+D.buckets=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const B=[['CONTEXT','missing, stale,\nburied',C.lsky,85],['TOOLS','description,\noutput, errors',C.lyel,230],['MODEL / PROMPT','reasoning,\ninstructions',C.lteal,375],['HARNESS','loop, cut-offs,\nlimits',C.lcoral,520]];
+  const cnt=B.map(([t,s,f,x])=>{S.path(`M${x-62} 250 L${x-52} 380 L${x+52} 380 L${x+62} 250`,{fill:f,fillStyle:'solid'});S.text(x,272,t,{size:13.5});S.text(x,318,s,{size:11.5,weight:400});
+    el('circle',{cx:x,cy:356,r:12,fill:'#fff',stroke:C.ink,'stroke-width':2},fx);return txt(fx,x,357,'0',{anchor:'middle',size:12});});
+  const F=[['missed the allergy note from\nlast week\'s letter','Did it have the information it needed?',0],['chose search_web instead\nof get_policy','Was the tool choice reasonable, given the descriptions?',1],
+    ['retried the same failing\ncall five times','Was the error clear enough to act on?',1],['ignored "never give\na diagnosis"','With good inputs, did it still go wrong?',2],['answer cut off\nmid-sentence','Did the harness cut or time out anything?',3]];
+  const q=txt(fx,300,26,'',{anchor:'middle',size:13.5,fill:C.teal});
+  const cd=el('g',{},fx);const ck=Sk(svg,cd);ck.rect(-120,-32,240,64,{fill:'#ffffff',fillStyle:'solid'});const ct=ck.text(0,0,'',{size:13});
+  let sh=-1;
+  const render=tt=>{const k=Math.min(4,Math.floor(tt/2.2)),u=tt-k*2.2,f=F[k];if(k!==sh){sh=k;setLines(ct,f[0]);}q.textContent=tt<11?f[1]:'5 failures, 4 buckets';
+    const p=u<1.0?[300,110]:lerp2([300,110],[B[f[2]][3],300],ease(clamp((u-1.0)/0.7,0,1)));cd.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) scale(${(u<1.0?1:1-0.6*clamp((u-1.0)/0.7,0,1)).toFixed(2)})`);cd.setAttribute('opacity',tt<11&&u<1.8?1:0);
+    cnt.forEach((c,i)=>{let n=0;F.forEach((ff,j)=>{if(ff[2]===i&&(j<k||(j===k&&u>=1.7)||tt>=11))n++;});c.textContent=String(n);});};
+  render(11.5);
+  anim(svg,t=>render(t%12.4));
+};
+
+D.slots=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.rect(10,56,580,250,{fill:'#fff1a8',fillStyle:'solid',strokeWidth:3});S.text(300,32,'the failure slot machine',{size:17,fill:C.teal});
+  const W=[[20,'SYMPTOM','#c0393d'],[210,'LIKELY CAUSE','#a37b00'],[400,'FIX','#1f7a4f']];
+  W.forEach(([x,t,c])=>{S.text(x+90,82,t,{size:14,fill:c});el('rect',{x:x,y:96,width:180,height:150,rx:10,fill:'#ffffff',stroke:C.ink,'stroke-width':2.5},back);});
+  const clip=el('clipPath',{id:'slotclip'},el('defs',{},svg));W.forEach(([x])=>el('rect',{x:x,y:96,width:180,height:150,rx:10},clip));
+  const reel=el('g',{'clip-path':'url(#slotclip)'},fx);
+  const CS=[['calls the\nwrong tool','vague, overlapping\ntool descriptions','rename tools; say\nwhen NOT to use each'],['repeats the\nsame call','an error message\nthat says nothing','a loop guard, and errors\nthat say what to change'],
+    ['stops too early','no clear\n"done when"','explicit checks\nbefore finishing'],['never stops','no stop rule','step and\nmoney caps'],['makes up\na result','answered without\ncalling the tool','require the tool; check\nclaims against results'],
+    ['works in testing,\nfails with patients','test set unlike\nreal cases','add real, anonymised\ncases to the test set']];
+  const cols=W.map(([x],j)=>{const t=Sk(svg,el('g',{},reel)).text(x+90,171,'',{size:14});return t;});
+  const ctr=txt(fx,300,276,'',{anchor:'middle',size:13});
+  S.text(300,340,'Fix the cause, not the symptom.',{size:15});S.text(300,368,'Every fix becomes a test case.',{size:13.5,fill:C.teal});
+  let sh=-1;
+  const render=tt=>{const k=Math.floor(tt/2.4)%6,u=tt%2.4;if(k!==sh){sh=k;cols.forEach((c,j)=>setLines(c,CS[k][j]));}ctr.textContent='case '+(k+1)+' of 6';
+    cols.forEach((c,j)=>{const p=ease(clamp((u-j*0.25)/0.45,0,1));c.parentNode.setAttribute('transform',`translate(0 ${(-120*(1-p)).toFixed(1)})`);c.parentNode.setAttribute('opacity',p.toFixed(2));});};
+  render(1.5);
+  anim(svg,t=>render(t%14.4));
+};
+
+D.readlogs=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.text(135,26,'dashboard: all green',{size:14,fill:'#1f7a4f'});
+  [['success','94%'],['p95 time','6 s'],['errors','0.8%'],['cost','$0.04']].forEach(([l,v],i)=>{const x=20+(i%2)*118,y=40+Math.floor(i/2)*92;S.rect(x,y,110,80,{fill:C.lmint,fillStyle:'solid'});S.text(x+55,y+22,l,{size:12,weight:400});S.text(x+55,y+50,v,{size:18,fill:'#1f7a4f'});});
+  S.text(430,26,'one transcript',{size:14,fill:C.teal});S.rect(270,40,320,300,{fill:'#ffffff',fillStyle:'solid'});
+  const LN=[['user: is my MRI approved?',0],['agent: let me check your policy',0],['tool get_policy -> 2025 plan',1],['agent: your plan covers MRI',0],['agent: done! approved.',1],['user: approved by whom?',0],['agent: which plan are you on?',1],['user: I told you. Gold.',0]];
+  const hl=[];LN.forEach(([l,b],i)=>{const y=66+i*34;if(b)hl.push(el('rect',{x:280,y:y-12,width:300,height:24,rx:4,fill:C.yel,'fill-opacity':0.55,stroke:'#e0a800','stroke-width':1.5,opacity:0},fx));txt(back,288,y,l,{size:12.5});});
+  S.text(135,236,'found by reading:',{size:13.5,fill:'#c0393d'});
+  const FD=["used last year's policy",'said "done" before checking','asked the same question twice'];
+  const fd=FD.map((f,i)=>{const g=el('g',{},fx);mark(g,30,266+i*30,CROSS,'#c0393d');txt(g,46,267+i*30,f,{size:12.5});return g;});
+  S.text(430,370,'20 transcripts, 10 minutes, every week',{size:13,fill:C.teal});
+  const render=tt=>{const f=tt>8.6?0:1;hl.forEach((h,i)=>h.setAttribute('opacity',tt>1.0+i*1.6?0.8*f:0));fd.forEach((g,i)=>g.setAttribute('opacity',tt>1.4+i*1.6?f:0));};
+  render(8);
+  anim(svg,t=>render(t%9));
 };
 
 /* code walkers (generic) */

@@ -27,6 +27,7 @@ CHAPTERS = [
     (95, 14.0, "19-claims-agent"),
     (102, 9.6, "20-lethal-trifecta"),
     (105, 9.6, "21-why-agents-get-expensive"),
+    (112, 14.4, "22-failure-slot-machine"),
 ]
 
 

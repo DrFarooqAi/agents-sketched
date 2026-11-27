@@ -29,6 +29,7 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 - Chapter 19: Case, a claims agent (live)
 - Chapter 20: Guardrails and security (live)
 - Chapter 21: Cost and speed (live)
+- Chapter 22: Why agents fail (live)
 - More chapters are added as the series continues.
 
 ---
