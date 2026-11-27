@@ -21,6 +21,7 @@ An animated, hand-sketched book on AI agents. Every idea is a moving drawing, ex
 - Chapter 11: Orchestrator and workers (live)
 - Chapter 12: Multi-agent teams (live)
 - Chapter 13: MCP and A2A (live)
+- Chapter 14: The 2026 frameworks (live)
 - More chapters are added as the series continues.
 
 ---

@@ -1645,6 +1645,111 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 14: THE 2026 FRAMEWORKS ===== -->
+<section class="page" aria-label="Every framework wraps the same loop">
+  <div class="txt">
+    <span class="tag">chapter 14 &middot; the 2026 frameworks</span>
+    <h2>Every framework wraps <span class="hl">the same loop</span></h2>
+    <p>Underneath, every framework runs the loop from chapter 2: model, tools, notebook, stop rules.</p>
+    <ul>
+      <li>What differs is what they add around it: tools, saving state, tracing, approvals.</li>
+      <li>Learn the loop without a framework first (next chapter).</li>
+      <li>Then pick one for the parts you would rather not build yourself.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="wraps" role="img" aria-label="The agent loop at the centre, with rings added around it for tools, saving state, tracing and approvals"></svg>
+    <figcaption>Fig 14.1 The loop in the middle never changes. Frameworks add the rings.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="A rough map of 2026">
+  <div class="txt">
+    <span class="tag">chapter 14 &middot; the 2026 frameworks</span>
+    <h2>A rough <span class="hl">map</span> of 2026</h2>
+    <p>Two questions place each framework: who runs the loop, and how many agents.</p>
+    <ul>
+      <li>Left: you write more yourself. Right: the framework decides more.</li>
+      <li>Bottom: one agent. Top: teams of agents.</li>
+      <li>Most can do everything with effort. The map shows their defaults.</li>
+    </ul>
+    <div class="sticky"><strong>Moving targets</strong>Frameworks change every few months. Check the current version before you commit.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="fwmap" role="img" aria-label="A map of ten agent frameworks placed by who runs the loop and single versus multi-agent, with a description of each"></svg>
+    <figcaption>Fig 14.2 A rough map, late 2026. Positions show defaults, not limits.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Quick picks">
+  <div class="txt">
+    <span class="tag">chapter 14 &middot; the 2026 frameworks</span>
+    <h2>Quick <span class="hl">picks</span></h2>
+    <p>Start from your situation, not from the most popular name.</p>
+    <ul>
+      <li>Your models and your cloud often decide for you.</li>
+      <li>Long flows with pauses and approvals? Look at graph-based tools.</li>
+      <li>A team prototype by next week? Role-based tools start fastest.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="picks" role="img" aria-label="Seven hospital situations, each pointing to a framework that fits"></svg>
+    <figcaption>Fig 14.3 Seven situations, seven sensible first picks.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="What changed since 2025">
+  <div class="txt">
+    <span class="tag">chapter 14 &middot; the 2026 frameworks</span>
+    <h2>What <span class="hl">changed</span> since 2025</h2>
+    <p>Guides from early 2025 compared LangGraph, AutoGen and CrewAI. A lot has moved since.</p>
+    <ul>
+      <li>AutoGen is in maintenance. Microsoft now points to its Agent Framework.</li>
+      <li>MCP and A2A became the common plugs.</li>
+      <li>New SDKs from Anthropic, OpenAI and Google joined the field.</li>
+    </ul>
+    <div class="sticky"><strong>Future-proof</strong>Keep tools as plain functions behind MCP. They survive the next framework change.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="changed" role="img" aria-label="Four rows comparing early 2025 with late 2026: AutoGen, tool wiring, agent-to-agent links and new SDKs"></svg>
+    <figcaption>Fig 14.4 Early 2025 on the left, late 2026 on the right.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 14">
+  <div class="txt">
+    <span class="tag">chapter 14 &middot; the 2026 frameworks</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="1" data-why="Every framework runs the same loop. They differ in what they add around it.">
+        <p>1. What do all agent frameworks have underneath?</p>
+        <div class="opts"><button class="opt" type="button">Their own special model</button><button class="opt" type="button">The same loop: model, tools, notebook, stop rules</button><button class="opt" type="button">A built-in database</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="Your existing platform often decides. Microsoft's Agent Framework is built for .NET and Azure.">
+        <p>2. Your hospital runs on .NET and Azure. Which framework should you look at first?</p>
+        <div class="opts"><button class="opt" type="button">Microsoft Agent Framework</button><button class="opt" type="button">Google ADK</button><button class="opt" type="button">Whatever is trending this week</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="Plain functions offered over MCP can be used by any framework, so a switch does not mean rewriting them.">
+        <p>3. How do you make your tools survive a framework change?</p>
+        <div class="opts"><button class="opt" type="button">Write them inside the framework's own format</button><button class="opt" type="button">Never change frameworks</button><button class="opt" type="button">Keep them as plain functions behind MCP</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Choosing a framework is like choosing an EHR vendor: the demo matters less than how it fits your existing systems and your team.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Write your first agent with no framework at all. Every framework makes sense faster afterwards.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Frameworks wrap the same loop. Learn the loop, pick what fits your models, cloud and need for approvals, and keep tools portable with MCP.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -3038,6 +3143,71 @@ D.strangers=svg=>{
     gg.setAttribute('opacity',tt>1.6&&tt<2.6?0.85:0);xm.setAttribute('opacity',tt>2.6&&tt<3.8?1:0);og.setAttribute('opacity',tt>3.4&&tt<4.2?0.9:0);stamp.setAttribute('opacity',tt>3.0?f:0);};
   render(8);
   anim(svg,t=>render(t%9));
+};
+
+/* ---------- chapter 14 ---------- */
+D.wraps=svg=>{
+  const rings=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const cx=300,cy=210;
+  const R=[[84,'tools',C.lsky],[116,'saving state',C.lmint],[148,'tracing',C.lyel],[180,'approvals',C.lcoral]];
+  const rg=R.slice().reverse().map(([r,l,c])=>{const g=el('g',{},rings);el('circle',{cx,cy,r,fill:'none',stroke:c,'stroke-width':30},g);el('circle',{cx,cy,r:r+15,fill:'none',stroke:C.ink,'stroke-width':1.4,'stroke-dasharray':'4 6'},g);
+    el('rect',{x:cx-52,y:cy-r-11,width:104,height:22,rx:11,fill:'#ffffff',stroke:C.ink,'stroke-width':1.6},g);txt(g,cx,cy-r,l,{anchor:'middle',size:12.5});return g;}).reverse();
+  S.circle(cx,cy,136,{fill:'#ffffff',fillStyle:'solid'});S.text(cx,cy-12,'the loop',{size:17});S.text(cx,cy+14,'model, tools,\nnotebook, stop rules',{size:10,weight:400});
+  S.head(cx+68,cy,rad(90));S.head(cx-68,cy,rad(270));
+  const dot=dotEl(fx,7);
+  anim(svg,t=>{const tt=t%8.4,f=tt>8.0?0:1;const a=rad(-90+t*120);moveDot(dot,[cx+68*Math.cos(a),cy+68*Math.sin(a)]);
+    rg.forEach((g,i)=>{const p=ease(clamp((tt-0.6-i*0.9)/0.5,0,1))*f;g.setAttribute('opacity',p.toFixed(2));g.setAttribute('transform',`translate(${cx} ${cy}) scale(${(0.85+0.15*p).toFixed(3)}) translate(${-cx} ${-cy})`);});});
+};
+
+D.fwmap=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.arrow(70,330,582,330);S.arrow(70,330,70,30);
+  S.text(84,346,'you write the loop',{size:12.5,anchor:'start',weight:400});S.text(580,346,'framework runs it',{size:12.5,anchor:'end',weight:400});
+  const yl=(y,s)=>{const t=txt(back,46,y,s,{anchor:'middle',size:12.5,fill:C.ink});t.setAttribute('font-weight',400);t.setAttribute('transform',`rotate(-90 46 ${y})`);};yl(290,'one agent');yl(70,'teams');
+  const F=[['Raw API',0.04,0.08,'you write every line of the loop. Best for learning.'],['Pydantic AI',0.2,0.2,'typed, testable Python agents.'],['smolagents',0.3,0.34,'tiny and hackable: agents that act by writing code.'],
+    ['LangGraph',0.4,0.64,'an explicit graph of steps: saving, pauses, approvals.'],['OpenAI Agents SDK',0.56,0.4,'light: agents, handoffs, guardrails, built-in tracing.'],['Claude Agent SDK',0.66,0.28,"Claude Code's engine as a library: files, shell, web, MCP."],
+    ['Google ADK',0.62,0.78,'agents plus workflow agents; at home on Google Cloud.'],['CrewAI',0.86,0.9,'role-based crews: the fastest multi-agent prototypes.'],['AutoGen / AG2',0.95,0.7,'agent conversations; Microsoft now points to Agent Framework.'],['MS Agent Framework',0.9,0.56,'for .NET and Azure shops; reached 1.0 in April 2026.']];
+  const pts=F.map((f,i)=>{const x=90+f[1]*450,y=318-f[2]*270,right=f[1]>0.75;const g=el('g',{},fx);const ring=el('circle',{cx:x,cy:y,r:16,fill:'none',stroke:C.yel,'stroke-width':6,opacity:0},g);
+    el('circle',{cx:x,cy:y,r:8,fill:i===8?'#c3cad3':C.teal,stroke:C.ink,'stroke-width':1.8},g);const l=txt(g,right?x-14:x+14,y,f[0],{size:12,anchor:right?'end':'start'});return{g,ring,l};});
+  S.rect(40,362,530,46,{fill:'#ffffff',fillStyle:'solid'});const ds=txt(fx,305,385,'',{anchor:'middle',size:12.5});
+  const render=tt=>{const f=tt>21.6?0:1;pts.forEach((p,i)=>p.g.setAttribute('opacity',tt>0.2+i*0.15?f:0));const k=Math.floor((tt-1.8)/2);
+    pts.forEach((p,i)=>{p.ring.setAttribute('opacity',i===k?1:0);});ds.textContent=k>=0&&k<10?F[k][0]+': '+F[k][3]:(k>=10?'pick by fit, not by fame':'ten frameworks, one loop underneath');};
+  render(19.5);
+  anim(svg,t=>render(t%22));
+};
+
+D.picks=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.rect(40,30,520,80,{fill:C.lyel,fillStyle:'solid'});const q=Sk(svg,el('g',{},fx)).text(300,70,'',{size:14.5});
+  const N=['Claude Agent SDK','LangGraph','OpenAI Agents SDK','Pydantic AI','MS Agent Framework','Google ADK','CrewAI'];
+  const P=[[85,200],[225,200],[365,200],[505,200],[155,285],[295,285],[435,285]];
+  const gl=P.map(([x,y])=>el('rect',{x:x-72,y:y-31,width:144,height:62,rx:12,fill:C.yel,opacity:0},glow));
+  P.forEach(([x,y],i)=>{S.rect(x-66,y-25,132,50,{fill:C.lsky,fillStyle:'solid'});S.text(x,y,N[i],{size:12.5});});
+  const ans=txt(fx,300,350,'',{anchor:'middle',size:17,fill:'#1f7a4f'});
+  S.text(300,398,'Learn the loop first. Pick a framework for what you would rather not build.',{size:12.5,fill:C.teal});
+  const Q=['If you use Claude and need files, shell and web\nout of the box...','If care pathways must pause for approvals\nmid-way...','If you use OpenAI models with simple handoffs\nbetween desks...',
+    'If you want a typed, well-tested Python service\nfor claims...','If your hospital runs on .NET and Azure...','If your data and models live on Google Cloud...','If you need a quick multi-agent prototype\nfor a demo next week...'];
+  const ptr=dotEl(fx,9);let shown=-1;
+  const render=tt=>{const k=Math.floor(tt/2.6)%7,u=tt%2.6;if(k!==shown){shown=k;setLines(q,Q[k]);}
+    const tgt=[P[k][0],P[k][1]-25],pu=clamp((u-0.6)/0.7,0,1);if(u>0.6&&u<2.4)moveDot(ptr,lerp2([300,112],tgt,ease(pu)));else ptr.setAttribute('opacity',0);
+    gl.forEach((g,i)=>g.setAttribute('opacity',i===k&&u>1.3?0.85:0));ans.textContent=u>1.3?'try: '+N[k]:'';};
+  render(1.6);
+  anim(svg,t=>render(t%18.2));
+};
+
+D.changed=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.text(145,26,'early 2025',{size:16,fill:C.muted});S.text(455,26,'late 2026',{size:16,fill:C.teal});
+  const RW=[['AutoGen: a top pick\nfor teams of agents','AutoGen in maintenance;\nMicrosoft Agent Framework 1.0'],['tools wired by hand,\none by one','MCP: one plug\nfor every tool'],
+    ['agents talk only inside\none organisation','A2A: agents work across\norganisations'],['LangGraph, CrewAI\nand AutoGen','plus Claude Agent SDK,\nOpenAI Agents SDK, Google ADK']];
+  const rows=RW.map((r,i)=>{const y=74+i*80;const L=el('g',{},fx),A=el('g',{},fx),R=el('g',{},fx);
+    const kl=Sk(svg,L);kl.rect(20,y-31,250,62,{fill:'#f1f3f6',fillStyle:'solid'});kl.text(145,y,r[0],{size:12.5,fill:C.muted});
+    Sk(svg,A).arrow(276,y,324,y,{stroke:C.teal});const kr=Sk(svg,R);kr.rect(330,y-31,250,62,{fill:C.lmint,fillStyle:'solid'});kr.text(455,y,r[1],{size:12.5});return{L,A,R};});
+  S.text(300,396,'Keep tools as plain functions behind MCP: they survive the next change.',{size:13,fill:C.teal});
+  const render=tt=>{const f=tt>9.4?0:1;rows.forEach((r,i)=>{const s=0.4+i*1.4;r.L.setAttribute('opacity',tt>s?f:0);r.A.setAttribute('opacity',tt>s+0.5?f:0);
+    const p=ease(clamp((tt-s-0.8)/0.5,0,1));r.R.setAttribute('opacity',(p*f).toFixed(2));r.R.setAttribute('transform',`translate(${(-40*(1-p)).toFixed(1)} 0)`);});};
+  render(8);
+  anim(svg,t=>render(t%9.8));
 };
 
 /* draw-on effect for sketch strokes */
