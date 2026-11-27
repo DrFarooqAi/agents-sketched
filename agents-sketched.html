@@ -1862,6 +1862,112 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 16: HUMAN APPROVAL STEPS ===== -->
+<section class="page" aria-label="An approval gate">
+  <div class="txt">
+    <span class="tag">chapter 16 &middot; human approval steps</span>
+    <h2>An <span class="hl">approval gate</span></h2>
+    <p>Some actions should never run without a person's yes.</p>
+    <ul>
+      <li>A rule spots the risky call. Here: claims over 1,000 SAR.</li>
+      <li>The run pauses and saves its state. It can wait for hours.</li>
+      <li>The reviewer can approve, edit the details, or reject with a reason.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="gate" role="img" aria-label="The agent asks to send a 4,200 riyal claim; a rule pauses it, a coordinator edits the amount and approves, and the tool runs with the edited amount"></svg>
+    <figcaption>Fig 16.1 Paused, edited, approved, done. The agent never sent the wrong amount.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Six ways to bring a person in">
+  <div class="txt">
+    <span class="tag">chapter 16 &middot; human approval steps</span>
+    <h2>Six ways to bring a <span class="hl">person</span> in</h2>
+    <p>Not every human step is an approval. Pick the one that fits the moment.</p>
+    <ul>
+      <li>Before: approve, or edit the details.</li>
+      <li>During: answer a question, or steer it back on track.</li>
+      <li>After: review the result before it goes out.</li>
+      <li>Any time: escalate to a person when the agent is unsure.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="ways" role="img" aria-label="Six cards: approve first, edit the details, ask a question, review the result, steer mid-way and escalate, each with a hospital example"></svg>
+    <figcaption>Fig 16.2 Six touchpoints, each with a hospital moment.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Approval fatigue is real">
+  <div class="txt">
+    <span class="tag">chapter 16 &middot; human approval steps</span>
+    <h2>Approval <span class="hl">fatigue</span> is real</h2>
+    <p>Fifty requests a day, and people stop reading. They approve everything.</p>
+    <ul>
+      <li>Gate only what matters.</li>
+      <li>Show the reason and the exact change, every time.</li>
+      <li>Measure the approve rate. Near 100% means the gate is noise.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="fatigue" role="img" aria-label="A reviewer stamps fifty requests and the approve rate climbs to 99 percent; after tuning, six clear requests give a meaningful 67 percent"></svg>
+    <figcaption>Fig 16.3 Fifty rubber stamps, then six real decisions.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="A good approval card">
+  <div class="txt">
+    <span class="tag">chapter 16 &middot; human approval steps</span>
+    <h2>A good <span class="hl">approval card</span></h2>
+    <p>Make the right decision take ten seconds.</p>
+    <ul>
+      <li>What will happen.</li>
+      <li>Why it was stopped.</li>
+      <li>Exactly what changes, as a before and after.</li>
+      <li>The agent's reasoning.</li>
+      <li>Three buttons: approve, edit, reject.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="approvalcard" role="img" aria-label="An approval card for a discharge letter showing why it was flagged, a before-and-after medicine dose, the agent's reason and approve, edit and reject buttons"></svg>
+    <figcaption>Fig 16.4 Each part lights up in turn, then the doctor approves.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 16">
+  <div class="txt">
+    <span class="tag">chapter 16 &middot; human approval steps</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="0" data-why="The gate pauses the run, saves its state, and waits for a person's decision.">
+        <p>1. The agent wants to send a 4,200 SAR claim. The rule says over 1,000 needs approval. What happens?</p>
+        <div class="opts"><button class="opt" type="button">The run pauses, saves its state and waits for a person</button><button class="opt" type="button">The agent sends it and tells someone later</button><button class="opt" type="button">The task is cancelled</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="A near-100% approve rate means people have stopped reading. Gate fewer things and make each request clearer.">
+        <p>2. A reviewer approves 99% of 50 requests a day. What does that tell you?</p>
+        <div class="opts"><button class="opt" type="button">The agent is perfect</button><button class="opt" type="button">The reviewer is very careful</button><button class="opt" type="button">The gate is noise: gate fewer, clearer requests</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="The action is right, the detail is wrong. Editing keeps the useful work and fixes the mistake.">
+        <p>3. The letter is right, but one dose is wrong. What is the best option?</p>
+        <div class="opts"><button class="opt" type="button">Reject and start over</button><button class="opt" type="button">Edit the dose, then approve</button><button class="opt" type="button">Approve and fix it later</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Doctors countersign and pharmacists verify. Hospitals already know approvals work best when they are few, clear and for the right things.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Measure the approve rate. If it is near 100%, your reviewers have stopped reading.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Pause for what is risky, ask when unclear, review what ships. Keep approvals few and clear, with a reason and a before-and-after.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -3361,7 +3467,7 @@ D.harness=svg=>{
   S.rect(20,170,120,80,{fill:C.lsky,fillStyle:'solid'});S.text(80,210,'your app',{size:14});
   S.rect(180,30,410,300,{fill:'#fbf8f1',fillStyle:'solid'});S.text(385,48,'the harness (for example, the Claude Agent SDK)',{size:13,fill:C.teal});
   const MOD=[['agent loop',290,92],['permissions',480,92],['hooks: check before\nand after each tool',290,170],['helpers\n(sub-agents)',480,170],['built-in tools:\nfiles, shell, web',290,248],['your tools via MCP\n(get_lab, update_record)',480,248]];
-  const mg=MOD.map(([l,x,y])=>{const g=el('rect',{x:x-92,y:y-34,width:184,height:68,rx:12,fill:C.yel,opacity:0},glow);S.rect(x-86,y-28,172,56,{fill:'#ffffff',fillStyle:'solid'});S.text(x,y,l,{size:12.5});return g;});
+  const mg=MOD.map(([l,x,y])=>{S.rect(x-86,y-28,172,56,{fill:'#ffffff',fillStyle:'solid'});S.text(x,y,l,{size:12.5});return el('rect',{x:x-90,y:y-32,width:180,height:64,rx:12,fill:'none',stroke:C.yel,'stroke-width':6,opacity:0},fx);});
   S.arrow(142,210,196,120,{stroke:C.muted});
   const st=txt(fx,385,312,'',{anchor:'middle',size:13});
   S.rect(20,345,570,56,{fill:C.lyel,fillStyle:'solid'});S.text(305,366,'you set:',{size:12.5,fill:C.teal});S.text(305,386,'your tools  .  allowed tools  .  max turns  .  budget cap  .  system prompt',{size:12.5});
@@ -3372,13 +3478,90 @@ D.harness=svg=>{
     if(p)moveDot(tok,p);else tok.setAttribute('opacity',0);
     mg.forEach((g,i)=>g.setAttribute('opacity',0));let msg='',col=C.ink;
     if(tt>1.2&&tt<1.6){mg[0].setAttribute('opacity',0.85);msg='the loop asks the model';}
-    else if(tt>2.4&&tt<3.6){mg[2].setAttribute('opacity',0.85);mg[2].setAttribute('fill','#ffb3b1');msg='update_record: blocked by a hook, needs a human OK';col='#c0393d';}
-    else if(tt>4.4&&tt<5.0){mg[5].setAttribute('opacity',0.85);mg[5].setAttribute('fill',C.yel);msg='get_lab: allowed, it runs';col='#1f7a4f';}
+    else if(tt>2.4&&tt<3.6){mg[2].setAttribute('opacity',1);mg[2].setAttribute('stroke','#e5484d');msg='update_record: blocked by a hook, needs a human OK';col='#c0393d';}
+    else if(tt>4.4&&tt<5.0){mg[5].setAttribute('opacity',1);msg='get_lab: allowed, it runs';col='#1f7a4f';}
     else if(tt>6.4&&tt<8.6){msg='answer returned to your app';col=C.teal;}
-    if(tt<=2.4||tt>=3.6)mg[2].setAttribute('fill',C.yel);
+    if(tt<=2.4||tt>=3.6)mg[2].setAttribute('stroke',C.yel);
     st.textContent=msg;st.setAttribute('fill',col);};
   render(3);
   anim(svg,t=>render(t%9));
+};
+
+/* ---------- chapter 16 ---------- */
+D.gate=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const X=[80,230,380,530],H=[['AGENT',C.lsky],['RULE GATE',C.lyel],['COORDINATOR',C.lmint],['CLAIM TOOL',C.lteal]];
+  X.forEach((x,i)=>{S.line(x,58,x,392,{strokeLineDash:[6,7],stroke:C.muted,strokeWidth:1.4,roughness:0.5});S.rect(x-62,16,124,42,{fill:H[i][1],fillStyle:'solid'});S.text(x,37,H[i][0],{size:13});});
+  const ST=[[0,1,95,'send_claim(4,200 SAR)',0.4,1.4],[1,2,145,'over 1,000: please approve',1.6,2.6],[2,1,245,'approve, amount 3,900',4.4,5.4],[1,3,295,'send with 3,900',5.6,6.6],[3,0,345,'done: claim C-88 sent',6.8,7.8]];
+  ST.forEach(s=>{const a=X[s[0]],b=X[s[1]],dir=b>a?1:-1;s.g=el('rect',{x:Math.min(a,b)-6,y:s[2]-30,width:Math.abs(b-a)+12,height:42,rx:10,fill:C.yel,opacity:0},glow);
+    S.arrow(a+dir*8,s[2],b-dir*8,s[2],{stroke:s[0]===2?'#1f7a4f':C.ink});S.text((a+b)/2,s[2]-13,s[3],{size:12,fill:s[0]===2?'#1f7a4f':C.ink});});
+  const badge=el('g',{},fx);const kb=Sk(svg,badge);kb.rect(40,176,232,46,{fill:C.lyel,fillStyle:'solid'});kb.text(156,199,'run paused, state saved\nwaiting for a person...',{size:12.5});
+  const clk=txt(fx,380,200,'',{anchor:'middle',size:14,fill:C.teal});
+  const env=el('g',{},fx);const er=el('rect',{x:-15,y:-10,width:30,height:20,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':2},env);el('path',{d:'M-15 -10 L0 3 L15 -10',fill:'none',stroke:C.ink,'stroke-width':2},env);
+  const render=tt=>{let on=-1;ST.forEach((s,i)=>{s.g.setAttribute('opacity',0);if(tt>=s[4]&&tt<s[5]+0.2){on=i;const u=clamp((tt-s[4])/(s[5]-s[4]),0,1);const x=X[s[0]]+(X[s[1]]-X[s[0]])*ease(u);env.setAttribute('transform',`translate(${x.toFixed(1)} ${s[2]})`);er.setAttribute('fill',i===2?C.lmint:'#fff');s.g.setAttribute('opacity',0.8);}});
+    env.setAttribute('opacity',on>=0?1:0);const pz=tt>2.6&&tt<4.6;badge.setAttribute('opacity',pz?1:0);
+    clk.textContent=pz?'reviewing... '+['09:00','10:20','11:40','12:10'][Math.min(3,Math.floor((tt-2.6)/0.5))]:'';};
+  render(9);
+  anim(svg,t=>render(t%10.4));
+};
+
+D.ways=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const W=[['approve first','before anything that\ncannot be undone','sending a claim'],['edit the details','right action,\nwrong details','fix the dose, then send'],['ask a question','the goal is unclear','"Riyadh clinic or\nJeddah clinic?"'],
+    ['review the result','drafts and reports','the doctor signs the\ndischarge letter'],['steer mid-way','you see it going\nwrong','"Stop: use the newer\nreferral."'],['escalate','unsure, a rule hit,\nor budget spent','hand the case to the\nduty nurse']];
+  const XS=[20,210,400],YS=[40,220];
+  const gl=W.map((w,i)=>{const x=XS[i%3],y=YS[Math.floor(i/3)];const g=el('rect',{x:x-6,y:y-6,width:192,height:162,rx:14,fill:C.yel,opacity:0},glow);
+    S.rect(x,y,180,150,{fill:'#ffffff',fillStyle:'solid'});S.text(x+90,y+24,w[0],{size:15});S.text(x+90,y+64,w[1],{size:11.5,weight:400,fill:C.muted});S.text(x+90,y+114,w[2],{size:12.5,fill:C.teal});return g;});
+  const tags=[['before',1],['during',2],['after',3]];
+  const ph=txt(fx,300,398,'',{anchor:'middle',size:14,fill:'#c0393d'});
+  const P=['before it acts','before it acts','while it works','after it finishes','while it works','any time'];
+  const render=k=>{gl.forEach((g,i)=>g.setAttribute('opacity',i===k?0.85:0));ph.textContent='when: '+P[k];};
+  render(0);
+  anim(svg,t=>render(Math.floor(t/1.8)%6));
+};
+
+D.fatigue=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.circle(90,140,44,{fill:'#f6e0c8',fillStyle:'solid'});S.line(90,162,90,232);S.line(90,186,150,214);S.line(90,232,74,262);S.line(90,232,106,262);S.text(90,284,'reviewer',{size:13});
+  S.line(40,262,320,262,{strokeWidth:3});S.rect(170,232,90,30,{fill:'#e5d3b3',fillStyle:'solid'});S.text(215,276,'inbox',{size:12,weight:400});
+  S.text(505,42,'approve rate',{size:13});S.rect(480,60,50,270,{fill:'#ffffff',fillStyle:'solid'});
+  const gf=el('rect',{x:484,width:42,fill:'#ffb3b1'},fx);const gp=txt(fx,505,350,'',{anchor:'middle',size:16});
+  const cnt=txt(fx,300,30,'',{anchor:'middle',size:15});const vd=txt(fx,300,395,'',{anchor:'middle',size:15});
+  const hand=el('rect',{x:-9,y:-14,width:18,height:28,rx:3,fill:C.coral,stroke:C.ink,'stroke-width':2},fx);
+  const cards=[];for(let i=0;i<12;i++){const g=el('g',{opacity:0},fx);el('rect',{x:-30,y:-16,width:60,height:32,rx:4,fill:'#fff',stroke:C.ink,'stroke-width':1.6},g);const t=txt(g,0,1,'approve?',{anchor:'middle',size:10.5});cards.push({g,t});}
+  const gauge=(f,c)=>{const h=266*f;gf.setAttribute('y',(328-h).toFixed(1));gf.setAttribute('height',h.toFixed(1));gf.setAttribute('fill',c);gp.textContent=Math.round(f*100)+'%';};
+  const render=tt=>{cards.forEach(c=>c.g.setAttribute('opacity',0));let bounce=0;
+    if(tt<5.2){const n=Math.min(50,Math.floor(50*clamp(tt/4.6,0,1)));cnt.textContent='requests today: '+n;gauge(0.99*Math.min(1,n/12),'#ffb3b1');vd.textContent=n>=40?'the gate is noise':'';vd.setAttribute('fill','#c0393d');
+      for(let j=0;j<50;j++){const u=(tt-j*0.092)/0.4;if(u>=0&&u<=1){const c=cards[j%12];const p=lerp2([430+(j%3)*20,70],[215,240],ease(u));c.g.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) scale(${(1-0.4*u).toFixed(2)})`);c.g.setAttribute('opacity',1);c.t.textContent='approve?';if(u>0.8)bounce=1;}}}
+    else{const v=tt-5.6;cnt.textContent='after tuning: 6 today, each with a reason';let done=0;
+      for(let j=0;j<6;j++){const u=(v-j*0.6)/0.8;if(u>1)done++;if(u>=0&&u<=1){const c=cards[j];const p=lerp2([440,70],[215,240],ease(u));c.g.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) scale(${(1.2-0.5*u).toFixed(2)})`);c.g.setAttribute('opacity',1);c.t.textContent='reason + diff';if(u>0.8)bounce=1;}}
+      const ap=[1,1,0,1,0,1].slice(0,done).reduce((a,b)=>a+b,0);gauge(done?ap/6*(done/done):0,C.lmint);if(done)gp.textContent=Math.round(100*ap/Math.max(1,done))+'%';gf.setAttribute('height',(266*(done?ap/done:0)).toFixed(1));gf.setAttribute('y',(328-266*(done?ap/done:0)).toFixed(1));
+      vd.textContent=done>=6?'4 of 6 approved: the gate means something':'';vd.setAttribute('fill','#1f7a4f');}
+    hand.setAttribute('transform',`translate(215 ${(212-bounce*8).toFixed(1)})`);};
+  render(9.6);
+  anim(svg,t=>render(t%10.2));
+};
+
+D.approvalcard=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const HL=[[54,18,492,56],[70,72,460,48],[70,118,460,92],[70,208,460,48],[90,266,420,62]].map(r=>el('rect',{x:r[0],y:r[1],width:r[2],height:r[3],rx:10,fill:C.yel,'fill-opacity':0.35,stroke:'#e0a800','stroke-width':3,opacity:0},fx));
+  S.rect(60,24,480,320,{fill:'#ffffff',fillStyle:'solid'});S.rect(60,24,480,44,{fill:C.lteal,fillStyle:'solid'});S.text(300,46,'Approval needed: send discharge letter',{size:15});
+  S.text(80,84,'WHY STOPPED',{size:11,anchor:'start',fill:C.muted});S.text(80,104,'a medicine dose changed since the last letter',{size:13.5,anchor:'start'});
+  S.text(80,128,'WHAT CHANGES',{size:11,anchor:'start',fill:C.muted});S.rect(80,136,440,66,{fill:'#f8f9fb',fillStyle:'solid',strokeWidth:1.3});
+  txt(back,96,156,'- metformin 500 mg, twice daily',{size:13.5,fill:'#c0393d'});txt(back,96,184,'+ metformin 1000 mg, twice daily',{size:13.5,fill:'#1f7a4f'});
+  S.text(80,220,"AGENT'S REASON",{size:11,anchor:'start',fill:C.muted});S.text(80,240,'HbA1c 7.9 on 3 Nov; the care plan says increase the dose.',{size:13,anchor:'start'});
+  [['Approve',160,C.lmint],['Edit',300,C.lyel],['Reject with reason',440,C.lcoral]].forEach(([l,x,f])=>{S.rect(x-62,278,124,38,{fill:f,fillStyle:'solid'});S.text(x,297,l,{size:13});});
+  const ann=txt(fx,300,372,'',{anchor:'middle',size:14.5});
+  const cur=el('path',{d:'M0 0 L0 22 L6 16 L11 26 L15 24 L10 14 L18 14 Z',fill:'#fff',stroke:C.ink,'stroke-width':1.8},fx);
+  const ring=el('circle',{cx:160,cy:297,r:10,fill:'none',stroke:'#1f7a4f','stroke-width':3,opacity:0},fx);
+  const A=['what will happen','why it was stopped','exactly what changes, before and after',"the agent's reasoning",'three choices: approve, edit, reject'];
+  const render=tt=>{const k=Math.floor((tt-0.4)/1.2);HL.forEach((h,i)=>h.setAttribute('opacity',i===k&&tt<6.4?0.75:0));
+    if(tt<6.4){ann.textContent=k>=0&&k<5?A[k]:'';ann.setAttribute('fill','#c0393d');}
+    const cu=ease(clamp((tt-6.4)/0.8,0,1));const p=lerp2([560,380],[162,300],cu);cur.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);cur.setAttribute('opacity',tt>6.2&&tt<9.6?1:0);
+    const ck=tt>7.3&&tt<8.2;ring.setAttribute('opacity',ck?1:0);ring.setAttribute('r',ck?(10+(tt-7.3)*30).toFixed(1):10);
+    if(tt>=7.4){ann.textContent='approved by Dr. Noor, 09:12';ann.setAttribute('fill','#1f7a4f');}};
+  render(9);
+  anim(svg,t=>render(t%10));
 };
 
 /* code walkers (generic) */
