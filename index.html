@@ -2218,6 +2218,108 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 19: CASE, A CLAIMS AGENT ===== -->
+<section class="page" aria-label="Meet the claims agent">
+  <div class="txt">
+    <span class="tag">chapter 19 &middot; case: a claims agent</span>
+    <h2>Meet the <span class="hl">claims agent</span></h2>
+    <p>A healthcare network used an AI agent to process insurance claims. This chapter retells that published case.</p>
+    <ul>
+      <li>It reads the medical codes, then checks cover, provider, history, network and eligibility.</li>
+      <li>It works out the expected payment.</li>
+      <li>Clear claims go to auto-pay. Others go to a person, or to the appeal queue.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="claimflow" role="img" aria-label="Three claims pass through six checks and a payment calculator, then land in auto-pay, manual check or the appeal queue"></svg>
+    <figcaption>Fig 19.1 Three claims, three endings. Claim C fails the cover check.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="What went wrong">
+  <div class="txt">
+    <span class="tag">chapter 19 &middot; case: a claims agent</span>
+    <h2>What went <span class="hl">wrong</span></h2>
+    <p>On paper it worked. In practice:</p>
+    <ul>
+      <li>It handled complex claims badly, so payments were delayed.</li>
+      <li>Staff spent more time checking its work than processing new claims.</li>
+      <li>Its errors on complex cases alarmed the compliance team.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="wentwrong" role="img" aria-label="A bar of staff time shifts from new claims to checking the AI, while three problem cards appear and an alarm bell rings"></svg>
+    <figcaption>Fig 19.2 The time bar is illustrative. The case gave no exact split.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Four metrics, four fixes">
+  <div class="txt">
+    <span class="tag">chapter 19 &middot; case: a claims agent</span>
+    <h2>Four metrics, <span class="hl">four fixes</span></h2>
+    <p>The team chose four numbers to watch, and fixed what each one revealed.</p>
+    <ul>
+      <li>Each fix matches an earlier chapter: saving progress (9), checking work (7), approvals (16) and context (5).</li>
+      <li>None of the fixes needed a bigger model.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="kpis" role="img" aria-label="Four metric cards flip from the problem they revealed to the fix: model call errors, task completion, human requests and tokens per claim"></svg>
+    <figcaption>Fig 19.3 Each card flips from the problem to the fix.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="After the fixes">
+  <div class="txt">
+    <span class="tag">chapter 19 &middot; case: a claims agent</span>
+    <h2>After the <span class="hl">fixes</span></h2>
+    <p>The network reported faster claims, higher compliance accuracy, better use of staff and fewer rejections.</p>
+    <ul>
+      <li>No exact figures were published, so the gauges show direction, not numbers.</li>
+      <li>The lesson: measure first, then fix the weakest number.</li>
+    </ul>
+    <div class="sticky"><strong>Try it at your hospital</strong>Pick one claim type. Track these four numbers for a month before you change anything.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="after" role="img" aria-label="Four gauges swing from red to green: speed, compliance accuracy, staff time well used and fewer rejections"></svg>
+    <figcaption>Fig 19.4 Direction of change, as the case reported it.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 19">
+  <div class="txt">
+    <span class="tag">chapter 19 &middot; case: a claims agent</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="2" data-why="A required checklist means nothing is marked complete until every regulatory check has really run.">
+        <p>1. The agent marked claims "complete" with checks skipped. What fixed it?</p>
+        <div class="opts"><button class="opt" type="button">A bigger model</button><button class="opt" type="button">Faster servers</button><button class="opt" type="button">A required checklist before "complete"</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="Too few human requests meant it was keeping cases it should have passed on, like experimental procedures.">
+        <p>2. The agent took on experimental procedures it could not handle. Which metric showed it?</p>
+        <div class="opts"><button class="opt" type="button">Number of human requests</button><button class="opt" type="button">Tokens per claim</button><button class="opt" type="button">Model call errors</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="Data minimisation: each step sees only the patient details it needs, which cuts privacy risk and cost.">
+        <p>3. It sent more patient details than each step needed. What is the fix?</p>
+        <div class="opts"><button class="opt" type="button">Encrypt everything and carry on</button><button class="opt" type="button">Send only the data each step needs</button><button class="opt" type="button">Stop using patient data at all</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Claims teams know the hard cases by heart. Ask them to list the "never automate" claim types before the agent goes live.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">In claims, a wrong approval costs more than a slow one. Tune the agent to escalate, not to guess.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>A claims agent is judged by four numbers: errors, true completion, handovers and data used. Measure them, fix the weakest, repeat.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -3953,6 +4055,79 @@ D.fixes4=svg=>{
     const a=ease(clamp((tt-s-1.0)/0.4,0,1));r.A.setAttribute('opacity',(a*f).toFixed(2));r.A.setAttribute('transform',`translate(515 ${r.y}) scale(${(0.7+0.3*a).toFixed(3)}) translate(-515 ${-r.y})`);});};
   render(8);
   anim(svg,t=>render(t%8.6));
+};
+
+/* ---------- chapter 19 ---------- */
+D.claimflow=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const CK=[['medical codes',205,80],['coverage',330,80],['provider',205,150],['patient history',330,150],['network',205,220],['eligibility',330,220]];
+  const LN=[['clear','auto-pay',C.lmint,90],['review needed','manual check',C.lyel,200],['denied','appeal queue',C.lcoral,310]];
+  LN.forEach(l=>S.line(392,303,428,l[3],{strokeLineDash:[5,6],stroke:C.muted,strokeWidth:1.3,roughness:0.5}));
+  S.rect(18,170,96,80,{fill:'#ffffff',fillStyle:'solid'});S.text(66,210,'new\nclaims',{size:13});
+  CK.forEach(([l,x,y])=>{S.rect(x-58,y-20,116,40,{fill:C.lsky,fillStyle:'solid'});S.text(x,y,l,{size:12.5});});
+  S.rect(150,280,240,46,{fill:C.lteal,fillStyle:'solid'});S.text(270,303,'payment calculator',{size:14});
+  const cnt=LN.map(([t,s,f,y])=>{S.rect(430,y-35,160,70,{fill:f,fillStyle:'solid'});S.text(510,y-12,t,{size:14});S.text(510,y+12,s,{size:12,weight:400});
+    el('circle',{cx:580,cy:y-30,r:12,fill:'#fff',stroke:C.ink,'stroke-width':2},fx);return txt(fx,580,y-29,'0',{anchor:'middle',size:12});});
+  const glows=CK.map(([l,x,y])=>el('rect',{x:x-62,y:y-24,width:124,height:48,rx:10,fill:'none',stroke:C.yel,'stroke-width':5,opacity:0},fx));
+  const xm=el('path',{d:CROSS,transform:'translate(398 80) scale(1.4)',fill:'none',stroke:'#c0393d','stroke-width':2.4,'stroke-linecap':'round',opacity:0},fx);
+  const title=txt(fx,300,24,'',{anchor:'middle',size:14});
+  const CL=[['A','claim A: routine MRI',0,-1],['B','claim B: two insurance policies',1,-1],['C','claim C: test not covered',2,1]];
+  const tok=el('g',{},fx);el('rect',{x:-14,y:-12,width:28,height:24,rx:3,fill:'#fff',stroke:C.ink,'stroke-width':2},tok);const tl=txt(tok,0,1,'',{anchor:'middle',size:13});
+  const render=tt=>{const k=Math.min(2,Math.floor(tt/4.2)),u=tt-k*4.2,c=CL[k];title.textContent=tt<12.6?c[1]:'3 claims sorted';tl.textContent=c[0];
+    const P=[[66,210],[205,80],[330,80],[205,150],[330,150],[205,220],[330,220],[270,303],[510,LN[c[2]][3]]];
+    const p=track(P)(clamp((u-0.2)/3.2,0,1));tok.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);tok.setAttribute('opacity',tt<12.6&&u<3.9?1:0);
+    glows.forEach((g,i)=>{const d=Math.hypot(p[0]-CK[i][1],p[1]-CK[i][2]);const near=d<26&&tt<12.6;g.setAttribute('opacity',near?1:0);g.setAttribute('stroke',near&&i===c[3]?'#e5484d':C.yel);});
+    xm.setAttribute('opacity',k===2&&u>1.0&&tt<12.6?1:0);
+    cnt.forEach((t,i)=>{let n=0;CL.forEach((cc,j)=>{if(cc[2]===i&&(j<k||(j===k&&u>=3.4)||tt>=12.6))n++;});t.textContent=String(n);});};
+  render(13);
+  anim(svg,t=>render(t%14));
+};
+
+D.wentwrong=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.text(300,30,'how staff spend their time (illustrative)',{size:13,fill:C.muted});
+  el('rect',{x:40,y:48,width:520,height:44,rx:8,fill:'#f1f3f6',stroke:C.ink,'stroke-width':2},back);
+  const nb=el('rect',{x:40,y:48,height:44,rx:8,fill:'#7fd1a5'},fx),cb=el('rect',{y:48,height:44,rx:8,fill:'#ffb3b1'},fx);
+  const nt=txt(fx,0,71,'new claims',{anchor:'middle',size:14}),ct=txt(fx,0,71,'checking the AI',{anchor:'middle',size:14});
+  const CD=[[20,'complex claims handled\nwrongly, so payments\nwere delayed'],[215,'staff re-check the AI\ninstead of doing\nnew claims'],[410,'compliance team\nraises the alarm']];
+  const cards=CD.map(([x,t])=>{const g=el('g',{},fx);const k=Sk(svg,g);k.rect(x,140,175,150,{fill:C.lcoral,fillStyle:'solid'});k.text(x+87,222,t,{size:13.5});return g;});
+  const bell=el('g',{},fx);el('path',{d:'M-18 10 Q-18 -18 0 -20 Q18 -18 18 10 L24 16 L-24 16 Z',fill:C.yel,stroke:C.ink,'stroke-width':2.5},bell);el('circle',{cx:0,cy:21,r:5,fill:C.ink},bell);
+  S.text(300,340,'An agent that needs constant checking saves no time.',{size:14.5,fill:C.teal});
+  const render=tt=>{const f=tt>9.6?0:1;const r=0.8-0.5*ease(clamp((tt-0.5)/2.5,0,1));const w=520*r;nb.setAttribute('width',w.toFixed(1));cb.setAttribute('x',(40+w).toFixed(1));cb.setAttribute('width',(520-w).toFixed(1));
+    nt.setAttribute('x',(40+w/2).toFixed(1));ct.setAttribute('x',(40+w+(520-w)/2).toFixed(1));ct.setAttribute('opacity',520-w>130?1:0);
+    cards.forEach((c,i)=>{const p=ease(clamp((tt-1.0-i*1.0)/0.4,0,1))*f;c.setAttribute('opacity',p.toFixed(2));c.setAttribute('transform',`translate(0 ${(16*(1-p)).toFixed(1)})`);});
+    const b=tt>3.2&&f;bell.setAttribute('opacity',b?1:0);bell.setAttribute('transform',`translate(560 138) rotate(${b?(Math.sin(tt*18)*14).toFixed(1):0})`);};
+  render(8);
+  anim(svg,t=>render(t%10));
+};
+
+D.kpis=svg=>{
+  const fx=el('g',{},svg);
+  const K=[['model call\nerrors','API failures left claims half\ndone, or wrongly approved','retry safely, save state, and\nroll back half-finished claims'],['task\ncompletion','claims marked "complete" with\nrequired checks skipped','a required checklist before\nanything is marked complete'],
+    ['human\nrequests','it kept experimental and\nmulti-policy claims for itself','escalate complex claims to\nexperts automatically'],['tokens\nper claim','it sent more patient details\nthan each step needed','send only the data each\nstep really needs']];
+  const rows=K.map((k,i)=>{const y=64+i*86;const ch=el('g',{},fx);const kc=Sk(svg,ch);kc.rect(16,y-32,150,64,{fill:C.lsky,fillStyle:'solid'});kc.text(91,y,k[0],{size:13.5});
+    const g=el('g',{},fx);const pb=el('g',{},g),fb=el('g',{},g);
+    const kp=Sk(svg,pb);kp.rect(184,y-32,404,64,{fill:C.lcoral,fillStyle:'solid'});kp.text(198,y-19,'PROBLEM',{size:10.5,anchor:'start',fill:'#c0393d'});kp.text(400,y+6,k[1],{size:12.5});
+    const kf=Sk(svg,fb);kf.rect(184,y-32,404,64,{fill:C.lmint,fillStyle:'solid'});kf.text(198,y-19,'FIX',{size:10.5,anchor:'start',fill:'#1f7a4f'});kf.text(400,y+6,k[2],{size:12.5});
+    return{ch,g,pb,fb,cx:386};});
+  const render=tt=>{const f=tt>9.6?0:1;rows.forEach((r,i)=>{const a=tt>0.3+i*0.5;r.ch.setAttribute('opacity',a?f:0);r.g.setAttribute('opacity',a?f:0);
+    const s=2.6+i*1.0;let after=false,sc=1;if(tt>s&&tt<s+0.4){const w=(tt-s)/0.4;after=w>=0.5;sc=Math.abs(1-2*w);}else if(tt>=s+0.4)after=true;
+    r.pb.setAttribute('opacity',after?0:1);r.fb.setAttribute('opacity',after?1:0);r.g.setAttribute('transform',`translate(${r.cx} 0) scale(${Math.max(0.02,sc).toFixed(3)} 1) translate(${-r.cx} 0)`);});};
+  render(8);
+  anim(svg,t=>render(t%10));
+};
+
+D.after=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);
+  const G=[['faster claims',150,140],['compliance accuracy',450,140],['staff time well used',150,318],['fewer rejections',450,318]];
+  const arc=(cx,cy,r,a1,a2,col)=>{const p=a=>[cx+r*Math.cos(rad(a)),cy+r*Math.sin(rad(a))];const s=p(a1),e=p(a2);el('path',{d:`M${s[0].toFixed(1)} ${s[1].toFixed(1)} A${r} ${r} 0 0 1 ${e[0].toFixed(1)} ${e[1].toFixed(1)}`,fill:'none',stroke:col,'stroke-width':18},back);};
+  const nd=G.map(([t,x,y])=>{arc(x,y,80,180,240,'#ffb3b1');arc(x,y,80,240,300,'#ffe08a');arc(x,y,80,300,360,'#7fd1a5');txt(back,x,y-106,t,{anchor:'middle',size:15});
+    txt(back,x-80,y+22,'before',{anchor:'middle',size:11.5,fill:C.muted});txt(back,x+80,y+22,'after',{anchor:'middle',size:11.5,fill:C.muted});
+    const l=el('line',{x1:x,y1:y,stroke:C.ink,'stroke-width':5,'stroke-linecap':'round'},fx);el('circle',{cx:x,cy:y,r:9,fill:C.ink},fx);return{l,x,y};});
+  txt(back,300,404,'Direction only: the case published no exact figures.',{anchor:'middle',size:13,fill:C.teal});
+  const render=tt=>{nd.forEach((n,i)=>{const a=200+135*ease(clamp((tt-0.6-i*0.5)/1.4,0,1))*(tt>8.6?0:1);const r=rad(a);n.l.setAttribute('x2',(n.x+68*Math.cos(r)).toFixed(1));n.l.setAttribute('y2',(n.y+68*Math.sin(r)).toFixed(1));});};
+  render(6);
+  anim(svg,t=>render(t%9));
 };
 
 /* code walkers (generic) */

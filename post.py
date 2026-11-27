@@ -24,6 +24,7 @@ CHAPTERS = [
     (66, 10.0, "13-a2a-task"), (71, 22.0, "14-framework-map"), (75, 10.0, "15-message-list"), (80, 10.4, "16-approval-gate"),
     (86, 9.0, "17-pass-every-time"),
     (91, 8.0, "18-trace-every-run"),
+    (95, 14.0, "19-claims-agent"),
 ]
 
 
