@@ -143,6 +143,9 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   .wrapq{grid-template-columns:minmax(0,1fr)}
   .brand{font-size:17px}
 }
+.code.small{font-size:11.5px;line-height:1.5}
+.walk .chip.on{background:var(--l-yel)}
+.walk-exp{font-family:var(--hand);font-weight:700;font-size:15px;color:var(--teal);text-align:center;margin-top:6px;min-height:1.5em}
 /* recording mode (?clip=N): one page, no toolbar, with a footer carrying the link */
 .clip body{background:var(--desk)}
 .clip .bar{display:none}
@@ -1762,6 +1765,115 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 15: AN AGENT FROM SCRATCH ===== -->
+<section class="page" aria-label="The message list is the agent">
+  <div class="txt">
+    <span class="tag">chapter 15 &middot; an agent from scratch</span>
+    <h2>The message list <span class="hl">is</span> the agent</h2>
+    <p>The API remembers nothing. Every call sends the whole conversation again.</p>
+    <ul>
+      <li>The list starts with the task.</li>
+      <li>The model's tool requests and your tool results take turns.</li>
+      <li>Tool results go back as "user" messages.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="msglist" role="img" aria-label="Six messages build up for one lab check and booking; brackets show call 1 sends one message, call 2 sends three, call 3 sends five"></svg>
+    <figcaption>Fig 15.1 Three model calls, and each one resends everything so far.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="About 40 lines, piece by piece">
+  <div class="txt">
+    <span class="tag">chapter 15 &middot; an agent from scratch</span>
+    <h2>About 40 lines, <span class="hl">piece by piece</span></h2>
+    <p>Build it once with the raw API. Every framework is easier to read afterwards.</p>
+    <ul>
+      <li>The menu: what each tool does and needs.</li>
+      <li>A runner that turns errors into notes, not crashes.</li>
+      <li>The loop: call, check, act, repeat, with a step cap.</li>
+    </ul>
+    <div class="sticky"><strong>Shortened for the page</strong>Real code adds logging, retries and cost tracking. The shape stays the same.</div>
+  </div>
+  <figure class="fig walk" data-walk>
+    <div class="stage" aria-hidden="true"><span class="chip" data-s="a" data-note="Set up the client once.">1 setup</span><span class="chip" data-s="b" data-note="The menu card, plus a lookup from tool name to your Python function.">2 the menu</span><span class="chip" data-s="c" data-note="Run one tool. If it fails, send the error back as a note.">3 run a tool</span><span class="chip" data-s="d" data-note="Start the list with the task, then call the model in a loop.">4 the loop</span><span class="chip" data-s="e" data-note="No tool asked for? Then it is done: return the text.">5 done?</span><span class="chip" data-s="f" data-note="Run every tool it asked for, and send all results back in one message.">6 act</span><span class="chip" data-s="g" data-note="Hit the step cap? Stop safely and say so.">7 step cap</span></div>
+<pre class="code small" aria-label="A minimal Python agent loop"><span class="ln" data-s="a"><span class="kw">import</span> json, anthropic</span><span class="ln" data-s="a">client = anthropic.Anthropic()</span><span class="ln"> </span><span class="ln" data-s="b">TOOLS = [{<span class="fn">"name"</span>: <span class="fn">"get_lab"</span>,</span><span class="ln" data-s="b">          <span class="fn">"description"</span>: <span class="fn">"Latest lab result for one member."</span>,</span><span class="ln" data-s="b">          <span class="fn">"input_schema"</span>: LAB_SCHEMA}]</span><span class="ln" data-s="b">REGISTRY = {<span class="fn">"get_lab"</span>: get_lab}      <span class="cm"># name -> your function</span></span><span class="ln"> </span><span class="ln" data-s="c"><span class="kw">def</span> run_tool(call):</span><span class="ln" data-s="c">    <span class="kw">try</span>:</span><span class="ln" data-s="c">        out = REGISTRY[call.name](**call.input)</span><span class="ln" data-s="c">        <span class="kw">return</span> {<span class="fn">"type"</span>: <span class="fn">"tool_result"</span>, <span class="fn">"tool_use_id"</span>: call.id,</span><span class="ln" data-s="c">                <span class="fn">"content"</span>: json.dumps(out)}</span><span class="ln" data-s="c">    <span class="kw">except</span> Exception <span class="kw">as</span> e:           <span class="cm"># errors become notes</span></span><span class="ln" data-s="c">        <span class="kw">return</span> {<span class="fn">"type"</span>: <span class="fn">"tool_result"</span>, <span class="fn">"tool_use_id"</span>: call.id,</span><span class="ln" data-s="c">                <span class="fn">"is_error"</span>: <span class="kw">True</span>, <span class="fn">"content"</span>: str(e)}</span><span class="ln"> </span><span class="ln" data-s="d"><span class="kw">def</span> agent(task, max_steps=12):</span><span class="ln" data-s="d">    messages = [{<span class="fn">"role"</span>: <span class="fn">"user"</span>, <span class="fn">"content"</span>: task}]</span><span class="ln" data-s="d">    <span class="kw">for</span> _ <span class="kw">in</span> range(max_steps):       <span class="cm"># step cap</span></span><span class="ln" data-s="d">        resp = client.messages.create(model=MODEL, max_tokens=2048,</span><span class="ln" data-s="d">                                      tools=TOOLS, messages=messages)</span><span class="ln" data-s="d">        messages.append({<span class="fn">"role"</span>: <span class="fn">"assistant"</span>, <span class="fn">"content"</span>: resp.content})</span><span class="ln" data-s="e">        <span class="kw">if</span> resp.stop_reason != <span class="fn">"tool_use"</span>:</span><span class="ln" data-s="e">            <span class="kw">return</span> <span class="fn">""</span>.join(b.text <span class="kw">for</span> b <span class="kw">in</span> resp.content <span class="kw">if</span> b.type == <span class="fn">"text"</span>)</span><span class="ln" data-s="f">        results = [run_tool(b) <span class="kw">for</span> b <span class="kw">in</span> resp.content <span class="kw">if</span> b.type == <span class="fn">"tool_use"</span>]</span><span class="ln" data-s="f">        messages.append({<span class="fn">"role"</span>: <span class="fn">"user"</span>, <span class="fn">"content"</span>: results})</span><span class="ln" data-s="g">    <span class="kw">return</span> <span class="fn">"Stopped: step limit reached."</span></span></pre>
+    <div class="walk-exp"></div>
+    <figcaption>Fig 15.2 The whole agent, one part lit at a time.</figcaption>
+  </figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Read the stop reason">
+  <div class="txt">
+    <span class="tag">chapter 15 &middot; an agent from scratch</span>
+    <h2>Read the <span class="hl">stop reason</span></h2>
+    <p>Every reply says why the model stopped. Your loop must handle each case.</p>
+    <ul>
+      <li><code>tool_use</code> is the only "keep going".</li>
+      <li><code>max_tokens</code> means the answer was cut off, not finished.</li>
+      <li><code>refusal</code>: do not retry blindly. Log it and tell a person.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="stopreason" role="img" aria-label="Five replies with different stop reasons are sorted to five actions: return text, run tools, raise the limit, resume, or log and tell a person"></svg>
+    <figcaption>Fig 15.3 Five stop reasons, five things your loop does.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Or use a ready harness">
+  <div class="txt">
+    <span class="tag">chapter 15 &middot; an agent from scratch</span>
+    <h2>Or use a ready <span class="hl">harness</span></h2>
+    <p>The Claude Agent SDK packages the harness behind Claude Code as a library: the loop, built-in tools, permissions, hooks and helpers.</p>
+    <ul>
+      <li>You add your own tools (through MCP) and your rules.</li>
+      <li>Hooks run before and after each tool, so you can block or log.</li>
+      <li>Hard stops: a maximum number of turns and a budget cap.</li>
+    </ul>
+    <div class="sticky"><strong>Not the only one</strong>OpenAI and Google offer similar agent SDKs. The ideas carry over.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="harness" role="img" aria-label="Your app sends a task into the harness; a hook blocks an unapproved record update, and an allowed lab tool runs through MCP"></svg>
+    <figcaption>Fig 15.4 The hook blocks a write that needs a human, and lets the lab lookup run.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 15">
+  <div class="txt">
+    <span class="tag">chapter 15 &middot; an agent from scratch</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="0" data-why="The API is stateless. The message list you resend each call is the agent's whole memory of the task.">
+        <p>1. Where does a from-scratch agent keep track of the task between model calls?</p>
+        <div class="opts"><button class="opt" type="button">In the message list it resends every call</button><button class="opt" type="button">Inside the model's memory</button><button class="opt" type="button">In the tool's settings</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="2" data-why="tool_use means 'keep going': run every requested tool, send all results back in one message, and call again.">
+        <p>2. The stop reason is <code>tool_use</code>. What should your loop do?</p>
+        <div class="opts"><button class="opt" type="button">Return the text to the user</button><button class="opt" type="button">Stop and wait for a person</button><button class="opt" type="button">Run the requested tools, add the results, call again</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="The runner catches it and returns a tool_result marked as an error, so the model can retry, switch tools or explain.">
+        <p>3. A tool throws an error. What happens in the 40-line agent?</p>
+        <div class="opts"><button class="opt" type="button">The whole program crashes</button><button class="opt" type="button">It becomes a result marked as an error, and the model sees it</button><button class="opt" type="button">It is silently ignored</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Forty lines of your own loop teach more than a week of framework docs. Build it once, then choose.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Give a hospital agent reading tools first. Add writing tools only behind hooks that ask a human.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>An agent is a message list, a tool menu, a loop and a stop rule. Build it once by hand; then a harness gives you the rest.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -3221,6 +3333,70 @@ D.changed=svg=>{
   render(8);
   anim(svg,t=>render(t%9.8));
 };
+
+/* ---------- chapter 15 ---------- */
+D.msglist=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const M=[['user','Is Mr. Saleh\'s HbA1c back? Book a review if above 7.'],['assistant','tool_use: get_lab("M-1043", "HbA1c")'],['user','tool_result: {value: 7.9, date: "3 Nov"}'],
+    ['assistant','tool_use: book_review("M-1043", "diabetes")'],['user','tool_result: {booking: "B-221", "Tue 10:00"}'],['assistant','text: HbA1c 7.9. Review booked, Tue 10:00.']];
+  const cards=M.map((m,i)=>{const y=30+i*52,u=m[0]==='user';const g=el('g',{},fx);const k=Sk(svg,g);k.rect(20,y,410,44,{fill:u?'#ffffff':'#eef7f6',fillStyle:'solid',strokeWidth:1.5});
+    el('rect',{x:28,y:y+11,width:70,height:22,rx:11,fill:u?C.lsky:C.lteal,stroke:C.ink,'stroke-width':1.4},g);txt(g,63,y+22,m[0],{anchor:'middle',size:11});txt(g,108,y+22,m[1],{size:11.5});return g;});
+  const BR=[[452,1,'call 1\nsends 1'],[498,3,'call 2\nsends 3'],[544,5,'call 3\nsends 5']];
+  const br=BR.map(([x,n,l])=>{const g=el('g',{},fx);const y1=30,y2=30+(n-1)*52+44;el('path',{d:`M${x-8} ${y1} L${x} ${y1} L${x} ${y2} L${x-8} ${y2}`,fill:'none',stroke:C.coral,'stroke-width':2.6},g);Sk(svg,g).text(x,y2+20,l,{size:11,fill:'#c0393d'});return g;});
+  S.text(300,388,'The API remembers nothing. The list is the agent\'s memory.',{size:13,fill:C.teal});S.text(300,408,'Tool results go back as "user" messages.',{size:12,weight:400});
+  const T=[0.4,1.6,2.4,3.7,4.5,5.8],TB=[0.9,3.0,5.1];
+  const render=tt=>{const f=tt>9.6?0:1;cards.forEach((c,i)=>{const p=clamp((tt-T[i])/0.3,0,1);c.setAttribute('opacity',(p*f).toFixed(2));c.setAttribute('transform',`translate(${(-20*(1-p)).toFixed(1)} 0)`);});
+    br.forEach((b,i)=>b.setAttribute('opacity',tt>TB[i]?f:0));};
+  render(8);
+  anim(svg,t=>render(t%10));
+};
+
+D.stopreason=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const L=[['end_turn','return the text: done',C.lmint],['tool_use','run the tools, then call again',C.lsky],['max_tokens','cut off: raise the limit or continue',C.lyel],['pause_turn','send it back to resume',C.lteal],['refusal','log it, tell a person, no blind retry',C.lcoral]];
+  const LY=L.map((l,i)=>50+i*76);
+  const gl=LY.map(y=>el('rect',{x:324,y:y-32,width:272,height:64,rx:12,fill:C.yel,opacity:0},glow));
+  LY.forEach((y,i)=>{S.line(262,200,330,y,{strokeLineDash:[5,6],stroke:C.muted,strokeWidth:1.3,roughness:0.5});S.rect(330,y-26,260,52,{fill:L[i][2],fillStyle:'solid'});S.text(345,y-9,L[i][0],{size:14,anchor:'start'});S.text(345,y+12,L[i][1],{size:12,anchor:'start',weight:400});});
+  S.path('M230 168 L262 200 L230 232 L198 200 Z',{fill:'#ffffff',fillStyle:'solid'});S.text(230,254,'your loop',{size:12.5});
+  const rc=el('g',{},fx);el('rect',{x:-70,y:-32,width:140,height:64,rx:8,fill:'#ffffff',stroke:C.ink,'stroke-width':2},rc);txt(rc,0,-14,'model reply',{anchor:'middle',size:12,fill:C.muted});
+  const rt=txt(rc,0,12,'',{anchor:'middle',size:14,fill:'#c0393d'});
+  const render=tt=>{const k=Math.floor(tt/2.2)%5,u=tt%2.2;rt.textContent='stop: '+L[k][0];let p;
+    if(u<0.7)p=lerp2([90,200],[90,200],0);else if(u<1.2)p=lerp2([90,200],[200,200],ease((u-0.7)/0.5));else p=lerp2([200,200],[460,LY[k]],ease(clamp((u-1.2)/0.6,0,1)));
+    rc.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) scale(${u>1.2?(1-0.45*clamp((u-1.2)/0.6,0,1)).toFixed(2):1})`);rc.setAttribute('opacity',u>2.0?0:1);
+    gl.forEach((g,i)=>g.setAttribute('opacity',i===k&&u>1.7?0.85:0));};
+  render(0.3);
+  anim(svg,t=>render(t%11));
+};
+
+D.harness=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.rect(20,170,120,80,{fill:C.lsky,fillStyle:'solid'});S.text(80,210,'your app',{size:14});
+  S.rect(180,30,410,300,{fill:'#fbf8f1',fillStyle:'solid'});S.text(385,48,'the harness (for example, the Claude Agent SDK)',{size:13,fill:C.teal});
+  const MOD=[['agent loop',290,92],['permissions',480,92],['hooks: check before\nand after each tool',290,170],['helpers\n(sub-agents)',480,170],['built-in tools:\nfiles, shell, web',290,248],['your tools via MCP\n(get_lab, update_record)',480,248]];
+  const mg=MOD.map(([l,x,y])=>{const g=el('rect',{x:x-92,y:y-34,width:184,height:68,rx:12,fill:C.yel,opacity:0},glow);S.rect(x-86,y-28,172,56,{fill:'#ffffff',fillStyle:'solid'});S.text(x,y,l,{size:12.5});return g;});
+  S.arrow(142,210,196,120,{stroke:C.muted});
+  const st=txt(fx,385,312,'',{anchor:'middle',size:13});
+  S.rect(20,345,570,56,{fill:C.lyel,fillStyle:'solid'});S.text(305,366,'you set:',{size:12.5,fill:C.teal});S.text(305,386,'your tools  .  allowed tools  .  max turns  .  budget cap  .  system prompt',{size:12.5});
+  const tok=dotEl(fx,8);
+  const P=[[140,210],[290,92],[290,170],[480,248],[290,92],[140,210]];
+  const render=tt=>{let p=null;const seg=[[0.4,1.2,0],[1.6,2.4,1],[3.6,4.4,2],[5.0,5.8,3],[5.8,6.4,4]];
+    for(const s of seg){if(tt>=s[0]&&tt<s[1]){p=lerp2(P[s[2]],P[s[2]+1],ease((tt-s[0])/(s[1]-s[0])));}}
+    if(p)moveDot(tok,p);else tok.setAttribute('opacity',0);
+    mg.forEach((g,i)=>g.setAttribute('opacity',0));let msg='',col=C.ink;
+    if(tt>1.2&&tt<1.6){mg[0].setAttribute('opacity',0.85);msg='the loop asks the model';}
+    else if(tt>2.4&&tt<3.6){mg[2].setAttribute('opacity',0.85);mg[2].setAttribute('fill','#ffb3b1');msg='update_record: blocked by a hook, needs a human OK';col='#c0393d';}
+    else if(tt>4.4&&tt<5.0){mg[5].setAttribute('opacity',0.85);mg[5].setAttribute('fill',C.yel);msg='get_lab: allowed, it runs';col='#1f7a4f';}
+    else if(tt>6.4&&tt<8.6){msg='answer returned to your app';col=C.teal;}
+    if(tt<=2.4||tt>=3.6)mg[2].setAttribute('fill',C.yel);
+    st.textContent=msg;st.setAttribute('fill',col);};
+  render(3);
+  anim(svg,t=>render(t%9));
+};
+
+/* code walkers (generic) */
+document.querySelectorAll('figure[data-walk]').forEach(fig=>{const lns=[...fig.querySelectorAll('.ln')],chips=[...fig.querySelectorAll('.chip')],exp=fig.querySelector('.walk-exp');
+  const show=k=>{const s=chips[k].dataset.s;lns.forEach(l=>l.classList.toggle('on',l.dataset.s===s));chips.forEach((c,i)=>c.classList.toggle('on',i===k));exp.textContent=chips[k].dataset.note;};
+  show(3);anim(fig,t=>show(Math.floor(t/2.6)%chips.length));});
 
 /* draw-on effect for sketch strokes */
 function drawOn(svg){
