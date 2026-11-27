@@ -699,6 +699,112 @@ figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:
   <div class="pno"></div>
 </section>
 
+<!-- ===== CHAPTER 5: CONTEXT ENGINEERING ===== -->
+<section class="page" aria-label="A full desk loses focus">
+  <div class="txt">
+    <span class="tag">chapter 5 &middot; context engineering</span>
+    <h2>A full desk <span class="hl">loses focus</span></h2>
+    <p>Context engineering means choosing everything the model sees on each turn: instructions, tools, memory, documents, history and results.</p>
+    <ul>
+      <li>In long runs, chat history and tool results take over the space.</li>
+      <li>As it fills, the model follows its rules less reliably, well before the hard limit. People call this <b>context rot</b>.</li>
+      <li>Treat the space as a budget. Plan to tidy up at about three quarters full.</li>
+    </ul>
+    <div class="sticky"><strong>Instructions at the right height</strong>Not a vague one-liner, not 200 edge-case rules. Clear sections and a few good examples.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="jar" role="img" aria-label="A jar of context fills turn by turn while the model's focus drops and its written rules blur"></svg>
+    <figcaption>Fig 5.1 Twenty turns in eight seconds. Watch the rules on the sticky note blur.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Summarise the old, keep the new">
+  <div class="txt">
+    <span class="tag">chapter 5 &middot; context engineering</span>
+    <h2><span class="hl">Summarise</span> the old, keep the new</h2>
+    <p>When the notebook nears its limit, squeeze the old turns into one short summary.</p>
+    <ul>
+      <li>Keep the goal, decisions made, what is still open, and ids or file names.</li>
+      <li>Keep the last few turns word for word.</li>
+      <li>Watch out: a lost detail can come back to bite you later.</li>
+    </ul>
+    <div class="sticky"><strong>When to squeeze</strong>Around 70 to 80 percent full is a common trigger.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="squeeze" role="img" aria-label="Ten old message cards squeeze into one summary card while the three newest stay; the notebook drops from 82 to 38 percent full"></svg>
+    <figcaption>Fig 5.2 Ten old turns become one summary. The newest three stay as they were.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Keep references, fetch when needed">
+  <div class="txt">
+    <span class="tag">chapter 5 &middot; context engineering</span>
+    <h2>Keep <span class="hl">references</span>, fetch when needed</h2>
+    <p>Do not paste every document in at the start. Keep short pointers and load the full text only when a step needs it.</p>
+    <ul>
+      <li>Pointers are cheap: ids, page numbers, file names.</li>
+      <li>Fetch, use, then shrink the result to a one-line stub.</li>
+      <li>Some documents are never needed, so they never cost anything.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="jit" role="img" aria-label="A notebook keeps references; documents are fetched from hospital systems one at a time, used, and shrunk to one-line stubs"></svg>
+    <figcaption>Fig 5.3 Two documents fetched and shrunk. The 40-page guideline is never loaded.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page" aria-label="Send a helper to do the reading">
+  <div class="txt">
+    <span class="tag">chapter 5 &middot; context engineering</span>
+    <h2>Send a <span class="hl">helper</span> to do the reading</h2>
+    <p>For big reading jobs, start a helper agent with its own fresh notebook.</p>
+    <ul>
+      <li>The helper reads all 40 pages and fills its own notebook.</li>
+      <li>It hands back a one-page summary.</li>
+      <li>The main notebook stays clean. The helper's notebook is thrown away.</li>
+    </ul>
+    <div class="sticky"><strong>Notes outside the notebook</strong>Agents can also keep a to-do file and re-read it, so the plan survives even after old turns are summarised.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="helper" role="img" aria-label="The main agent sends a helper to read a 40-page guideline; the helper's notebook fills up, and only a one-page summary comes back"></svg>
+    <figcaption>Fig 5.4 The helper's jar fills to the top. The main jar barely moves.</figcaption></figure>
+  <div class="pno"></div>
+</section>
+
+<section class="page full" aria-label="Check yourself, chapter 5">
+  <div class="txt">
+    <span class="tag">chapter 5 &middot; context engineering</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div class="quiz">
+      <div class="q" data-a="2" data-why="This is context rot: as the notebook fills, the model follows its instructions less reliably, long before the hard limit.">
+        <p>1. Late in a long run, the agent starts ignoring its rules, though the notebook is not full. Why?</p>
+        <div class="opts"><button class="opt" type="button">The model got tired</button><button class="opt" type="button">The rules were deleted</button><button class="opt" type="button">Too much clutter: it loses track of what matters</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="Compaction keeps the goal, decisions and open items, plus the newest turns, and frees most of the space.">
+        <p>2. The notebook is 80% full in the middle of a task. What do you do?</p>
+        <div class="opts"><button class="opt" type="button">Summarise the old turns, keep the recent ones</button><button class="opt" type="button">Delete the instructions to make room</button><button class="opt" type="button">Start the task again from zero</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="The helper does the heavy reading in its own notebook and returns only what the main agent needs.">
+        <p>3. The agent must check a 40-page guideline. How do you keep the main notebook clean?</p>
+        <div class="opts"><button class="opt" type="button">Paste all 40 pages in</button><button class="opt" type="button">A helper agent reads it and returns a short summary</button><button class="opt" type="button">Skip the guideline</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">A good ward handover is context engineering. The next shift gets the goal, what was done and what is still open, not the whole night's chart.</p>
+      </div>
+      <div class="note special">
+        <div class="who">Dr. Farooq's special note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">When you summarise, leave patient identifiers out unless the next step truly needs them.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Treat the notebook like a small desk, not a warehouse: fetch files when needed, summarise the old, and send helpers to do the heavy reading.</div>
+    </div>
+  </div>
+  <div class="pno"></div>
+</section>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
@@ -1200,6 +1306,120 @@ D.twice=svg=>{
       h.chip1.setAttribute('opacity',tt>1.2?fade:0);
       if(h.chip2)h.chip2.setAttribute('opacity',tt>3.7?fade:0);
       h.msg.setAttribute('opacity',tt>3.7?fade:0);});});
+};
+
+/* ---------- chapter 5 ---------- */
+D.jar=svg=>{
+  const defs=el('defs',{},svg);const flt=el('filter',{id:'blur5',x:'-10%',y:'-40%',width:'120%',height:'180%'},defs);const gb=el('feGaussianBlur',{stdDeviation:'0'},flt);
+  const lay=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  const J={x:60,y:40,w:190,h:350};
+  const segs=[['instructions',C.lteal,30,30],['tool menu',C.lsky,40,40],['memory',C.lmint,10,20],['policy pages',C.lyel,20,50],['chat so far','#e8dcf5',10,80],['tool results',C.lcoral,10,110]];
+  const rects=segs.map(s=>el('rect',{x:J.x+4,width:J.w-8,fill:s[1],stroke:C.ink,'stroke-width':1.2},lay));
+  S.path(`M${J.x} ${J.y} L${J.x} ${J.y+J.h} L${J.x+J.w} ${J.y+J.h} L${J.x+J.w} ${J.y}`,{strokeWidth:3});
+  const L75=J.y+J.h*0.25;S.line(J.x-8,L75,J.x+J.w+8,L75,{strokeLineDash:[7,6],stroke:C.coral,roughness:0.5});
+  segs.forEach((s,i)=>{S.rect(268,54+i*26,16,16,{fill:s[1],fillStyle:'solid',strokeWidth:1.3});S.text(292,62+i*26,s[0],{size:13,anchor:'start',weight:400});});
+  S.rect(268,54+6*26,16,16,{fill:'#ffffff',fillStyle:'solid',strokeWidth:1.3});S.text(292,62+6*26,'free space',{size:13,anchor:'start',weight:400});
+  S.text(495,64,'model focus',{size:16});S.rect(410,80,170,24,{});
+  S.rect(405,160,180,86,{fill:C.lyel,fillStyle:'solid'});
+  const rules=el('g',{filter:'url(#blur5)'},fx);const kr=Sk(svg,rules);kr.text(495,182,'Rules: reply in Arabic.',{size:13});kr.text(495,203,'Never give a diagnosis.',{size:13});kr.text(495,224,'Ask before booking.',{size:13});
+  const bar=el('rect',{x:413,y:83,height:18,fill:C.teal},fx);
+  const pct=el('text',{x:495,y:124,'text-anchor':'middle','font-size':15,'font-weight':700,fill:C.ink,class:'sk-t'},fx);
+  const rot=el('g',{},fx);Sk(svg,rot).text(495,300,'context rot:\nthe fuller it gets,\nthe less it follows\nits own rules',{size:13.5,fill:'#c0393d'});
+  const tidy=el('text',{x:J.x+J.w/2,y:L75-8,'text-anchor':'middle','font-size':14,'font-weight':700,fill:'#c0393d',stroke:'#ffffff','stroke-width':4,'paint-order':'stroke',class:'sk-t'},fx);tidy.textContent='tidy up here (75%)';
+  const turn=el('text',{x:J.x+J.w/2,y:24,'text-anchor':'middle','font-size':16,'font-weight':700,fill:C.coral,class:'sk-t'},fx);
+  const render=(f,tt)=>{let cum=0;segs.forEach((s,i)=>{const h=s[2]+(s[3]-s[2])*f;cum+=h;rects[i].setAttribute('y',(J.y+J.h-cum).toFixed(1));rects[i].setAttribute('height',h.toFixed(1));});
+    const fill=cum/J.h,focus=fill<0.5?100:Math.max(45,100-(fill-0.5)*120);
+    bar.setAttribute('width',(164*focus/100).toFixed(1));pct.textContent=Math.round(fill*100)+'% full, focus '+Math.round(focus)+'%';
+    gb.setAttribute('stdDeviation',Math.max(0,(fill-0.55)*7).toFixed(2));rot.setAttribute('opacity',clamp((fill-0.6)/0.1,0,1).toFixed(2));
+    tidy.setAttribute('opacity',fill>0.75?(0.7+0.3*Math.sin((tt||0)*6)).toFixed(2):0.85);turn.textContent='turn '+Math.round(1+19*f);};
+  render(0.6,0);
+  anim(svg,t=>{const tt=t%10.5;render(tt>10.1?0:clamp(tt/8,0,1),tt);});
+};
+
+D.squeeze=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.text(175,20,'the notebook',{size:15,fill:C.teal});
+  S.rect(30,32,290,372,{fill:'#ffffff',fillStyle:'solid'});
+  const old=['user: MRI pre-approval?','think: need the policy','get_policy("M-1043")','result: 2 pages of rules','think: is it urgent?','read_referral("R-88")','result: referral note','think: check criteria','check_criteria("72148")','result: criteria met'];
+  const recent=['think: draft the request','draft_request()','result: draft ready'];
+  const oc=old.map((l,i)=>{const g=el('g',{},fx);const k=Sk(svg,g);const y=42+i*26;k.rect(44,y,262,22,{fill:'#f1f3f6',fillStyle:'solid',strokeWidth:1.3,roughness:0.8});k.text(56,y+11,l,{size:12,anchor:'start',weight:400});return{g,c:y+11};});
+  const rc=recent.map((l,i)=>{const g=el('g',{},fx);const k=Sk(svg,g);const y=310+i*28;k.rect(44,y,262,24,{fill:C.lsky,fillStyle:'solid',strokeWidth:1.5});k.text(56,y+12,l,{size:12.5,anchor:'start'});return g;});
+  const sum=el('g',{},fx);const ks=Sk(svg,sum);ks.rect(44,42,262,98,{fill:C.lyel,fillStyle:'solid'});
+  ks.text(56,60,'SUMMARY',{size:13,anchor:'start',fill:C.teal});ks.text(56,82,'Goal: MRI pre-approval, M-1043',{size:12.5,anchor:'start'});
+  ks.text(56,104,'Done: policy, referral, criteria met',{size:12.5,anchor:'start'});ks.text(56,126,'Open: send the draft for review',{size:12.5,anchor:'start'});
+  S.text(334,84,'10 old turns\nsqueeze into\none summary',{size:13,anchor:'start',weight:400});
+  const rl=el('g',{},fx);Sk(svg,rl).text(334,338,'newest 3:\nkept word\nfor word',{size:13,anchor:'start',weight:400});rc.push(rl);
+  S.text(535,56,'how full',{size:14});S.rect(500,70,70,260,{});
+  const GY=70+260*0.25;S.line(492,GY,578,GY,{strokeLineDash:[6,5],stroke:C.coral,roughness:0.5});S.text(535,GY-9,'75%',{size:11,fill:C.coral});
+  const gf=el('rect',{x:503,width:64,fill:C.lteal,stroke:C.ink,'stroke-width':1.2},fx);
+  const gp=el('text',{x:535,y:352,'text-anchor':'middle','font-size':17,'font-weight':700,fill:C.ink,class:'sk-t'},fx);
+  const gauge=f=>{const h=254*f;gf.setAttribute('y',(327-h).toFixed(1));gf.setAttribute('height',h.toFixed(1));gp.textContent=Math.round(f*100)+'%';gf.setAttribute('fill',f>0.75?C.lcoral:C.lteal);};
+  const render=tt=>{const p=ease(clamp((tt-2.0)/1.0,0,1));
+    oc.forEach(o=>{const nc=o.c+(91-o.c)*p,sy=Math.max(0.05,1-0.95*p);o.g.setAttribute('transform',`translate(0 ${nc.toFixed(1)}) scale(1 ${sy.toFixed(3)}) translate(0 ${-o.c})`);o.g.setAttribute('opacity',(1-p).toFixed(2));});
+    const fadeOut=tt>8.6?clamp(1-(tt-8.6)/0.4,0,1):1;
+    sum.setAttribute('opacity',(clamp((tt-2.8)/0.4,0,1)*fadeOut).toFixed(2));
+    const up=ease(clamp((tt-3.0)/0.8,0,1))*(tt>8.6?fadeOut:1);rc.forEach(g=>g.setAttribute('transform',`translate(0 ${(-160*up).toFixed(1)})`));
+    gauge(0.82-0.44*ease(clamp((tt-3.2)/0.8,0,1))*(tt>8.6?fadeOut:1));};
+  render(6);
+  anim(svg,t=>render(t%9));
+};
+
+D.jit=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  S.text(155,20,'the notebook',{size:15,fill:C.teal});
+  S.rect(30,32,250,372,{fill:'#ffffff',fillStyle:'solid'});
+  S.text(44,62,'goal: pre-approval for M-1043',{size:13,anchor:'start'});
+  const refs=[{y:110,r:'ref: policy P-12, page 4',s:'P-12: MRI needs approval'},{y:160,r:'ref: referral R-88',s:'R-88: routine, no red flags'},{y:210,r:'ref: guideline G-7 (40 pages)',s:null}];
+  refs.forEach(f=>{f.ref=el('g',{},fx);const k=Sk(svg,f.ref);k.rect(40,f.y-15,230,30,{fill:C.lsky,fillStyle:'solid',strokeWidth:1.4});k.text(52,f.y,f.r,{size:12.5,anchor:'start'});
+    if(f.s){f.stub=el('g',{},fx);const k2=Sk(svg,f.stub);k2.rect(40,f.y-15,230,30,{fill:C.lmint,fillStyle:'solid',strokeWidth:1.4});k2.text(52,f.y,f.s,{size:12.5,anchor:'start'});}});
+  const never=el('g',{},fx);Sk(svg,never).text(155,238,'(never needed, never loaded)',{size:12,fill:C.teal});
+  S.rect(330,40,250,250,{fill:'#f6f1e7',fillStyle:'solid'});S.text(455,64,'hospital systems',{size:14});
+  const docs=[[392,150,'P-12\npolicy'],[456,150,'R-88\nreferral'],[520,150,'G-7\n40 pages']];
+  docs.forEach(([x,y,l])=>{S.rect(x-24,y-32,48,64,{fill:'#ffffff',fillStyle:'solid'});[-18,-8,2,12].forEach(d=>S.line(x-14,y+d,x+14,y+d,{strokeWidth:1.2,roughness:0.5}));S.text(x,y+52,l,{size:12});});
+  const big=(title,body)=>{const g=el('g',{},fx);const k=Sk(svg,g);k.rect(40,252,230,140,{fill:C.lyel,fillStyle:'solid'});k.text(155,274,title,{size:14});k.text(155,330,body,{size:13,weight:400});return g;};
+  const bigP=big('Policy P-12, page 4','Non-urgent MRI needs\npre-approval. Criteria:\n6 weeks of therapy.');
+  const bigR=big('Referral R-88','Routine. Low back pain,\n8 weeks. No red flags.\nPhysio for 6 weeks.');
+  const fly=el('rect',{x:-15,y:-20,width:30,height:40,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':1.8,opacity:0},fx);
+  const flyAt=(a,b,u)=>{const p=lerp2(a,b,ease(u));fly.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);fly.setAttribute('opacity',1);};
+  const shrink=(g,ty,u)=>{const s=1-0.85*u,cy=322+(ty-322)*u;g.setAttribute('transform',`translate(155 ${cy.toFixed(1)}) scale(${s.toFixed(3)}) translate(-155 -322)`);g.setAttribute('opacity',(1-u).toFixed(2));};
+  const render=tt=>{fly.setAttribute('opacity',0);
+    if(tt>=0.5&&tt<1.3)flyAt([456,150],[155,322],(tt-0.5)/0.8);
+    if(tt>=3.8&&tt<4.6)flyAt([392,150],[155,322],(tt-3.8)/0.8);
+    if(tt<1.3)bigR.setAttribute('opacity',0);else if(tt<2.8){bigR.setAttribute('opacity',clamp((tt-1.3)/0.2,0,1));bigR.removeAttribute('transform');}else if(tt<3.4)shrink(bigR,160,(tt-2.8)/0.6);else bigR.setAttribute('opacity',0);
+    if(tt<4.6)bigP.setAttribute('opacity',0);else if(tt<6.1){bigP.setAttribute('opacity',clamp((tt-4.6)/0.2,0,1));bigP.removeAttribute('transform');}else if(tt<6.7)shrink(bigP,110,(tt-6.1)/0.6);else bigP.setAttribute('opacity',0);
+    const fade=tt>10.1?0:1;
+    refs[1].ref.setAttribute('opacity',tt>=3.4&&fade?0:1);refs[1].stub.setAttribute('opacity',tt>=3.4&&fade?1:0);
+    refs[0].ref.setAttribute('opacity',tt>=6.7&&fade?0:1);refs[0].stub.setAttribute('opacity',tt>=6.7&&fade?1:0);
+    never.setAttribute('opacity',tt>=7.0?fade:0);};
+  render(8);
+  anim(svg,t=>render(t%10.5));
+};
+
+D.helper=svg=>{
+  const back=el('g',{},svg),fx=el('g',{},svg);const S=Sk(svg,back);
+  robot(S.group(90,62,0.34));robot(S.group(510,62,0.34));
+  S.text(90,152,'main agent',{size:14});S.text(510,152,'helper agent',{size:14});
+  S.carrow(140,92,460,92,-30,{stroke:C.teal});S.text(300,36,'"Find the MRI rules for\nlow back pain."',{size:13});
+  const jar=x=>S.path(`M${x} 170 L${x} 380 L${x+80} 380 L${x+80} 170`,{strokeWidth:2.6});
+  jar(50);jar(470);
+  S.rect(255,236,90,110,{fill:C.lyel,fillStyle:'solid'});[256,272,288,304,320].forEach(y=>S.line(268,y,332,y,{strokeWidth:1.2,roughness:0.5}));
+  S.text(300,368,'guideline G-7\n40 pages',{size:13});
+  const f1=el('rect',{x:54,width:72,fill:C.lteal,stroke:C.ink,'stroke-width':1.2},fx),f2=el('rect',{x:474,width:72,fill:C.lcoral,stroke:C.ink,'stroke-width':1.2},fx);
+  const p1=el('text',{x:90,y:402,'text-anchor':'middle','font-size':14,'font-weight':700,fill:C.ink,class:'sk-t'},fx),p2=el('text',{x:510,y:402,'text-anchor':'middle','font-size':14,'font-weight':700,fill:C.ink,class:'sk-t'},fx);
+  const gone=el('text',{x:510,y:262,'text-anchor':'middle','font-size':16,'font-weight':700,fill:'#c0393d',class:'sk-t',transform:'rotate(-14 510 262)'},fx);gone.textContent='thrown away';
+  const pages=[0,1,2,3,4,5,6,7].map(()=>el('rect',{x:-10,y:-13,width:20,height:26,rx:2,fill:'#fff',stroke:C.ink,'stroke-width':1.5,opacity:0},fx));
+  const card=el('g',{opacity:0},fx);el('rect',{x:-46,y:-15,width:92,height:30,rx:4,fill:C.lmint,stroke:C.ink,'stroke-width':2},card);
+  const ct=el('text',{x:0,y:1,'text-anchor':'middle','dominant-baseline':'middle','font-size':12.5,'font-weight':700,fill:C.ink,class:'sk-t'},card);ct.textContent='1-page summary';
+  const back2=track([[490,196],[300,196],[110,206]]);
+  const setJ=(r,t,f,lab)=>{const h=206*f;r.setAttribute('y',(376-h).toFixed(1));r.setAttribute('height',h.toFixed(1));t.textContent=lab+Math.round(f*100)+'%';};
+  const render=tt=>{const fade=tt>10.1?0:1;
+    pages.forEach((r,i)=>{const u=(tt-1.0-i*0.5)/0.7;if(u<0||u>1){r.setAttribute('opacity',0);return;}const p=lerp2([300,250],[510,200],ease(u));r.setAttribute('transform',`translate(${p[0].toFixed(1)} ${(p[1]-Math.sin(Math.PI*u)*40).toFixed(1)}) rotate(${(u*180).toFixed(0)})`);r.setAttribute('opacity',1);});
+    const hf=0.1+0.8*clamp((tt-1.0)/4.4,0,1);setJ(f2,p2,fade?hf:0.1,'helper: ');
+    const cu=(tt-5.6)/1.2;if(cu>=0&&cu<=1){const p=back2(ease(cu));card.setAttribute('transform',`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);card.setAttribute('opacity',1);}else card.setAttribute('opacity',0);
+    setJ(f1,p1,fade?0.30+0.06*clamp((tt-6.8)/0.4,0,1):0.30,'main: ');
+    const g=tt>7.4&&fade;f2.setAttribute('fill',g?'#d7dbe0':C.lcoral);gone.setAttribute('opacity',g?1:0);};
+  render(9);
+  anim(svg,t=>render(t%10.5));
 };
 
 /* draw-on effect for sketch strokes */
