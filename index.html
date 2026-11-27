@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="AI Agents, Sketched: a practical way to make AI agents, by Dr. Muhammad Farooq. Moving sketches and real hospital cases.">
+<meta name="author" content="Dr. Muhammad Farooq">
+<meta property="og:title" content="AI Agents, Sketched">
+<meta property="og:description" content="AI Agents, Sketched: a practical way to make AI agents, by Dr. Muhammad Farooq. Moving sketches and real hospital cases.">
+<meta property="og:type" content="book">
+<style>body{margin:0} img{max-width:100%} [hidden]{display:none!important}</style>
+<title>AI Agents, Sketched</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a horizontal notebook of landscape pages; text left (38) and a moving sketch right (62); pages stack on phones. Light paper look only, by design. */
+:root{
+  --desk:#e9edf1; --paper:#ffffff; --dot:#cfd6dd;
+  --ink:#23272f; --muted:#5b6472;
+  --teal:#0f9d9a; --coral:#f25f5c; --yel:#ffd23f; --sky:#4d96ff;
+  --l-teal:#c9f0ee; --l-yel:#fff1a8; --l-coral:#ffd3d2; --l-sky:#d6e6ff; --l-mint:#d8f5e9;
+  --hand:"Kalam","Comic Sans MS","Segoe Print",cursive;
+  --body:"Nunito","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,ui-monospace,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--desk);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--desk)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px;background:var(--desk)}
+.brand{font-family:var(--hand);font-weight:700;font-size:20px;white-space:nowrap}
+.brand span{color:var(--teal)}
+.nav{display:flex;gap:10px;align-items:center}
+.btn{font-family:var(--hand);font-weight:700;font-size:16px;line-height:1.2;border:2px solid var(--ink);background:var(--paper);color:var(--ink);
+  border-radius:12px 6px 12px 8px/8px 12px 6px 12px;padding:5px 14px;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.btn:hover{background:var(--l-yel)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.yel{background:var(--yel)}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+#count{font-family:var(--hand);font-weight:700;min-width:64px;text-align:center}
+
+.book{display:flex;gap:36px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 8px 40px 2px;scrollbar-width:thin}
+.page{flex:0 0 min(1100px,calc(100vw - 52px));scroll-snap-align:start;position:relative;
+  background-color:var(--paper);background-image:radial-gradient(var(--dot) 1.1px,transparent 1.2px);background-size:22px 22px;
+  border:2px solid var(--ink);border-radius:18px 8px 22px 10px/10px 20px 8px 18px;box-shadow:6px 6px 0 var(--ink);
+  padding:30px 34px 38px;display:grid;grid-template-columns:minmax(0,38fr) minmax(0,62fr);gap:30px;align-items:center;min-height:580px}
+.page.full{grid-template-columns:minmax(0,1fr);align-items:start}
+.txt,.fig{min-width:0}
+.pno{position:absolute;right:20px;bottom:10px;font-family:var(--hand);color:var(--muted);font-size:15px}
+
+h1,h2,h3{font-family:var(--hand);font-weight:700;margin:0;text-wrap:balance}
+h1{font-size:clamp(42px,6vw,68px);line-height:1.02}
+h2{font-size:clamp(28px,3.3vw,40px);line-height:1.1;margin-block:10px 14px}
+h3{font-size:22px;line-height:1.2;margin-bottom:6px}
+.hl{background:linear-gradient(transparent 55%,var(--yel) 55%,var(--yel) 90%,transparent 90%);padding:0 2px}
+.tag{display:inline-block;font-family:var(--hand);font-weight:700;font-size:15px;background:var(--teal);color:#fff;border-radius:999px;padding:1px 13px}
+.txt p{margin:0 0 12px;max-width:46ch}
+.txt ul{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:7px}
+.txt li{position:relative;padding-left:24px;max-width:46ch}
+.txt li::before{content:"\2192";position:absolute;left:0;top:-1px;font-family:var(--hand);font-weight:700;color:var(--teal)}
+b.k-o{color:#2f6fd6} b.k-t{color:var(--teal)} b.k-a{color:#d94441} b.k-w{color:#a37b00}
+figure{margin:0}
+.fig svg{display:block;width:100%;height:auto;max-height:470px}
+figcaption{font-family:var(--hand);color:var(--muted);font-size:15px;text-align:center;margin-top:6px}
+.sk-t{font-family:var(--hand)} .sk-b{font-family:var(--body)}
+.sticky{background:var(--l-yel);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);border-radius:4px 10px 6px 12px;padding:10px 14px;transform:rotate(-1.2deg);font-size:15px;max-width:46ch}
+.sticky strong{font-family:var(--hand);font-size:18px;display:block;margin-bottom:2px}
+
+/* cover */
+.author{font-family:var(--hand);font-weight:700;color:var(--teal);font-size:34px;line-height:1.1;margin-top:26px}
+.cred{color:var(--muted);font-weight:600;font-size:15px}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pill{font-family:var(--hand);font-weight:700;font-size:14px;border:2px solid var(--ink);border-radius:999px;padding:1px 12px;background:var(--l-mint)}
+.promise{font-size:19px;max-width:34ch;margin-top:14px}
+
+/* contents */
+.parts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;margin-top:18px}
+.part{border:2px solid var(--ink);border-radius:14px 6px 16px 8px/8px 16px 6px 14px;background:var(--paper);padding:12px 14px 14px;position:relative}
+.part .n{font-family:var(--hand);font-weight:700;color:var(--teal);font-size:28px;line-height:1}
+.part ol{margin:6px 0 0;padding-left:20px;font-size:14.5px}
+.part.here{background:var(--l-yel);transform:rotate(-.6deg);box-shadow:4px 4px 0 var(--ink)}
+.here-tag{font-family:var(--hand);font-weight:700;font-size:12px;background:var(--coral);color:#fff;border-radius:999px;padding:0 8px;margin-left:4px;white-space:nowrap}
+.part.lab{background:var(--l-mint)}
+
+/* trace notebook */
+.nb{position:relative;border:2px solid var(--ink);border-radius:10px 4px 12px 6px;background:repeating-linear-gradient(#fff 0 31px,#dbe6f2 31px 32px);padding:10px 14px 12px 50px}
+.nb::before{content:"";position:absolute;left:36px;top:0;bottom:0;border-left:2px solid var(--coral);opacity:.6}
+.nb-goal{font-family:var(--hand);font-weight:700;font-size:18px;line-height:32px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{font-family:var(--body);font-weight:800;font-size:12px;letter-spacing:.06em;border:2px solid var(--ink);border-radius:8px;padding:1px 8px;background:var(--paper);transition:background .25s,transform .25s}
+.chip.on{transform:translateY(-2px)}
+.chip[data-c="see"].on{background:var(--l-sky)} .chip[data-c="think"].on{background:var(--l-teal)} .chip[data-c="act"].on{background:var(--l-coral)} .chip[data-c="done"].on{background:var(--l-mint)}
+.row{display:grid;grid-template-columns:74px minmax(0,1fr);gap:10px;align-items:start;font-family:var(--hand);font-size:16.5px;line-height:32px;transition:opacity .35s,transform .35s}
+.row.hide{opacity:0;transform:translateY(6px)}
+.row.now .say{background:linear-gradient(transparent 60%,var(--l-yel) 60%)}
+.row .k{font-family:var(--body);font-weight:800;font-size:11.5px;letter-spacing:.06em;border:2px solid var(--ink);border-radius:7px;text-align:center;line-height:20px;margin-top:5px}
+.row[data-k="think"] .k{background:var(--l-teal)} .row[data-k="act"] .k{background:var(--l-coral)} .row[data-k="see"] .k{background:var(--l-sky)} .row[data-k="done"] .k{background:var(--l-mint)}
+.row code{font-family:var(--mono);font-size:13.5px;background:#f4f6f9;border-radius:4px;padding:1px 4px}
+.ctrls{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;justify-content:center}
+
+/* exits table */
+.tbl{border-collapse:collapse;width:100%;max-width:440px;font-size:14.5px;margin:4px 0 14px}
+.tbl th{font-family:var(--hand);font-size:16px;text-align:left;border-bottom:2px solid var(--ink);padding:2px 6px}
+.tbl td{border-bottom:1.5px dashed #b9c1cb;padding:4px 6px;vertical-align:top}
+.tbl td:first-child{font-weight:800;white-space:nowrap}
+
+/* code */
+.stage{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:10px}
+.turnc{font-family:var(--hand);font-weight:700;color:var(--coral);font-size:18px;margin-left:auto}
+.code{border:2px solid var(--ink);border-radius:10px 4px 12px 6px;background:#fbfcfe;padding:10px 0;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.85}
+.ln{display:block;padding:0 16px 0 12px;white-space:pre;transition:background .2s,box-shadow .2s}
+.ln i{font-style:normal;color:#9aa3ae;display:inline-block;width:24px}
+.ln.on{background:var(--l-yel);box-shadow:inset 5px 0 0 var(--yel)}
+.kw{color:#2f6fd6;font-weight:600} .cm{color:var(--teal)} .fn{color:#c2413e}
+
+/* quiz page */
+.wrapq{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;margin-top:8px}
+.q{margin-bottom:18px}
+.q p{font-weight:700;margin:0 0 8px}
+.opts{display:grid;gap:7px}
+.opt{font:inherit;text-align:left;border:2px solid var(--ink);border-radius:10px 5px 10px 6px;background:var(--paper);padding:6px 12px;cursor:pointer}
+.opt:hover{background:var(--l-yel)}
+.opt.right{background:var(--l-mint)} .opt.wrong{background:var(--l-coral)}
+.fb{font-size:14.5px;color:var(--muted);margin-top:6px;min-height:1.2em}
+.note{border:2px solid var(--ink);border-radius:14px 6px 16px 8px;background:var(--l-sky);padding:14px 16px;box-shadow:4px 4px 0 var(--ink)}
+.note .who{font-family:var(--hand);font-weight:700;color:var(--teal);font-size:22px}
+.note .draft{font-size:12px;font-weight:800;letter-spacing:.06em;background:var(--yel);border:1.5px solid var(--ink);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:middle}
+.side{display:grid;gap:22px;align-content:start}
+.remember{background:var(--yel);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:14px 16px;transform:rotate(1.3deg);border-radius:3px 9px 5px 11px}
+.remember strong{font-family:var(--hand);font-size:24px;display:block}
+.credit{grid-column:1/-1;font-size:13px;color:var(--muted);border-top:1.5px dashed #b9c1cb;padding-top:10px;margin-top:6px}
+
+@media (max-width:760px){
+  .book{display:block;overflow:visible;padding:4px 0 30px}
+  .page{grid-template-columns:minmax(0,1fr);margin-bottom:28px;padding:22px 18px 36px;min-height:0;gap:18px}
+  .nav .btn{display:none}
+  .wrapq{grid-template-columns:minmax(0,1fr)}
+  .brand{font-size:17px}
+}
+@media (prefers-reduced-motion:reduce){.row,.chip,.ln{transition:none}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="brand">AI Agents, <span>Sketched</span></div>
+  <nav class="nav" aria-label="Pages">
+    <button class="btn" id="prev" type="button">&larr; Back</button>
+    <span id="count" aria-live="polite">cover</span>
+    <button class="btn yel" id="next" type="button">Next &rarr;</button>
+  </nav>
+</header>
+
+<main class="book" id="book">
+
+<!-- 1 COVER -->
+<section class="page" aria-label="Cover">
+  <div class="txt">
+    <span class="tag">pilot edition</span>
+    <h1 style="margin-top:14px">AI Agents, <span class="hl">Sketched</span></h1>
+    <p class="promise"><b>A practical way to make AI agents.</b></p>
+    <p class="cred" style="max-width:40ch;margin-top:6px">Moving sketches, real hospital cases, no heavy theory.</p>
+    <div class="author"><span style="font-size:20px;color:var(--muted)">by</span> Dr. Muhammad Farooq</div>
+    <div class="cred">AI in Healthcare | Top Voice</div>
+    <div class="pill-row"><span class="pill">hand-drawn</span><span class="pill">animated</span><span class="pill">healthcare cases</span></div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="cover" role="img" aria-label="A sketched robot with a policy document, a magnifier, a database and a medical cross circling it"></svg></figure>
+  <div class="pno">cover</div>
+</section>
+
+<!-- 2 CONTENTS -->
+<section class="page full" aria-label="Contents">
+  <div class="txt">
+    <span class="tag">contents</span>
+    <h2>Seven parts, <span class="hl">one loop</span> at the centre</h2>
+    <p>This pilot builds one chapter in full: <b>The agent loop</b>. The rest of the book follows the same pattern: a moving sketch, plain words, a healthcare case and a quick check.</p>
+  </div>
+  <div class="parts">
+    <div class="part"><div class="n">1</div><h3>What agents are</h3><ol><li>Chatbot, workflow or agent?</li><li>When not to build one</li><li>The autonomy dial</li></ol></div>
+    <div class="part here"><div class="n">2</div><h3>How an agent works</h3><ol><li>The agent loop <span class="here-tag">you are here</span></li><li>How tool calls work</li><li>Designing good tools</li><li>Context engineering</li></ol></div>
+    <div class="part"><div class="n">3</div><h3>Thinking &amp; memory</h3><ol><li>Planning</li><li>Checking its own work</li><li>Memory</li><li>Saving progress</li></ol></div>
+    <div class="part"><div class="n">4</div><h3>Patterns &amp; teams</h3><ol><li>Chains and routers</li><li>Orchestrator and workers</li><li>Multi-agent teams</li><li>MCP and A2A</li></ol></div>
+    <div class="part"><div class="n">5</div><h3>Building one</h3><ol><li>The 2026 frameworks</li><li>An agent from scratch</li><li>Human approval steps</li></ol></div>
+    <div class="part"><div class="n">6</div><h3>Measuring it</h3><ol><li>Evaluation basics</li><li>Metrics that matter</li><li>Case: a claims agent</li></ol></div>
+    <div class="part"><div class="n">7</div><h3>Production &amp; failure</h3><ol><li>Guardrails and security</li><li>Cost and speed</li><li>Why agents fail</li><li>Launch checklist</li></ol></div>
+    <div class="part lab"><div class="n">+</div><h3>Healthcare lab</h3><ol><li>Insurance policy Q&amp;A</li><li>Chest X-ray assistant</li><li>Meeting minutes agent</li></ol></div>
+  </div>
+  <div class="pno">2</div>
+</section>
+
+<!-- 3 THE LOOP -->
+<section class="page" aria-label="One loop runs every agent">
+  <div class="txt">
+    <span class="tag">chapter 2 &middot; the agent loop</span>
+    <h2>One <span class="hl">loop</span> runs every agent</h2>
+    <p>Take away the frameworks and every agent does the same four things, again and again:</p>
+    <ul>
+      <li><b class="k-o">Observe</b>: read the notebook so far: the goal, past steps, tool results.</li>
+      <li><b class="k-t">Think</b>: the language model picks the next move.</li>
+      <li><b class="k-a">Act</b>: it asks for a tool, like "look up this policy".</li>
+      <li><b class="k-w">World</b>: your code runs the tool and writes the result back into the notebook.</li>
+    </ul>
+    <p>Then it goes round again, until the model says it is done or a stop rule fires.</p>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="loop" role="img" aria-label="Loop diagram: observe, think, act, world, with an exit from think to final answer"></svg>
+    <figcaption>Fig 2.1 The red dot is one turn. After a few turns the model has enough to answer.</figcaption></figure>
+  <div class="pno">3</div>
+</section>
+
+<!-- 4 TRACE -->
+<section class="page" aria-label="Watch one real case">
+  <div class="txt">
+    <span class="tag">chapter 2 &middot; the agent loop</span>
+    <h2>Watch one <span class="hl">real case</span></h2>
+    <p>A pre-approval question that takes a coordinator ten minutes of clicking between systems.</p>
+    <ul>
+      <li>Each line is one step of the loop.</li>
+      <li>The model never opens the policy system itself. It asks, and your code fetches.</li>
+      <li>Three tool calls, three turns, one answer. A human still sends the request.</li>
+    </ul>
+  </div>
+  <figure class="fig" id="trace">
+    <div class="chips" aria-hidden="true"><span class="chip" data-c="see">OBSERVE</span><span class="chip" data-c="think">THINK</span><span class="chip" data-c="act">ACT</span><span class="chip" data-c="done">DONE</span></div>
+    <div class="nb">
+      <div class="nb-goal">Goal: does Mr. Saleh's lower-back MRI need pre-approval on his Gold plan?</div>
+      <div class="row" data-k="think"><span class="k">THINK</span><span class="say">I need his policy rules first.</span></div>
+      <div class="row" data-k="act"><span class="k">ACT</span><span class="say"><code>get_policy(member="M-1043")</code></span></div>
+      <div class="row" data-k="see"><span class="k">OBSERVE</span><span class="say">Gold plan: non-urgent MRI needs pre-approval.</span></div>
+      <div class="row" data-k="think"><span class="k">THINK</span><span class="say">Is this urgent? Read the referral.</span></div>
+      <div class="row" data-k="act"><span class="k">ACT</span><span class="say"><code>read_referral(id="R-88")</code></span></div>
+      <div class="row" data-k="see"><span class="k">OBSERVE</span><span class="say">Routine. Back pain 8 weeks, no red flags.</span></div>
+      <div class="row" data-k="think"><span class="k">THINK</span><span class="say">So approval is needed. Are criteria met?</span></div>
+      <div class="row" data-k="act"><span class="k">ACT</span><span class="say"><code>check_criteria(cpt="72148")</code></span></div>
+      <div class="row" data-k="see"><span class="k">OBSERVE</span><span class="say">Met: 6 weeks of physiotherapy on file.</span></div>
+      <div class="row" data-k="done"><span class="k">DONE</span><span class="say">Yes, it needs pre-approval. Criteria are met; request drafted for staff to review.</span></div>
+    </div>
+    <div class="ctrls">
+      <button class="btn yel" type="button" id="tPlay">Play</button>
+      <button class="btn" type="button" id="tStep">Step</button>
+      <button class="btn" type="button" id="tReset">Restart</button>
+    </div>
+    <figcaption>Fig 2.2 Press Play, or Step through one line at a time. The patient and plan are made up.</figcaption>
+  </figure>
+  <div class="pno">4</div>
+</section>
+
+<!-- 5 CONTEXT -->
+<section class="page" aria-label="The notebook grows every turn">
+  <div class="txt">
+    <span class="tag">chapter 2 &middot; the agent loop</span>
+    <h2>The notebook <span class="hl">grows</span> every turn</h2>
+    <p>The model remembers nothing between calls. Every turn, your code sends the whole notebook again: the goal, every thought, every tool result.</p>
+    <ul>
+      <li>So turn 4 costs more than turn 1, and long loops get slow and expensive.</li>
+      <li>Tool results are usually the fattest pages. Return a short summary, not the whole 40-page policy.</li>
+      <li>Choosing what goes into the notebook is called <b>context engineering</b>. It gets its own chapter.</li>
+    </ul>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="context" role="img" aria-label="Left: a context window filling with cards each turn. Right: bars showing more is sent to the model each turn"></svg>
+    <figcaption>Fig 2.3 Left: what the model sees. Right: how much gets sent each turn.</figcaption></figure>
+  <div class="pno">5</div>
+</section>
+
+<!-- 6 EXITS -->
+<section class="page" aria-label="Build more than one way out">
+  <div class="txt">
+    <span class="tag">chapter 2 &middot; the agent loop</span>
+    <h2>Build <span class="hl">more than one</span> way out</h2>
+    <p>If the only exit is "the model says it is done", one day it will spin until your bill stops it.</p>
+    <table class="tbl">
+      <thead><tr><th>Exit</th><th>A sensible start</th></tr></thead>
+      <tbody>
+        <tr><td>Final answer</td><td>model replies with no tool call</td></tr>
+        <tr><td>Step cap</td><td>10 to 15 turns for a chat agent</td></tr>
+        <tr><td>Budget</td><td>a cost limit per task</td></tr>
+        <tr><td>Stuck</td><td>same tool, same input, 3 times</td></tr>
+        <tr><td>Ask a human</td><td>anything risky or irreversible</td></tr>
+        <tr><td>Fatal error</td><td>system down, access denied</td></tr>
+      </tbody>
+    </table>
+    <div class="sticky"><strong>Hospital rule</strong>Anything that leaves the building, like a claim or a message to a patient, goes through the "ask a human" door.</div>
+  </div>
+  <figure class="fig"><svg viewBox="0 0 600 420" data-d="exits" role="img" aria-label="A loop with six exit doors: final answer, step cap, budget, ask a human, stuck, fatal error"></svg>
+    <figcaption>Fig 2.4 Green: done. Yellow: safe handover. Red: emergency stops.</figcaption></figure>
+  <div class="pno">6</div>
+</section>
+
+<!-- 7 CODE -->
+<section class="page" aria-label="The whole loop in code">
+  <div class="txt">
+    <span class="tag">chapter 2 &middot; the agent loop</span>
+    <h2>The whole loop in <span class="hl">13 lines</span></h2>
+    <p>This is an agent with the framework peeled off. Watch the highlight: it is the same red dot from Fig 2.1.</p>
+    <ul>
+      <li><code>llm()</code> only returns a request. <code>run_tool()</code> is your code doing the work.</li>
+      <li>Two of the exits hand over to a person. When in doubt, ask.</li>
+    </ul>
+    <div class="sticky"><strong>Then and now</strong>In 2022 (the "ReAct" idea) the model wrote "Thought: ... Action: ..." as plain text and code had to pick it apart. Today models return clean, structured tool calls. Same loop, far fewer broken parses.</div>
+  </div>
+  <figure class="fig" id="codefig">
+    <div class="stage" aria-hidden="true"><span class="chip" data-c="think">THINK</span><span class="chip" data-c="act">ACT</span><span class="chip" data-c="see">OBSERVE</span><span class="chip" data-c="done">DONE</span><span class="turnc" id="turnc">turn 1</span></div>
+<pre class="code" aria-label="Python agent loop"><span class="ln"><i>1</i><span class="kw">def</span> <span class="fn">run_agent</span>(goal, tools, max_turns=12):</span><span class="ln"><i>2</i>    notebook = [goal]                  <span class="cm"># all the model will see</span></span><span class="ln"><i>3</i>    <span class="kw">for</span> turn <span class="kw">in</span> range(max_turns):</span><span class="ln"><i>4</i>        reply = <span class="fn">llm</span>(notebook, tools)    <span class="cm"># THINK</span></span><span class="ln"><i>5</i>        notebook.append(reply)</span><span class="ln"><i>6</i>        <span class="kw">if not</span> reply.tool_calls:        <span class="cm"># nothing to do?</span></span><span class="ln"><i>7</i>            <span class="kw">return</span> reply.text           <span class="cm"># DONE: final answer</span></span><span class="ln"><i>8</i>        <span class="kw">for</span> call <span class="kw">in</span> reply.tool_calls:   <span class="cm"># ACT</span></span><span class="ln"><i>9</i>            result = <span class="fn">run_tool</span>(call)    <span class="cm"># your code runs it</span></span><span class="ln"><i>10</i>            notebook.append(result)   <span class="cm"># OBSERVE</span></span><span class="ln"><i>11</i>        <span class="kw">if</span> <span class="fn">over_budget</span>(notebook):</span><span class="ln"><i>12</i>            <span class="kw">return</span> <span class="fn">ask_human</span>(notebook)  <span class="cm"># safe exit</span></span><span class="ln"><i>13</i>    <span class="kw">return</span> <span class="fn">ask_human</span>(notebook)      <span class="cm"># step cap hit</span></span></pre>
+    <figcaption>Fig 2.5 Simplified Python. Real code adds retries, logging and cost tracking.</figcaption>
+  </figure>
+  <div class="pno">7</div>
+</section>
+
+<!-- 8 CHECK -->
+<section class="page full" aria-label="Check yourself">
+  <div class="txt">
+    <span class="tag">chapter 2 &middot; the agent loop</span>
+    <h2>Check <span class="hl">yourself</span></h2>
+  </div>
+  <div class="wrapq">
+    <div id="quiz">
+      <div class="q" data-a="1" data-why="The model only writes a request. Your code decides whether and how to run it.">
+        <p>1. In the loop, who actually runs the tool?</p>
+        <div class="opts"><button class="opt" type="button">The language model</button><button class="opt" type="button">Your code</button><button class="opt" type="button">The tool decides by itself</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="1" data-why="A no-progress rule catches the same call with the same input repeating, before it burns money.">
+        <p>2. Your agent calls <code>search_policy("MRI")</code> five times in a row. What should have stopped it?</p>
+        <div class="opts"><button class="opt" type="button">Waiting for the model to say it is done</button><button class="opt" type="button">A "stuck" rule: same call 3 times, stop</button><button class="opt" type="button">A bigger context window</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+      <div class="q" data-a="0" data-why="The model keeps no memory between calls, so every turn resends the whole growing notebook.">
+        <p>3. Why does each turn usually cost more than the one before?</p>
+        <div class="opts"><button class="opt" type="button">The whole notebook is sent again, and it keeps growing</button><button class="opt" type="button">The model gets tired</button><button class="opt" type="button">Tools charge more each time</button></div>
+        <div class="fb" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="note">
+        <div class="who">Dr. Farooq's experience note <span class="draft">DRAFT</span></div>
+        <p style="margin:6px 0 0">Hospitals have run this loop for a century. A nurse reads the chart, thinks, orders a test, reads the result and decides again. An agent is the same habit written as code. The new part is that we must decide in advance when it stops and hands the patient back to a human.</p>
+      </div>
+      <div class="remember"><strong>Remember</strong>Every agent is one loop: look, think, act, look again. The skill is in what goes into the notebook and when the loop stops.</div>
+    </div>
+  </div>
+  <div class="pno">8</div>
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
+<script>
+(function(){
+const C={ink:'#23272f',teal:'#0f9d9a',coral:'#f25f5c',yel:'#ffd23f',sky:'#4d96ff',lteal:'#c9f0ee',lyel:'#fff1a8',lcoral:'#ffd3d2',lsky:'#d6e6ff',lmint:'#d8f5e9',muted:'#5b6472'};
+const NS='http://www.w3.org/2000/svg';
+let RM=false; try{RM=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+let SEED=7;
+const rad=d=>d*Math.PI/180;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function el(tag,a,parent){const e=document.createElementNS(NS,tag);for(const k in a){const v=a[k];if(v!==undefined&&v!==null&&v!=='')e.setAttribute(k,v);}if(parent)parent.appendChild(e);return e;}
+
+function Sk(svg,layer){
+  layer=layer||svg;
+  const rc=window.rough?window.rough.svg(svg):null;
+  const base={roughness:1.3,bowing:1.1,strokeWidth:2.2,fillStyle:'hachure',hachureGap:7,stroke:C.ink};
+  const opt=x=>Object.assign({},base,{seed:SEED++},x||{});
+  const plain=x=>{x=Object.assign({},base,x||{});return{stroke:x.stroke,'stroke-width':x.strokeWidth,fill:x.fill||'none','fill-opacity':(x.fill&&x.fillStyle!=='solid')?0.6:1,'stroke-linecap':'round','stroke-linejoin':'round','stroke-dasharray':x.strokeLineDash?x.strokeLineDash.join(' '):''};};
+  const put=n=>{n.classList.add('rk');layer.appendChild(n);return n;};
+  const S={svg,layer};
+  S.rect=(x,y,w,h,o)=>put(rc?rc.rectangle(x,y,w,h,opt(o)):el('rect',Object.assign({x,y,width:w,height:h,rx:5},plain(o))));
+  S.ellipse=(cx,cy,w,h,o)=>put(rc?rc.ellipse(cx,cy,w,h,opt(o)):el('ellipse',Object.assign({cx,cy,rx:w/2,ry:h/2},plain(o))));
+  S.circle=(cx,cy,d,o)=>put(rc?rc.circle(cx,cy,d,opt(o)):el('circle',Object.assign({cx,cy,r:d/2},plain(o))));
+  S.line=(x1,y1,x2,y2,o)=>put(rc?rc.line(x1,y1,x2,y2,opt(o)):el('line',Object.assign({x1,y1,x2,y2},plain(o))));
+  S.path=(d,o)=>put(rc?rc.path(d,opt(o)):el('path',Object.assign({d},plain(o))));
+  S.head=(x,y,ang,o)=>{[150,-150].forEach(d=>{const a=ang+rad(d);S.line(x,y,x+13*Math.cos(a),y+13*Math.sin(a),Object.assign({roughness:0.7},o||{}));});};
+  S.arrow=(x1,y1,x2,y2,o)=>{S.line(x1,y1,x2,y2,o);S.head(x2,y2,Math.atan2(y2-y1,x2-x1),o);};
+  S.carrow=(x1,y1,x2,y2,bend,o)=>{const q=qctrl(x1,y1,x2,y2,bend);S.path(`M${x1} ${y1} Q${q[0]} ${q[1]} ${x2} ${y2}`,o);S.head(x2,y2,Math.atan2(y2-q[1],x2-q[0]),o);};
+  S.arc=(cx,cy,r,a1,a2,o)=>{const p=a=>[cx+r*Math.cos(rad(a)),cy+r*Math.sin(rad(a))];const s=p(a1),e=p(a2);S.path(`M${s[0].toFixed(1)} ${s[1].toFixed(1)} A${r} ${r} 0 0 1 ${e[0].toFixed(1)} ${e[1].toFixed(1)}`,o);S.head(e[0],e[1],rad(a2+90),o);};
+  S.text=(x,y,str,o)=>{o=Object.assign({size:18,anchor:'middle',fill:C.ink,weight:700,font:'hand'},o||{});const lines=String(str).split('\n');
+    const t=el('text',{x,y:y-(lines.length-1)*o.size*0.58,'text-anchor':o.anchor,'font-size':o.size,'font-weight':o.weight,fill:o.fill,'dominant-baseline':'middle',class:o.font==='hand'?'sk-t':'sk-b'},layer);
+    lines.forEach((ln,i)=>{const s=el('tspan',{x,dy:i?o.size*1.16:0},t);s.textContent=ln;});return t;};
+  S.group=(tx,ty,sc)=>{const g=el('g',{transform:`translate(${tx} ${ty}) scale(${sc||1})`},layer);return Sk(svg,g);};
+  return S;
+}
+function qctrl(x1,y1,x2,y2,bend){const mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1,l=Math.hypot(dx,dy)||1;return[mx-dy/l*bend,my+dx/l*bend];}
+function qpt(p0,c,p2,t){const u=1-t;return[u*u*p0[0]+2*u*t*c[0]+t*t*p2[0],u*u*p0[1]+2*u*t*c[1]+t*t*p2[1]];}
+
+/* little drawings */
+function robot(S){
+  S.line(0,0,0,-20);S.circle(0,-27,14,{fill:C.coral,fillStyle:'solid'});
+  S.rect(-45,0,90,68,{fill:C.lteal});
+  S.circle(-18,30,14,{fill:C.ink,fillStyle:'solid'});S.circle(18,30,14,{fill:C.ink,fillStyle:'solid'});
+  S.path('M-14 50 Q0 60 14 50');
+  S.rect(-55,78,110,92,{fill:C.lsky});
+  S.rect(-22,98,44,34,{fill:C.yel,fillStyle:'solid'});S.line(0,98,0,132);
+  S.line(-55,92,-84,136);S.line(55,92,84,136);
+  S.line(-24,170,-30,212);S.line(24,170,30,212);
+}
+const ICON={
+  doc:S=>{S.rect(-20,-26,40,52,{fill:C.lyel,fillStyle:'solid'});[-12,-2,8].forEach(y=>S.line(-11,y,11,y,{strokeWidth:1.6}));S.text(0,38,'policy',{size:13,weight:400});},
+  mag:S=>{S.circle(-5,-5,32,{fill:C.lsky,fillStyle:'solid'});S.line(7,7,20,20,{strokeWidth:4});S.text(0,38,'search',{size:13,weight:400});},
+  db:S=>{S.rect(-22,-16,44,32,{fill:C.lteal,fillStyle:'solid',stroke:'none'});S.ellipse(0,-16,44,14,{fill:C.lteal,fillStyle:'solid'});S.line(-22,-16,-22,16);S.line(22,-16,22,16);S.path('M-22 16 Q0 26 22 16');S.path('M-22 0 Q0 10 22 0');S.text(0,38,'records',{size:13,weight:400});},
+  cross:S=>{S.circle(0,0,48,{fill:C.lmint,fillStyle:'solid'});S.rect(-6,-16,12,32,{fill:C.coral,fillStyle:'solid',stroke:'none'});S.rect(-16,-6,32,12,{fill:C.coral,fillStyle:'solid',stroke:'none'});S.text(0,38,'patient',{size:13,weight:400});}
+};
+
+const ANIMS=[];
+function anim(node,fn){ANIMS.push({page:node.closest('.page'),fn,t0:null});}
+
+const D={};
+D.cover=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);
+  const S=Sk(svg,back);
+  S.ellipse(300,230,470,320,{strokeLineDash:[8,10],roughness:0.9,stroke:C.muted,strokeWidth:1.6});
+  const rob=S.group(300,140,0.8);robot(rob);
+  S.text(300,338,'look \u00b7 think \u00b7 act \u00b7 repeat',{size:17,fill:C.teal});
+  const bulb=el('circle',{cx:300,cy:140-27*0.8,r:13,fill:C.yel,opacity:0},glow);
+  const icons=['doc','mag','db','cross'].map(k=>{const g=el('g',{},fx);ICON[k](Sk(svg,g));return g;});
+  const place=a0=>icons.forEach((g,i)=>{const a=rad(a0+i*90+45);g.setAttribute('transform',`translate(${(300+235*Math.cos(a)).toFixed(1)} ${(230+160*Math.sin(a)).toFixed(1)})`);});
+  place(0);
+  anim(svg,t=>{place(t*9);const p=0.5+0.5*Math.sin(t*3.2);bulb.setAttribute('opacity',(p*0.9).toFixed(2));bulb.setAttribute('r',(13+p*7).toFixed(1));});
+};
+
+D.loop=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);
+  const S=Sk(svg,back);
+  const cx=280,cy=220,R=135;
+  const nodes=[{a:-90,t:'OBSERVE',s:'read the notebook',f:C.lsky},{a:0,t:'THINK',s:'LLM picks a move',f:C.lteal},{a:90,t:'ACT',s:'ask for a tool',f:C.lcoral},{a:180,t:'WORLD',s:'tool runs, result\ncomes back',f:C.lyel}];
+  nodes.forEach(n=>{n.x=cx+R*Math.cos(rad(n.a));n.y=cy+R*Math.sin(rad(n.a));n.g=el('ellipse',{cx:n.x,cy:n.y,rx:86,ry:48,fill:C.yel,opacity:0},glow);});
+  nodes.forEach(n=>S.arc(cx,cy,R,n.a+36,n.a+54,{strokeWidth:2.4}));
+  nodes.forEach(n=>{S.ellipse(n.x,n.y,142,70,{fill:n.f});S.text(n.x,n.y-14,n.t,{size:20});S.text(n.x,n.y+(n.s.includes('\n')?16:14),n.s,{size:13,weight:400});});
+  S.text(408,332,'not done yet:\nkeep going',{size:13,weight:400,fill:C.muted});
+  const P0=[468,186],P2=[532,120],Q=qctrl(P0[0],P0[1],P2[0],P2[1],-26);
+  S.carrow(P0[0],P0[1],P2[0],P2[1],-26,{stroke:C.teal,strokeWidth:2.4});
+  S.text(552,178,'done?\nyes',{size:14,fill:C.teal});
+  const ansGlow=el('rect',{x:484,y:50,width:116,height:70,rx:14,fill:C.yel,opacity:0},glow);
+  S.rect(492,58,100,54,{fill:C.lmint});S.text(542,85,'FINAL\nANSWER',{size:15});
+  const rob=S.group(cx,cy-52,0.46);robot(rob);
+  const turn=el('text',{x:cx,y:cy+78,'text-anchor':'middle','font-size':18,'font-weight':700,fill:C.coral,class:'sk-t'},fx);turn.textContent='turn 1';
+  const trail=[0.45,0.3,0.18].map((op,i)=>el('circle',{r:7-i*1.5,fill:C.coral,opacity:op},fx));
+  const dot=el('circle',{r:9,fill:C.coral,stroke:'#fff','stroke-width':3},fx);
+  const LAP=3.4,LAPS=3,TOTAL=LAPS*LAP+LAP/4+0.8+1.8;
+  function pos(tt){
+    if(tt<LAPS*LAP+LAP/4){const a=-90+360*tt/LAP;return{x:cx+R*Math.cos(rad(a)),y:cy+R*Math.sin(rad(a)),a,phase:'loop'};}
+    const p=clamp((tt-(LAPS*LAP+LAP/4))/0.8,0,1);const q=qpt(P0,Q,P2,p);return{x:q[0],y:q[1],a:0,phase:p<1?'exit':'hold'};
+  }
+  function setDot(o){dot.setAttribute('cx',o.x.toFixed(1));dot.setAttribute('cy',o.y.toFixed(1));}
+  setDot(pos(0));trail.forEach(c=>{c.setAttribute('cx',nodes[0].x);c.setAttribute('cy',nodes[0].y);c.setAttribute('opacity',0);});
+  anim(svg,t=>{
+    const tt=t%TOTAL;const o=pos(tt);setDot(o);
+    trail.forEach((c,i)=>{const q=pos(Math.max(0,tt-0.07*(i+1)));c.setAttribute('cx',q.x.toFixed(1));c.setAttribute('cy',q.y.toFixed(1));c.setAttribute('opacity',[0.45,0.3,0.18][i]);});
+    nodes.forEach(n=>{let d=Math.abs(((o.a-n.a)%360+540)%360-180);n.g.setAttribute('opacity',o.phase==='loop'?clamp(1-d/28,0,1)*0.9:0);});
+    const ex=o.phase==='loop'?0:(o.phase==='exit'?clamp((tt-(LAPS*LAP+LAP/4))/0.8,0,1):1);
+    ansGlow.setAttribute('opacity',(ex*0.9).toFixed(2));
+    turn.textContent=o.phase==='loop'?'turn '+Math.min(4,Math.floor(tt/LAP)+1):'answer ready';
+  });
+};
+
+D.context=svg=>{
+  const back=el('g',{},svg),items=el('g',{},svg);
+  const S=Sk(svg,back);
+  S.text(171,22,'the notebook (what the model sees)',{size:15});
+  S.rect(40,40,262,352,{});
+  S.line(46,62,296,62,{stroke:C.coral,strokeLineDash:[7,7],roughness:0.6});
+  S.text(171,51,'context limit',{size:12,fill:C.coral,weight:400});
+  S.text(465,34,'sent to the model',{size:16});S.text(465,56,'each turn',{size:14,weight:400});
+  S.line(332,372,592,372);
+  const spec=[['goal: MRI pre-approval?',30,C.lyel],
+    ['think',20,C.lteal],['get_policy()',20,C.lcoral],['result: policy rules',34,C.lsky],
+    ['think',20,C.lteal],['read_referral()',20,C.lcoral],['result: referral note',34,C.lsky],
+    ['think',20,C.lteal],['check_criteria()',20,C.lcoral],['result: criteria met',34,C.lsky],
+    ['answer: yes, draft ready',26,C.lmint]];
+  let y=386;const cum=[];let acc=0;
+  const cards=spec.map(s=>{cum.push(acc);y-=s[1];const g=el('g',{},items);const k=Sk(svg,g);k.rect(56,y,230,s[1],{fill:s[2],fillStyle:'solid',roughness:1});k.text(171,y+s[1]/2,s[0],{size:13,weight:s[0].startsWith('think')?700:400});acc+=s[1]+3;y-=3;return g;});
+  const thinkIdx=[1,4,7,10];
+  const base=cum[1];
+  const bars=thinkIdx.map((idx,k)=>{const h=cum[idx]*0.95;const x=350+k*62;const g=el('g',{},items);const b=Sk(svg,g);b.rect(x,372-h,44,h,{fill:C.coral,hachureGap:6});b.text(x+22,372-h-14,(cum[idx]/base).toFixed(1)+'x',{size:14});S.text(x+22,392,'turn '+(k+1),{size:13,weight:400});return g;});
+  const STEP=0.55,HOLD=3.4,TOTAL=spec.length*STEP+HOLD;
+  anim(svg,t=>{
+    const tt=t%TOTAL;const fade=tt>TOTAL-0.5?1-(tt-(TOTAL-0.5))/0.5:1;
+    cards.forEach((g,i)=>{const p=clamp((tt-i*STEP)/0.3,0,1);g.setAttribute('opacity',(p*fade).toFixed(2));g.setAttribute('transform',`translate(0 ${(-16*(1-p)).toFixed(1)})`);});
+    bars.forEach((g,k)=>{const p=clamp((tt-thinkIdx[k]*STEP)/0.4,0,1);g.setAttribute('opacity',(Math.min(1,p*3)*fade).toFixed(2));g.setAttribute('transform',`translate(0 ${(372*(1-p)).toFixed(1)}) scale(1 ${Math.max(0.001,p).toFixed(3)})`);});
+  });
+};
+
+D.exits=svg=>{
+  const glow=el('g',{},svg),back=el('g',{},svg),fx=el('g',{},svg);
+  const S=Sk(svg,back);const cx=300,cy=215,R=92,RD=172;
+  const doors=[{a:-90,t:'final answer',l:'final answer',f:C.lmint},{a:-30,t:'step cap\nhit',l:'step cap',f:C.lcoral},{a:30,t:'budget\nspent',l:'budget',f:C.lcoral},{a:90,t:'ask a\nhuman',l:'ask a human',f:C.lyel},{a:150,t:'stuck: same\ncall 3 times',l:'stuck',f:C.lcoral},{a:210,t:'fatal\nerror',l:'fatal error',f:C.lcoral}];
+  doors.forEach(d=>{d.x=cx+RD*Math.cos(rad(d.a));d.y=cy+RD*Math.sin(rad(d.a));d.g=el('rect',{x:d.x-72,y:d.y-33,width:144,height:66,rx:14,fill:C.yel,opacity:0},glow);
+    S.line(cx+(R+6)*Math.cos(rad(d.a)),cy+(R+6)*Math.sin(rad(d.a)),d.x,d.y,{strokeLineDash:[6,7],roughness:0.6,stroke:C.muted,strokeWidth:1.6});});
+  S.circle(cx,cy,R*2,{strokeWidth:2.4});S.head(cx+R,cy,rad(90));S.head(cx-R,cy,rad(270));
+  doors.forEach(d=>{S.rect(d.x-62,d.y-25,124,50,{fill:d.f,fillStyle:'solid'});S.text(d.x,d.y,d.t,{size:15});});
+  const label=el('text',{x:cx,y:cy,'text-anchor':'middle','dominant-baseline':'middle','font-size':20,'font-weight':700,fill:C.ink,class:'sk-t'},fx);label.textContent='the loop';
+  const dot=el('circle',{r:9,fill:C.coral,stroke:'#fff','stroke-width':3,cx:cx,cy:cy-R},fx);
+  const RUN=3.0,OUT=0.6,HOLD=1.1,CYC=RUN+OUT+HOLD;
+  anim(svg,t=>{
+    const k=Math.floor(t/CYC)%doors.length,tt=t%CYC,d=doors[k];let x,y;
+    if(tt<RUN){const a=d.a-450*(1-tt/RUN);x=cx+R*Math.cos(rad(a));y=cy+R*Math.sin(rad(a));}
+    else{const p=clamp((tt-RUN)/OUT,0,1);const r=R+(RD-R-26)*p;x=cx+r*Math.cos(rad(d.a));y=cy+r*Math.sin(rad(d.a));}
+    dot.setAttribute('cx',x.toFixed(1));dot.setAttribute('cy',y.toFixed(1));
+    const on=tt<RUN?0:clamp((tt-RUN)/OUT,0,1);
+    doors.forEach((dd,i)=>dd.g.setAttribute('opacity',i===k?(on*0.9).toFixed(2):0));
+    label.textContent=tt>=RUN+OUT*0.6?'exit: '+d.l:'the loop';
+  });
+};
+
+/* draw-on effect for sketch strokes */
+function drawOn(svg){
+  let i=0;
+  svg.querySelectorAll('.rk path, .rk line, .rk rect, .rk ellipse, .rk circle, path.rk, line.rk, rect.rk, ellipse.rk, circle.rk').forEach(p=>{
+    if(p.getAttribute('stroke-dasharray')||p.getAttribute('stroke')==='none')return;
+    let L;try{L=p.getTotalLength();}catch(e){return;}
+    if(!L||L<2)return;
+    const d=Math.min(1.3,(i++)*0.01);
+    p.style.transition='none';p.style.strokeDasharray=L+' '+L;p.style.strokeDashoffset=L;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{p.style.transition=`stroke-dashoffset .6s ease-out ${d}s`;p.style.strokeDashoffset='0';}));
+    setTimeout(()=>{p.style.transition='';p.style.strokeDasharray='';p.style.strokeDashoffset='';},(d+0.8)*1000);
+  });
+}
+
+/* draw every sketch */
+document.querySelectorAll('svg[data-d]').forEach(svg=>{const f=D[svg.dataset.d];if(f)f(svg);});
+
+/* trace player */
+const trace=document.getElementById('trace');
+const rows=[...trace.querySelectorAll('.row')];
+const tChips=[...trace.querySelectorAll('.chip')];
+const tPlay=document.getElementById('tPlay');
+const T={n:rows.length,playing:false,acc:0};
+function tShow(){
+  rows.forEach((r,i)=>{r.classList.toggle('hide',i>=T.n);r.classList.toggle('now',i===T.n-1&&T.n<rows.length);});
+  const cur=T.n>0?rows[T.n-1].dataset.k:'';
+  tChips.forEach(c=>c.classList.toggle('on',c.dataset.c===cur));
+  tPlay.textContent=T.playing?'Pause':'Play';
+}
+function tStart(){T.n=0;T.acc=0;T.playing=true;tShow();}
+tPlay.addEventListener('click',()=>{if(T.playing){T.playing=false;}else{if(T.n>=rows.length)T.n=0;T.playing=true;T.acc=0.9;}tShow();});
+document.getElementById('tStep').addEventListener('click',()=>{T.playing=false;T.n=T.n>=rows.length?1:T.n+1;tShow();});
+document.getElementById('tReset').addEventListener('click',tStart);
+anim(trace,(t,dt)=>{if(!T.playing)return;T.acc+=dt;if(T.acc>=1.15){T.acc=0;T.n++;if(T.n>=rows.length){T.n=rows.length;T.playing=false;}tShow();}});
+trace.closest('.page').addEventListener('firstview',()=>{if(!RM)tStart();});
+tShow();
+
+/* code walker */
+const codefig=document.getElementById('codefig');
+const lns=[...codefig.querySelectorAll('.ln')];
+const cChips=[...codefig.querySelectorAll('.chip')];
+const turnc=document.getElementById('turnc');
+const ST={3:'think',4:'think',6:'done',7:'act',8:'act',9:'see'};
+const turnSeq=[2,3,4,5,7,8,9,10];
+const SEQ=[0,1].concat(turnSeq,turnSeq,[2,3,4,5,6]);
+function cShow(i){
+  const ln=i<0?-1:SEQ[i];
+  lns.forEach((l,j)=>l.classList.toggle('on',j===ln));
+  let tn=0;for(let j=0;j<=i;j++)if(SEQ[j]===2)tn++;
+  const st=ST[ln]||'';
+  cChips.forEach(c=>c.classList.toggle('on',c.dataset.c===st));
+  turnc.textContent=ln===6?'done, turn '+tn:'turn '+Math.max(1,tn);
+}
+cShow(-1);
+anim(codefig,t=>{const STEP=0.8,TOT=SEQ.length*STEP+2.2;const tt=t%TOT;cShow(Math.min(SEQ.length-1,Math.floor(tt/STEP)));});
+
+/* quiz */
+document.querySelectorAll('#quiz .q').forEach(q=>{
+  const opts=[...q.querySelectorAll('.opt')],fb=q.querySelector('.fb'),ans=+q.dataset.a;
+  opts.forEach((b,i)=>b.addEventListener('click',()=>{
+    opts.forEach(o=>o.classList.remove('right','wrong'));
+    b.classList.add(i===ans?'right':'wrong');
+    if(i!==ans)opts[ans].classList.add('right');
+    fb.textContent=(i===ans?'Right. ':'Not quite. ')+q.dataset.why;
+  }));
+});
+
+/* pages, counter, navigation */
+const pages=[...document.querySelectorAll('.page')];
+const count=document.getElementById('count');
+let active=null;const seen=new Set();
+function setActive(p){
+  if(p===active)return;active=p;
+  const i=pages.indexOf(p);count.textContent=i===0?'cover':(i+1)+' / '+pages.length;
+  ANIMS.forEach(a=>{if(a.page===p)a.t0=null;});
+  if(!seen.has(p)){seen.add(p);if(!RM)p.querySelectorAll('svg[data-d]').forEach(drawOn);p.dispatchEvent(new Event('firstview'));}
+}
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>=0.3)setActive(e.target);});},{threshold:[0.3,0.6]});
+  pages.forEach(p=>io.observe(p));
+}else{setActive(pages[0]);}
+function go(d){const i=Math.max(0,pages.indexOf(active)),j=clamp(i+d,0,pages.length-1);pages[j].scrollIntoView({behavior:RM?'auto':'smooth',inline:'start',block:'nearest'});setActive(pages[j]);}
+document.getElementById('prev').addEventListener('click',()=>go(-1));
+document.getElementById('next').addEventListener('click',()=>go(1));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);else if(e.key==='ArrowLeft')go(-1);});
+
+/* animation clock */
+if(!RM){
+  let last=performance.now();
+  const frame=now=>{const t=now/1000,dt=Math.min(0.5,(now-last)/1000);last=now;
+    for(const a of ANIMS){if(a.page===active){if(a.t0===null)a.t0=t;a.fn(t-a.t0,dt);}}
+    requestAnimationFrame(frame);};
+  requestAnimationFrame(frame);
+}
+})();
+</script>
+</body>
+</html>

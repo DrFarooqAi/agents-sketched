@@ -1,0 +1,16 @@
+# AI Agents, Sketched
+
+**A practical way to make AI agents**, by Dr. Muhammad Farooq.
+
+An animated, hand-sketched book on AI agents. Every idea is a moving drawing, explained in plain words with real hospital and insurance examples.
+
+**Read it here:** https://drfarooqai.github.io/agents-sketched/
+
+## Chapters
+
+- Chapter 2: The agent loop (pilot, live now)
+- More chapters are added as the series continues.
+
+---
+
+© Dr. Muhammad Farooq. All rights reserved. Please share the link rather than copying the content.
